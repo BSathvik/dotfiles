@@ -57,10 +57,10 @@
       };
 
       primaryUserDefaults = {
-        username = "malo";
-        fullName = "Malo Bourgon";
-        email = "mbourgon@gmail.com";
-        nixConfigDirectory = "/Users/malo/.config/nixpkgs";
+        username = "bsat";
+        fullName = "Sathvik Birudavolu";
+        email = "sathvikb30@gmail.com";
+        nixConfigDirectory = "/Users/bsat/.config/nixpkgs";
       };
     in
     {
@@ -147,7 +147,8 @@
         malo-git = import ./home/git.nix;
         malo-git-aliases = import ./home/git-aliases.nix;
         malo-gh-aliases = import ./home/gh-aliases.nix;
-        malo-kitty = import ./home/kitty.nix;
+        # malo-kitty = import ./home/kitty.nix;
+        malo-alacritty = import ./home/alacritty.nix;
         malo-neovim = import ./home/neovim.nix;
         malo-packages = import ./home/packages.nix;
         malo-starship = import ./home/starship.nix;
@@ -177,11 +178,11 @@
         };
 
         # My Apple Silicon macOS laptop config
-        MaloBookPro = makeOverridable self.lib.mkDarwinSystem (primaryUserDefaults // {
+        userConfig = makeOverridable self.lib.mkDarwinSystem (primaryUserDefaults // {
           modules = attrValues self.darwinModules ++ singleton {
             nixpkgs = nixpkgsDefaults;
-            networking.computerName = "Malo’s 💻";
-            networking.hostName = "MaloBookPro";
+            networking.computerName = "Sathvik’s 💻";
+            networking.hostName = "Viks";
             networking.knownNetworkServices = [
               "Wi-Fi"
               "USB 10/100/1000 LAN"
@@ -192,6 +193,7 @@
           # extraModules = singleton { nix.linux-builder.enable = true; };
           inherit homeStateVersion;
           homeModules = attrValues self.homeManagerModules;
+          system = "x86_64-darwin";
         });
 
         # Config with small modifications needed/desired for CI with GitHub workflow
@@ -218,7 +220,7 @@
           home.stateVersion = homeStateVersion;
           home.user-info = primaryUserDefaults // {
             nixConfigDirectory = "${config.home.homeDirectory}/.config/nixpkgs";
-          };
+		  };
         });
       };
 
