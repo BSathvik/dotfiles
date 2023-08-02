@@ -1,12 +1,18 @@
 { lib, pkgs, ... }:
 
 {
+  programs.fzf = {
+    enableFishIntegration = true;
+  };
+
   programs.tmux = {
     enable = true;
     baseIndex = 1;
     keyMode = "vi";
     terminal = "screen-256color";
     extraConfig = ''
+      set -sg escape-time 10 
+
       set-option -g status-bg "#e82424"
       set-option -g status-fg "#19191F" 
       # pane border
@@ -74,11 +80,6 @@
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
 
-  # Htop
-  # https://rycee.gitlab.io/home-manager/options.html#opt-programs.htop.enable
-  programs.htop.enable = true;
-  programs.htop.settings.show_program_path = true;
-
   # SSH
   # https://nix-community.github.io/home-manager/options.html#opt-programs.ssh.enable
   # Some options also set in `../darwin/homebrew.nix`.
@@ -93,47 +94,28 @@
   home.packages = lib.attrValues ({
     # Some basics
     inherit (pkgs)
-      abduco # lightweight session management
-      bandwhich # display current network utilization by process
-      bottom # fancy version of `top` with ASCII graphs
-      browsh # in terminal browser
       coreutils
-      curl
       du-dust # fancy version of `du`
       exa # fancy version of `ls`
+      fzf
       fd # fancy version of `find`
-      htop # fancy version of `top`
+      btop # fancy version of `top`
       hyperfine # benchmarking tool
-      mosh # wrapper for `ssh` that better and not dropping connections
       parallel # runs commands in parallel
       ripgrep # better version of `grep`
       tealdeer # rust implementation of `tldr`
       thefuck
       unrar # extract RAR archives
-      upterm # secure terminal sharing
-      wget
       xz # extract XZ archives
     ;
 
     # Dev stuff
     inherit (pkgs)
-      cloc # source code line counter
-      github-copilot-cli
-      google-cloud-sdk
-      # idris2
       jq
       nodejs
-      s3cmd
-      stack
-      typescript
+      # Required for jsonnet-language-server
+      go
     ;
-    inherit (pkgs.haskellPackages)
-      cabal-install
-      hoogle
-      hpack
-      implicit-hie
-    ;
-    agda = pkgs.agda.withPackages (ps: [ ps.standard-library ]);
 
     # Useful nix related tools
     inherit (pkgs)
@@ -152,7 +134,6 @@
     inherit (pkgs)
       cocoapods
       m-cli # useful macOS CLI commands
-      prefmanager # tool for working with macOS defaults
     ;
   });
 }

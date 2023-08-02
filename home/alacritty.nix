@@ -7,11 +7,6 @@
   programs.alacritty.settings = {
     shell = {
       program = "${pkgs.fish}/bin/fish";
-      args = [
-        "-l"
-        "-c"
-        "tmux attach || tmux"
-      ];
       env = {
         "TERM" = "xterm-256color";
       };

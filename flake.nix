@@ -16,18 +16,6 @@
     # Flake utilities
     flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
     flake-utils.url = "github:numtide/flake-utils";
-
-    # Agda mode for Neovim
-    cornelis.url = "github:isovector/cornelis";
-    cornelis.inputs.nixpkgs.follows = "nixpkgs-unstable";
-    cornelis.inputs.flake-compat.follows = "flake-compat";
-    cornelis.inputs.flake-utils.follows = "flake-utils";
-
-    # Utility for watching macOS `defaults`.
-    prefmanager.url = "github:malob/prefmanager";
-    prefmanager.inputs.nixpkgs.follows = "nixpkgs-unstable";
-    prefmanager.inputs.flake-compat.follows = "flake-compat";
-    prefmanager.inputs.flake-utils.follows = "flake-utils";
   };
 
   outputs = { self, darwin, home-manager, flake-utils, ... }@inputs:
@@ -40,20 +28,6 @@
         config = {
           allowUnfree = true;
         };
-        overlays = attrValues self.overlays ++ [
-          inputs.cornelis.overlays.cornelis
-          inputs.prefmanager.overlays.prefmanager
-        ] ++ singleton (
-          final: prev: (optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
-            # Sub in x86 version of packages that don't build on Apple Silicon.
-            inherit (final.pkgs-x86)
-              agda
-              idris2
-              ;
-          }) // {
-            # Add other overlays here if needed.
-          }
-        );
       };
 
       primaryUserDefaults = {
@@ -92,37 +66,6 @@
             inherit (nixpkgsDefaults) config;
           };
         };
-        apple-silicon = _: prev: optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
-          # Add access to x86 packages system is running Apple Silicon
-          pkgs-x86 = import inputs.nixpkgs-unstable {
-            system = "x86_64-darwin";
-            inherit (nixpkgsDefaults) config;
-          };
-        };
-
-        # Overlay that adds various additional utility functions to `vimUtils`
-        vimUtils = import ./overlays/vimUtils.nix;
-
-        # Overlay that adds some additional Neovim plugins
-        vimPlugins = final: prev:
-          let
-            inherit (self.overlays.vimUtils final prev) vimUtils;
-          in
-          {
-            vimPlugins = prev.vimPlugins.extend (_: _:
-              # Useful for testing/using Vim plugins that aren't in `nixpkgs`.
-              vimUtils.buildVimPluginsFromFlakeInputs inputs [
-                # Add flake input names here for a Vim plugin repos
-              ] // {
-                # Other Vim plugins
-                inherit (inputs.cornelis.packages.${prev.stdenv.system}) cornelis-vim;
-              }
-            );
-          };
-
-        tweaks = _: _: {
-          # Add stuff here
-        };
       };
       # }}}
 
@@ -148,11 +91,8 @@
         alacritty = import ./home/alacritty.nix;
         neovim = import ./home/neovim.nix;
         packages = import ./home/packages.nix;
-        starship = import ./home/starship.nix;
-        starship-symbols = import ./home/starship-symbols.nix;
 
         # Modules I've created
-        colors = import ./modules/home/colors;
         home-user-info = { lib, ... }: {
           options.home.user-info =
             (self.darwinModules.users-primaryUser { inherit lib; }).options.users.primaryUser;
@@ -168,12 +108,9 @@
           system = "x86_64-darwin";
           modules = [ ./darwin/bootstrap.nix { nixpkgs = nixpkgsDefaults; } ];
         };
-        bootstrap-arm = self.darwinConfigurations.bootstrap-x86.override {
-          system = "aarch64-darwin";
-        };
 
         # My Apple Silicon macOS laptop config
-        userConfig = makeOverridable self.lib.mkDarwinSystem (primaryUserDefaults // {
+        macOS = makeOverridable self.lib.mkDarwinSystem (primaryUserDefaults // {
           modules = attrValues self.darwinModules ++ singleton {
             nixpkgs = nixpkgsDefaults;
             networking.computerName = "Sathvik’s 💻";
@@ -192,7 +129,7 @@
         });
 
         # Config with small modifications needed/desired for CI with GitHub workflow
-        githubCI = self.darwinConfigurations.MaloBookPro.override {
+        githubCI = self.darwinConfigurations.macOS.override {
           system = "x86_64-darwin";
           username = "runner";
           nixConfigDirectory = "/Users/runner/work/nixpkgs/nixpkgs";
@@ -206,8 +143,9 @@
 
       # Config I use with non-NixOS Linux systems (e.g., cloud VMs etc.)
       # Build and activate on new system with:
-      # `nix build .#homeConfigurations.malo.activationPackage && ./result/activate`
-      homeConfigurations.malo = makeOverridable home-manager.lib.homeManagerConfiguration {
+      # `nix build .#homeConfigurations.bsat.activationPackage && ./result/activate`
+      # TODO: Should test building for non-NixOS Linux this out at some point
+      homeConfigurations.bsat = makeOverridable home-manager.lib.homeManagerConfiguration {
         pkgs = import inputs.nixpkgs-unstable (nixpkgsDefaults // { system = "x86_64-linux"; });
         modules = attrValues self.homeManagerModules ++ singleton ({ config, ... }: {
           home.username = config.home.user-info.username;
@@ -220,7 +158,7 @@
       };
 
       # Config with small modifications needed/desired for CI with GitHub workflow
-      homeConfigurations.runner = self.homeConfigurations.malo.override (old: {
+      homeConfigurations.runner = self.homeConfigurations.bsat.override (old: {
         modules = old.modules ++ singleton {
           home.username = mkForce "runner";
           home.homeDirectory = mkForce "/home/runner";

@@ -199,8 +199,7 @@ require("lazy").setup({
 
   { 'akinsho/bufferline.nvim',
     -- event = "BufReadPost",
-    dependencies = 'nvim-tree/nvim-web-devicons' ,
-    tag = "v3.0.0",
+    dependencies = 'nvim-tree/nvim-web-devicons',
     config = function () require('bufferline').setup {} end
   },
 
