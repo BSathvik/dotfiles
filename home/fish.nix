@@ -13,7 +13,6 @@ in
   # Add Fish plugins
   home.packages = [
     pkgs.fishPlugins.done
-    pkgs.fishPlugins.github-copilot-cli-fish
   ];
 
   # Fish functions ----------------------------------------------------------------------------- {{{

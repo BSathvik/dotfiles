@@ -2,7 +2,7 @@
 
 {
   system.defaults.NSGlobalDomain = {
-    "com.apple.trackpad.scaling" = 2.0;
+    "com.apple.trackpad.scaling" = 1.5;
     AppleInterfaceStyleSwitchesAutomatically = true;
     AppleMeasurementUnits = "Centimeters";
     AppleMetricUnits = 1;
@@ -29,7 +29,7 @@
     autohide = true;
     expose-group-by-app = false;
     mru-spaces = false;
-    tilesize = 64;
+    tilesize = 32;
     # Disable all hot corners
     wvous-bl-corner = 1;
     wvous-br-corner = 1;

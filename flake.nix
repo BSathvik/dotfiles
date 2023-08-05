@@ -153,7 +153,7 @@
           home.stateVersion = homeStateVersion;
           home.user-info = primaryUserDefaults // {
             nixConfigDirectory = "${config.home.homeDirectory}/.config/nixpkgs";
-		  };
+          };
         });
       };
 
