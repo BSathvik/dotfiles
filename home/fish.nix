@@ -18,6 +18,30 @@ in
   # Fish functions ----------------------------------------------------------------------------- {{{
 
   programs.fish.functions = {
+
+    awsudo.body = ''
+      read -P "Token: " token_code
+      set credentials $(aws sts assume-role \
+                      --role-arn arn:aws:iam::208007848330:role/kensho-operations-staff \
+                      --role-session-name=terraform \
+                      --serial-number=arn:aws:iam::208007848330:mfa/sathvik_birudavolu \
+                      --token-code=$token_code)
+    
+      set -gx AWS_ACCESS_KEY_ID $(echo $credentials | jq -r ".Credentials.AccessKeyId")
+      set -gx AWS_SECRET_ACCESS_KEY $(echo $credentials | jq -r ".Credentials.SecretAccessKey")
+      set -gx AWS_SESSION_TOKEN $(echo $credentials | jq -r ".Credentials.SessionToken")
+      aws sts get-caller-identity
+    '';
+
+    rds-connect.body = ''
+      set rds_suffix "cwzeyj7yzyfs.us-east-1.rds.amazonaws.com"
+      set rds_host $argv"."$rds_suffix
+      set rds_user "kensho"
+      set password $(aws rds generate-db-auth-token --hostname $rds_host --port 5432 --region us-east-1 --username $rds_user)
+      set -x PGPASSWORD $password
+      psql "sslmode=require host=$rds_host user=$rds_user dbname=postgres"
+    '';
+
     # Toggles `$term_background` between "light" and "dark". Other Fish functions trigger when this
     # variable changes. We use a universal variable so that all instances of Fish have the same
     # value for the variable.
@@ -121,6 +145,10 @@ in
     ll = "ls -l --time-style long-iso --icons";
     ls = "${exa}/bin/exa";
     tb = "toggle-background";
+
+    # k8s
+    kbh = "kubectl --context beta-hulk.kube.kensho.com -n \$KNAME";
+    k = "kubectl";
   };
 
   # Configuration that should be above `loginShellInit` and `interactiveShellInit`.
