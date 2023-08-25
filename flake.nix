@@ -114,7 +114,7 @@
           modules = attrValues self.darwinModules ++ singleton {
             nixpkgs = nixpkgsDefaults;
             networking.computerName = "Sathvik’s 💻";
-            networking.hostName = "Viks";
+            networking.hostName = "bsat";
             networking.knownNetworkServices = [
               "Wi-Fi"
               "USB 10/100/1000 LAN"
@@ -181,10 +181,13 @@
         {
           python = pkgs.mkShell {
             name = "python310";
+          };
+          pypi = pkgs.mkShell {
+            name = "pypi";
             inputsFrom = attrValues {
-              inherit (pkgs.pkgs-master.python310Packages) black isort;
-              inherit (pkgs) poetry python310 pyright;
+              inherit (pkgs) python310 pyright pkg-config libmysqlclient mysql80;
             };
+            shellHook = "fish";
           };
         };
       # }}}

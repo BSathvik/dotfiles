@@ -97,6 +97,7 @@ require("lazy").setup({
 
   {
     'windwp/nvim-autopairs',
+    enabled=false,
     config = function() require('nvim-autopairs').setup {} end
   },
 
@@ -205,6 +206,7 @@ require("lazy").setup({
 
   { 'lukas-reineke/indent-blankline.nvim',
     event = "BufReadPost",
+    enabled = false,
     config = function ()
       require('indent_blankline').setup {
         show_end_of_line = true,
@@ -425,10 +427,19 @@ require("lazy").setup({
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-cmdline',
       'crispgm/cmp-beancount',
+      'neovim/nvim-lspconfig',
+      'L3MON4D3/LuaSnip',
+      'saadparwaiz1/cmp_luasnip'
     },
     config = function ()
+      local luasnip = require('luasnip')
       local cmp = require('cmp')
       cmp.setup {
+        snippet = {
+          expand = function(args)
+            luasnip.lsp_expand(args.body)
+          end,
+        },
         completion = {
           keyword_length = 3,
         },
@@ -443,6 +454,8 @@ require("lazy").setup({
           ['<Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
+            elseif luasnip.expand_or_jumpable() then
+              luasnip.expand_or_jump()
             else
               fallback()
             end
@@ -450,6 +463,8 @@ require("lazy").setup({
           ['<S-Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_prev_item()
+            elseif luasnip.jumpable(-1) then
+              luasnip.jump(-1)
             else
               fallback()
             end
@@ -457,6 +472,7 @@ require("lazy").setup({
         }),
         sources = cmp.config.sources({
           { name = 'nvim_lsp', max_item_count = 10 },
+          { name = 'luasnip', max_item_count = 10 },
           {
             name = 'beancount',
             keyword_length = 1,
@@ -541,7 +557,6 @@ set.signcolumn = 'yes'
 set.completeopt = 'menuone,noselect'
 
 set.list = true
-set.listchars:append 'eol:↴'
 
 -- Setup autocmds
 

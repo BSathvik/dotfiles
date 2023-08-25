@@ -107,6 +107,7 @@
       thefuck
       unrar # extract RAR archives
       xz # extract XZ archives
+      poetry
     ;
 
     # Dev stuff
