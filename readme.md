@@ -12,6 +12,20 @@ I make no promises that I'll respond quickly, or fix the bug (especially if I'm 
 
 Below, I've highlighted stuff that I'm particularly happy with or think others might find helpful/useful.
 
+## How to get this running
+
+1. git clone into `~/.config/nixpkgs`
+2. Edit the `primaryUserDefaults` in `flake.nix`
+
+```
+# this will pull in nix-darwin and setup stuff
+nix build .#darwinConfigurations.bootstrap-x86.system
+
+# to switch run
+./result/sw/bin/darwin-rebuild switch --flake .#bootstrap-x86
+./result/sw/bin/darwin-rebuild switch --flake .#macOS
+```
+
 ## Highlights
 
 In no particular order:
