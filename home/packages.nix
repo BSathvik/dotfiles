@@ -107,7 +107,9 @@
       thefuck
       unrar # extract RAR archives
       xz # extract XZ archives
+
       poetry
+      aws-iam-authenticator
     ;
 
     # Dev stuff

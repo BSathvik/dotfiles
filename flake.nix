@@ -30,11 +30,16 @@
         };
       };
 
-      primaryUserDefaults = {
+      personalUser = {
         username = "bsat";
         fullName = "Sathvik Birudavolu";
         email = "sathvikb30@gmail.com";
         nixConfigDirectory = "/Users/bsat/.config/nixpkgs";
+      };
+
+      workUser = personalUser // {
+        username = "sathvikbirudavolu";
+        nixConfigDirectory = "/Users/sathvikbirudavolu/.config/nixpkgs";
       };
     in
     {
@@ -109,8 +114,7 @@
           modules = [ ./darwin/bootstrap.nix { nixpkgs = nixpkgsDefaults; } ];
         };
 
-        # My Apple Silicon macOS laptop config
-        macOS = makeOverridable self.lib.mkDarwinSystem (primaryUserDefaults // {
+        personalMac = makeOverridable self.lib.mkDarwinSystem (personalUser // {
           modules = attrValues self.darwinModules ++ singleton {
             nixpkgs = nixpkgsDefaults;
             networking.computerName = "Sathvik’s 💻";
@@ -123,11 +127,16 @@
           };
           # TODO: Re-enable when https://github.com/NixOS/nixpkgs/issues/243685 is resolved.
           # extraModules = singleton { nix.linux-builder.enable = true; };
+          extraModules = singleton {
+            homebrew.enable = mkForce false;
+          };
           inherit homeStateVersion;
           homeModules = attrValues self.homeManagerModules;
           system = "x86_64-darwin";
         });
 
+        workMac = self.darwinConfigurations.personalMac.override (old: old // workUser);
+        
         # Config with small modifications needed/desired for CI with GitHub workflow
         githubCI = self.darwinConfigurations.macOS.override {
           system = "x86_64-darwin";
@@ -151,7 +160,7 @@
           home.username = config.home.user-info.username;
           home.homeDirectory = "/home/${config.home.username}";
           home.stateVersion = homeStateVersion;
-          home.user-info = primaryUserDefaults // {
+          home.user-info = personalUser // {
             nixConfigDirectory = "${config.home.homeDirectory}/.config/nixpkgs";
           };
         });

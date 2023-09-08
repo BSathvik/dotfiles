@@ -26,6 +26,12 @@ nix build .#darwinConfigurations.bootstrap-x86.system
 ./result/sw/bin/darwin-rebuild switch --flake .#macOS
 ```
 
+3. For homebrew to work, it needs to be installed separately and enable it `flake.nix`
+
+```
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+```
+
 ## Highlights
 
 In no particular order:
