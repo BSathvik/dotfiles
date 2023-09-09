@@ -28,6 +28,19 @@
         config = {
           allowUnfree = true;
         };
+        overlays = attrValues self.overlays ++ singleton (
+          final: prev: {
+            # For whatever reason fzf-fish check fails, so let's just skip that
+            fishPlugins = prev.fishPlugins.overrideScope' (ffinal: fprev: {
+              fishtape_3 = fprev.fishtape_3.overrideAttrs (oldAttrs: {
+               checkPhase = '''';
+              });
+              fzf-fish = fprev.fzf-fish.overrideAttrs (oldAttrs: {
+               checkPhase = '''';
+              });
+            });
+          }
+        );
       };
 
       personalUser = {

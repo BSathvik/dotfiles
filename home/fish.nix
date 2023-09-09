@@ -166,6 +166,8 @@ in
     set -g fish_greeting ""
     ${pkgs.thefuck}/bin/thefuck --alias | source
 
+    fzf_configure_bindings --directory=\cs --variables=\e\cv
+
     # Run function to set colors that are dependant on `$term_background` and to register them so
     # they are triggerd when the relevent event happens or variable changes.
     set-shell-colors
