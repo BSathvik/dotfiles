@@ -13,11 +13,16 @@ in
   # Add Fish plugins
   home.packages = [
     pkgs.fishPlugins.done
+    pkgs.fishPlugins.fzf-fish
   ];
 
   # Fish functions ----------------------------------------------------------------------------- {{{
 
   programs.fish.functions = {
+
+    gr.body = ''
+      cd (git rev-parse --show-toplevel)
+    '';
 
     awsudo.body = ''
       read -P "Token: " token_code
