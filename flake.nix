@@ -28,19 +28,7 @@
         config = {
           allowUnfree = true;
         };
-        overlays = attrValues self.overlays ++ singleton (
-          final: prev: {
-            # For whatever reason fzf-fish check fails, so let's just skip that
-            fishPlugins = prev.fishPlugins.overrideScope' (ffinal: fprev: {
-              fishtape_3 = fprev.fishtape_3.overrideAttrs (oldAttrs: {
-               checkPhase = '''';
-              });
-              fzf-fish = fprev.fzf-fish.overrideAttrs (oldAttrs: {
-               checkPhase = '''';
-              });
-            });
-          }
-        );
+        overlays = attrValues self.overlays;
       };
 
       personalUser = {
@@ -83,6 +71,18 @@
             inherit (prev.stdenv) system;
             inherit (nixpkgsDefaults) config;
           };
+        };
+
+        # these checks keep failing, let's override this for now
+        fzf-fish = final: prev: {
+          fishPlugins = prev.fishPlugins.overrideScope' (ffinal: fprev: {
+            fishtape_3 = fprev.fishtape_3.overrideAttrs (oldAttrs: {
+             checkPhase = '''';
+            });
+            fzf-fish = fprev.fzf-fish.overrideAttrs (oldAttrs: {
+             checkPhase = '''';
+            });
+          });
         };
       };
       # }}}
