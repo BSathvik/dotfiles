@@ -104,8 +104,6 @@
         # My configurations
         fish = import ./home/fish.nix;
         git = import ./home/git.nix;
-        git-aliases = import ./home/git-aliases.nix;
-        gh-aliases = import ./home/gh-aliases.nix;
         alacritty = import ./home/alacritty.nix;
         neovim = import ./home/neovim.nix;
         packages = import ./home/packages.nix;
