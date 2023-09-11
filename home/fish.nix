@@ -14,6 +14,7 @@ in
   home.packages = [
     pkgs.fishPlugins.done
     pkgs.fishPlugins.fzf-fish
+    pkgs.fishPlugins.hydro
   ];
 
   # Fish functions ----------------------------------------------------------------------------- {{{

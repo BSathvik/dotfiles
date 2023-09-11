@@ -3,7 +3,7 @@
 {
   system.defaults.NSGlobalDomain = {
     "com.apple.trackpad.scaling" = 1.5;
-    AppleInterfaceStyleSwitchesAutomatically = false;
+    AppleInterfaceStyle = "Dark";
     AppleMeasurementUnits = "Centimeters";
     AppleMetricUnits = 1;
     AppleShowScrollBars = "Automatic";
