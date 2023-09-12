@@ -91,6 +91,7 @@
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.zoxide.enable
   programs.zoxide.enable = true;
 
+
   home.packages = lib.attrValues ({
     # Some basics
     inherit (pkgs)
@@ -108,8 +109,15 @@
       unrar # extract RAR archives
       xz # extract XZ archives
 
+      diff-so-fancy # used for `git diff`
       poetry
+    ;
+
+    # Kensho stuff
+    inherit (pkgs)
       aws-iam-authenticator
+      jsonnet # ships with jsonnetfmt
+      jrsonnet # is _blazingling_ fast
     ;
 
     # Dev stuff
@@ -138,5 +146,7 @@
       cocoapods
       m-cli # useful macOS CLI commands
     ;
-  });
+  }) ++ [
+   (pkgs.python39.withPackages (ps: with ps; [ pipx ]))
+ ];
 }

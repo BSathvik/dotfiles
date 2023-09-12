@@ -77,12 +77,23 @@
         fzf-fish = final: prev: {
           fishPlugins = prev.fishPlugins.overrideScope' (ffinal: fprev: {
             fishtape_3 = fprev.fishtape_3.overrideAttrs (oldAttrs: {
-             checkPhase = '''';
+             checkPhase = null;
             });
             fzf-fish = fprev.fzf-fish.overrideAttrs (oldAttrs: {
-             checkPhase = '''';
+             checkPhase = null;
             });
           });
+        };
+
+        # jrsonnet postInstall creates a $out/bin/jsonnet link and .dylib for c++ binding 
+        # that's in conflict with jsonnet, don't need either
+        # I want both since jrsonnet doesn't ship with jsonnetfmt
+        jrsonnet = final: prev: {
+          jrsonnet = prev.jrsonnet.overrideAttrs {
+            postInstall = ''
+              rm -rf $out/lib/
+            '';
+          };
         };
       };
       # }}}

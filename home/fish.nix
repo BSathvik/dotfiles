@@ -116,11 +116,12 @@ in
         end
       '' + optionalString config.programs.neovim.enable ''
 
+      # TODO: This ain't workin
       # Set `background` of all running Neovim instances.
-      for server in (${pkgs.neovim-remote}/bin/nvr --serverlist)
-        ${pkgs.neovim-remote}/bin/nvr -s --nostart --servername $server \
-          -c "set background=$term_background" &
-      end
+      # for server in (${pkgs.neovim-remote}/bin/nvr --serverlist)
+      #   ${pkgs.neovim-remote}/bin/nvr -s --nostart --servername $server \
+      #     -c "set background=$term_background" &
+      # end
       '';
       onVariable = "term_background";
     };
@@ -166,6 +167,14 @@ in
   programs.fish.interactiveShellInit = ''
     set -g fish_greeting ""
     ${pkgs.thefuck}/bin/thefuck --alias | source
+
+    # Setup for pipx
+    fish_add_path -ag ~/.local/bin
+
+    # Setup harbor
+    set -gx KD_REGISTRY_USER_NAME vik
+    set -gx KD_HARBOR_PROJECT dev-sathvik-birudavolu
+    # set -x KD_REGISTRY_CLI_SECRET get_this_from_harbor
 
     fzf_configure_bindings --directory=\cs --variables=\e\cv
 
