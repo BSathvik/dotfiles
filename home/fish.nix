@@ -166,7 +166,6 @@ in
 
   programs.fish.interactiveShellInit = ''
     set -g fish_greeting ""
-    ${pkgs.thefuck}/bin/thefuck --alias | source
 
     # Setup for pipx
     fish_add_path -ag ~/.local/bin

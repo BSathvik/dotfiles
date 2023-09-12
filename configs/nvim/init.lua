@@ -42,6 +42,7 @@ local required_servers = {
   'lua_ls',
   'jsonnet_ls',
   'gopls',
+  'rnix'
 };
 
 require("lazy").setup({

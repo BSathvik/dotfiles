@@ -35,12 +35,11 @@
         username = "bsat";
         fullName = "Sathvik Birudavolu";
         email = "sathvikb30@gmail.com";
-        nixConfigDirectory = "/Users/bsat/.config/nixpkgs";
+        nixConfigDirectory = "/Users/${personalUser.username}/.config/nixpkgs";
       };
 
       workUser = personalUser // {
         username = "sathvikbirudavolu";
-        nixConfigDirectory = "/Users/sathvikbirudavolu/.config/nixpkgs";
       };
     in
     {

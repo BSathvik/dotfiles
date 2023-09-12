@@ -105,12 +105,7 @@
       parallel # runs commands in parallel
       ripgrep # better version of `grep`
       tealdeer # rust implementation of `tldr`
-      thefuck
-      unrar # extract RAR archives
-      xz # extract XZ archives
-
       diff-so-fancy # used for `git diff`
-      poetry
     ;
 
     # Kensho stuff
@@ -124,8 +119,9 @@
     inherit (pkgs)
       jq
       nodejs
-      # Required for jsonnet-language-server
-      go
+      poetry
+      go # Required for jsonnet-language-server
+      cargo # Required for rnix-ls
     ;
 
     # Useful nix related tools
