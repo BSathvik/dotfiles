@@ -31,15 +31,16 @@
         overlays = attrValues self.overlays;
       };
 
-      personalUser = {
+      personalUser = rec {
         username = "bsat";
         fullName = "Sathvik Birudavolu";
         email = "sathvikb30@gmail.com";
-        nixConfigDirectory = "/Users/${personalUser.username}/.config/nixpkgs";
+        nixConfigDirectory = "/Users/${username}/.config/nixpkgs";
       };
 
-      workUser = personalUser // {
+      workUser = personalUser // rec {
         username = "sathvikbirudavolu";
+        nixConfigDirectory = "/Users/${username}/.config/nixpkgs";
       };
     in
     {
