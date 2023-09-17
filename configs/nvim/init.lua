@@ -23,7 +23,7 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-vim.g.python3_host_prog = '~/.nix-profile/bin/python';
+vim.g.python3_host_prog = '/etc/profiles/per-user/sathvikbirudavolu/bin/python';
 
 vim.g.black_linelength = 100
 vim.g.black_skip_string_normalization = 1
@@ -314,23 +314,6 @@ require("lazy").setup({
     end
   },
 
-  { 'Wansmer/treesj',
-    dependencies='nvim-treesitter',
-    keys = { '<space>m', '<space>j', '<space>s' },
-    config = function ()
-      -- tree-sitter plugin for syntax aware line split/join
-      require('treesj').setup {
-        -- Use default keymaps
-        -- (<space>m - toggle, <space>j - join, <space>s - split)
-        use_default_keymaps = true,
-        check_syntax_error = true,
-        max_join_length = 120,
-        cursor_behavior = 'hold',
-        notify = true,
-      }
-    end
-  }, -- split/join multi-line code using treesitter
-
   -- Non-LSP language support (formatters mostly)
   'google/vim-jsonnet',
   'rust-lang/rust.vim',
@@ -562,7 +545,7 @@ set.list = true
 -- Setup autocmds
 
 -- to change to light mode
-vim.cmd[[colorscheme kanagawa]]
+vim.cmd[[colorscheme kanagawa-dragon]]
 
 vim.keymap.set('n', '<leader>/', ':noh<CR>', { noremap=true, silent=true })
 

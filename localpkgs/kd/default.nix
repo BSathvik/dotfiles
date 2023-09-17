@@ -1,7 +1,7 @@
 # Inspired by: https://github.com/johbo/pip2nix-generated/blob/a690979bf5fb084fc21c04f7f039036dc5151067/devpi/default.nix#L1
 
 { pkgs ? (import <nixpkgs> {})
-, pythonPackages ? "python39Packages"
+, pythonVersion ? pkgs.python39
 }:
 
 let

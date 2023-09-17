@@ -5,6 +5,15 @@
     enableFishIntegration = true;
   };
 
+  home.pip = {
+    enable = true;
+    settings = {
+      global = {
+        index-url = https://pypi.beta-p.kensho.com/simple/;
+      };
+    };
+  };
+
   programs.tmux = {
     enable = true;
     baseIndex = 1;
@@ -143,6 +152,6 @@
       m-cli # useful macOS CLI commands
     ;
   }) ++ [
-   (pkgs.python39.withPackages (ps: with ps; [ pipx ]))
+   (pkgs.python39.withPackages (ps: with ps; [ pipx black pynvim ]))
  ];
 }

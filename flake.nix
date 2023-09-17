@@ -42,6 +42,8 @@
         username = "sathvikbirudavolu";
         nixConfigDirectory = "/Users/${username}/.config/nixpkgs";
       };
+
+      kensho-deploy = import ./localpkgs/kd/default.nix;
     in
     {
       # Add some additional functions to `lib`.
@@ -72,6 +74,14 @@
             inherit (nixpkgsDefaults) config;
           };
         };
+
+        # python = pkgs.python39.override { inherit packageOverrides; };
+        # python39 = python.withPackages (ps: [ ps.kensho-deploy ]);
+        # python39 = final: prev: {
+        #   python39 = prev.python39.override {
+        #     packageOverrides = final.callPackage kensho-deploy { };
+        #   };
+        # };
 
         # these checks keep failing, let's override this for now
         fzf-fish = final: prev: {
@@ -118,6 +128,7 @@
         alacritty = import ./home/alacritty.nix;
         neovim = import ./home/neovim.nix;
         packages = import ./home/packages.nix;
+        pip = import ./home/pip.nix;
 
         # Modules I've created
         home-user-info = { lib, ... }: {
@@ -203,7 +214,7 @@
       # This is handy in combination with setting `nix.registry.my.flake = inputs.self`.
       # Allows doing things like `nix run my#prefmanager -- watch --all`
       legacyPackages = import inputs.nixpkgs-unstable (nixpkgsDefaults // { inherit system; });
-
+      
       # Development shells ----------------------------------------------------------------------{{{
       # Shell environments for development
       # With `nix.registry.my.flake = inputs.self`, development shells can be created by running,
@@ -216,9 +227,10 @@
           pypi = pkgs.mkShell {
             name = "pypi";
             inputsFrom = attrValues {
-              inherit (pkgs) python310 pyright pkg-config libmysqlclient mysql80;
-            };
-            shellHook = "fish";
+              inherit (pkgs) pyright pkg-config;
+            } ++ singleton(
+              pkgs.python39.withPackages(ps: with ps; [ ( pkgs.callPackage kensho-deploy { } ) ])
+            );
           };
         };
       # }}}
