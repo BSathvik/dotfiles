@@ -106,7 +106,7 @@
     inherit (pkgs)
       coreutils
       du-dust # fancy version of `du`
-      exa # fancy version of `ls`
+      eza # fancy version of `ls`
       fzf
       fd # fancy version of `find`
       btop # fancy version of `top`

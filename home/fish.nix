@@ -150,7 +150,7 @@ in
     g = "${gitAndTools.git}/bin/git";
     la = "ll -a";
     ll = "ls -l --time-style long-iso --icons";
-    ls = "${exa}/bin/exa";
+    ls = "${eza}/bin/eza";
     tb = "toggle-background";
 
     # k8s
