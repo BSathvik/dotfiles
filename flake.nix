@@ -87,10 +87,10 @@
         fzf-fish = final: prev: {
           fishPlugins = prev.fishPlugins.overrideScope' (ffinal: fprev: {
             fishtape_3 = fprev.fishtape_3.overrideAttrs (oldAttrs: {
-             checkPhase = null;
+              checkPhase = null;
             });
             fzf-fish = fprev.fzf-fish.overrideAttrs (oldAttrs: {
-             checkPhase = null;
+              checkPhase = null;
             });
           });
         };
@@ -169,7 +169,7 @@
         });
 
         workMac = self.darwinConfigurations.personalMac.override (old: old // workUser);
-        
+
         # Config with small modifications needed/desired for CI with GitHub workflow
         githubCI = self.darwinConfigurations.macOS.override {
           system = "x86_64-darwin";
@@ -214,7 +214,9 @@
       # This is handy in combination with setting `nix.registry.my.flake = inputs.self`.
       # Allows doing things like `nix run my#prefmanager -- watch --all`
       legacyPackages = import inputs.nixpkgs-unstable (nixpkgsDefaults // { inherit system; });
-      
+
+      formatter = self.legacyPackages.${system}.nixpkgs-fmt;
+
       # Development shells ----------------------------------------------------------------------{{{
       # Shell environments for development
       # With `nix.registry.my.flake = inputs.self`, development shells can be created by running,
@@ -226,10 +228,11 @@
           };
           pypi = pkgs.mkShell {
             name = "pypi";
-            inputsFrom = attrValues {
-              inherit (pkgs) pyright pkg-config;
-            } ++ singleton(
-              pkgs.python39.withPackages(ps: with ps; [ ( pkgs.callPackage kensho-deploy { } ) ])
+            inputsFrom = attrValues
+              {
+                inherit (pkgs) pyright pkg-config;
+              } ++ singleton (
+              pkgs.python39.withPackages (ps: with ps; [ (pkgs.callPackage kensho-deploy { }) ])
             );
           };
         };

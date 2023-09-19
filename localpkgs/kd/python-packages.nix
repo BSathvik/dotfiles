@@ -13,10 +13,10 @@ self: super: {
     };
     format = "wheel";
     doCheck = false;
-    buildInputs = [];
-    checkInputs = [];
-    nativeBuildInputs = [];
-    propagatedBuildInputs = [];
+    buildInputs = [ ];
+    checkInputs = [ ];
+    nativeBuildInputs = [ ];
+    propagatedBuildInputs = [ ];
   };
   "cachetools" = super.buildPythonPackage rec {
     pname = "cachetools";
@@ -27,10 +27,10 @@ self: super: {
     };
     format = "wheel";
     doCheck = false;
-    buildInputs = [];
-    checkInputs = [];
-    nativeBuildInputs = [];
-    propagatedBuildInputs = [];
+    buildInputs = [ ];
+    checkInputs = [ ];
+    nativeBuildInputs = [ ];
+    propagatedBuildInputs = [ ];
   };
   "certifi" = super.buildPythonPackage rec {
     pname = "certifi";
@@ -41,10 +41,10 @@ self: super: {
     };
     format = "wheel";
     doCheck = false;
-    buildInputs = [];
-    checkInputs = [];
-    nativeBuildInputs = [];
-    propagatedBuildInputs = [];
+    buildInputs = [ ];
+    checkInputs = [ ];
+    nativeBuildInputs = [ ];
+    propagatedBuildInputs = [ ];
   };
   "chardet" = super.buildPythonPackage rec {
     pname = "chardet";
@@ -55,10 +55,10 @@ self: super: {
     };
     format = "wheel";
     doCheck = false;
-    buildInputs = [];
-    checkInputs = [];
-    nativeBuildInputs = [];
-    propagatedBuildInputs = [];
+    buildInputs = [ ];
+    checkInputs = [ ];
+    nativeBuildInputs = [ ];
+    propagatedBuildInputs = [ ];
   };
   "click" = super.buildPythonPackage rec {
     pname = "click";
@@ -69,10 +69,10 @@ self: super: {
     };
     format = "wheel";
     doCheck = false;
-    buildInputs = [];
-    checkInputs = [];
-    nativeBuildInputs = [];
-    propagatedBuildInputs = [];
+    buildInputs = [ ];
+    checkInputs = [ ];
+    nativeBuildInputs = [ ];
+    propagatedBuildInputs = [ ];
   };
   "decorator" = super.buildPythonPackage rec {
     pname = "decorator";
@@ -83,10 +83,10 @@ self: super: {
     };
     format = "wheel";
     doCheck = false;
-    buildInputs = [];
-    checkInputs = [];
-    nativeBuildInputs = [];
-    propagatedBuildInputs = [];
+    buildInputs = [ ];
+    checkInputs = [ ];
+    nativeBuildInputs = [ ];
+    propagatedBuildInputs = [ ];
   };
   "google-auth" = super.buildPythonPackage rec {
     pname = "google-auth";
@@ -97,9 +97,9 @@ self: super: {
     };
     format = "wheel";
     doCheck = false;
-    buildInputs = [];
-    checkInputs = [];
-    nativeBuildInputs = [];
+    buildInputs = [ ];
+    checkInputs = [ ];
+    nativeBuildInputs = [ ];
     propagatedBuildInputs = [
       self."cachetools"
       self."pyasn1-modules"
@@ -116,10 +116,10 @@ self: super: {
     };
     format = "wheel";
     doCheck = false;
-    buildInputs = [];
-    checkInputs = [];
-    nativeBuildInputs = [];
-    propagatedBuildInputs = [];
+    buildInputs = [ ];
+    checkInputs = [ ];
+    nativeBuildInputs = [ ];
+    propagatedBuildInputs = [ ];
   };
   "jsondiff" = super.buildPythonPackage rec {
     pname = "jsondiff";
@@ -127,10 +127,10 @@ self: super: {
     src = ./../../Library/Caches/pip/wheels/9c/7a/3d/7532032fb72ad8ab31cbe5c6c648bd5343f66e54edb28b5954/jsondiff-1.2.0-py3-none-any.whl;
     format = "wheel";
     doCheck = false;
-    buildInputs = [];
-    checkInputs = [];
-    nativeBuildInputs = [];
-    propagatedBuildInputs = [];
+    buildInputs = [ ];
+    checkInputs = [ ];
+    nativeBuildInputs = [ ];
+    propagatedBuildInputs = [ ];
   };
   "jsonnet" = super.buildPythonPackage rec {
     pname = "jsonnet";
@@ -141,10 +141,10 @@ self: super: {
     };
     format = "setuptools";
     doCheck = false;
-    buildInputs = [];
-    checkInputs = [];
-    nativeBuildInputs = [];
-    propagatedBuildInputs = [];
+    buildInputs = [ ];
+    checkInputs = [ ];
+    nativeBuildInputs = [ ];
+    propagatedBuildInputs = [ ];
   };
   "jsonschema" = super.buildPythonPackage rec {
     pname = "jsonschema";
@@ -155,9 +155,9 @@ self: super: {
     };
     format = "wheel";
     doCheck = false;
-    buildInputs = [];
-    checkInputs = [];
-    nativeBuildInputs = [];
+    buildInputs = [ ];
+    checkInputs = [ ];
+    nativeBuildInputs = [ ];
     propagatedBuildInputs = [
       self."attrs"
       self."jsonschema-specifications"
@@ -174,9 +174,9 @@ self: super: {
     };
     format = "wheel";
     doCheck = false;
-    buildInputs = [];
-    checkInputs = [];
-    nativeBuildInputs = [];
+    buildInputs = [ ];
+    checkInputs = [ ];
+    nativeBuildInputs = [ ];
     propagatedBuildInputs = [
       self."referencing"
     ];
@@ -190,9 +190,9 @@ self: super: {
     };
     format = "wheel";
     doCheck = false;
-    buildInputs = [];
-    checkInputs = [];
-    nativeBuildInputs = [];
+    buildInputs = [ ];
+    checkInputs = [ ];
+    nativeBuildInputs = [ ];
     propagatedBuildInputs = [
       self."click"
       self."jsondiff"
@@ -217,9 +217,9 @@ self: super: {
     };
     format = "wheel";
     doCheck = false;
-    buildInputs = [];
-    checkInputs = [];
-    nativeBuildInputs = [];
+    buildInputs = [ ];
+    checkInputs = [ ];
+    nativeBuildInputs = [ ];
     propagatedBuildInputs = [
       self."certifi"
       self."google-auth"
@@ -242,10 +242,10 @@ self: super: {
     };
     format = "wheel";
     doCheck = false;
-    buildInputs = [];
-    checkInputs = [];
-    nativeBuildInputs = [];
-    propagatedBuildInputs = [];
+    buildInputs = [ ];
+    checkInputs = [ ];
+    nativeBuildInputs = [ ];
+    propagatedBuildInputs = [ ];
   };
   "networkx" = super.buildPythonPackage rec {
     pname = "networkx";
@@ -256,9 +256,9 @@ self: super: {
     };
     format = "wheel";
     doCheck = false;
-    buildInputs = [];
-    checkInputs = [];
-    nativeBuildInputs = [];
+    buildInputs = [ ];
+    checkInputs = [ ];
+    nativeBuildInputs = [ ];
     propagatedBuildInputs = [
       self."decorator"
     ];
@@ -272,10 +272,10 @@ self: super: {
     };
     format = "wheel";
     doCheck = false;
-    buildInputs = [];
-    checkInputs = [];
-    nativeBuildInputs = [];
-    propagatedBuildInputs = [];
+    buildInputs = [ ];
+    checkInputs = [ ];
+    nativeBuildInputs = [ ];
+    propagatedBuildInputs = [ ];
   };
   "pyasn1" = super.buildPythonPackage rec {
     pname = "pyasn1";
@@ -286,10 +286,10 @@ self: super: {
     };
     format = "wheel";
     doCheck = false;
-    buildInputs = [];
-    checkInputs = [];
-    nativeBuildInputs = [];
-    propagatedBuildInputs = [];
+    buildInputs = [ ];
+    checkInputs = [ ];
+    nativeBuildInputs = [ ];
+    propagatedBuildInputs = [ ];
   };
   "pyasn1-modules" = super.buildPythonPackage rec {
     pname = "pyasn1-modules";
@@ -300,9 +300,9 @@ self: super: {
     };
     format = "wheel";
     doCheck = false;
-    buildInputs = [];
-    checkInputs = [];
-    nativeBuildInputs = [];
+    buildInputs = [ ];
+    checkInputs = [ ];
+    nativeBuildInputs = [ ];
     propagatedBuildInputs = [
       self."pyasn1"
     ];
@@ -316,10 +316,10 @@ self: super: {
     };
     format = "wheel";
     doCheck = false;
-    buildInputs = [];
-    checkInputs = [];
-    nativeBuildInputs = [];
-    propagatedBuildInputs = [];
+    buildInputs = [ ];
+    checkInputs = [ ];
+    nativeBuildInputs = [ ];
+    propagatedBuildInputs = [ ];
   };
   "python-dateutil" = super.buildPythonPackage rec {
     pname = "python-dateutil";
@@ -330,9 +330,9 @@ self: super: {
     };
     format = "wheel";
     doCheck = false;
-    buildInputs = [];
-    checkInputs = [];
-    nativeBuildInputs = [];
+    buildInputs = [ ];
+    checkInputs = [ ];
+    nativeBuildInputs = [ ];
     propagatedBuildInputs = [
       self."six"
     ];
@@ -346,10 +346,10 @@ self: super: {
     };
     format = "setuptools";
     doCheck = false;
-    buildInputs = [];
-    checkInputs = [];
-    nativeBuildInputs = [];
-    propagatedBuildInputs = [];
+    buildInputs = [ ];
+    checkInputs = [ ];
+    nativeBuildInputs = [ ];
+    propagatedBuildInputs = [ ];
   };
   "referencing" = super.buildPythonPackage rec {
     pname = "referencing";
@@ -360,9 +360,9 @@ self: super: {
     };
     format = "wheel";
     doCheck = false;
-    buildInputs = [];
-    checkInputs = [];
-    nativeBuildInputs = [];
+    buildInputs = [ ];
+    checkInputs = [ ];
+    nativeBuildInputs = [ ];
     propagatedBuildInputs = [
       self."attrs"
       self."rpds-py"
@@ -377,9 +377,9 @@ self: super: {
     };
     format = "wheel";
     doCheck = false;
-    buildInputs = [];
-    checkInputs = [];
-    nativeBuildInputs = [];
+    buildInputs = [ ];
+    checkInputs = [ ];
+    nativeBuildInputs = [ ];
     propagatedBuildInputs = [
       self."certifi"
       self."chardet"
@@ -396,9 +396,9 @@ self: super: {
     };
     format = "wheel";
     doCheck = false;
-    buildInputs = [];
-    checkInputs = [];
-    nativeBuildInputs = [];
+    buildInputs = [ ];
+    checkInputs = [ ];
+    nativeBuildInputs = [ ];
     propagatedBuildInputs = [
       self."oauthlib"
       self."requests"
@@ -413,10 +413,10 @@ self: super: {
     };
     format = "setuptools";
     doCheck = false;
-    buildInputs = [];
-    checkInputs = [];
-    nativeBuildInputs = [];
-    propagatedBuildInputs = [];
+    buildInputs = [ ];
+    checkInputs = [ ];
+    nativeBuildInputs = [ ];
+    propagatedBuildInputs = [ ];
   };
   "rpds-py" = super.buildPythonPackage rec {
     pname = "rpds-py";
@@ -427,10 +427,10 @@ self: super: {
     };
     format = "setuptools";
     doCheck = false;
-    buildInputs = [];
-    checkInputs = [];
-    nativeBuildInputs = [];
-    propagatedBuildInputs = [];
+    buildInputs = [ ];
+    checkInputs = [ ];
+    nativeBuildInputs = [ ];
+    propagatedBuildInputs = [ ];
   };
   "rsa" = super.buildPythonPackage rec {
     pname = "rsa";
@@ -441,9 +441,9 @@ self: super: {
     };
     format = "wheel";
     doCheck = false;
-    buildInputs = [];
-    checkInputs = [];
-    nativeBuildInputs = [];
+    buildInputs = [ ];
+    checkInputs = [ ];
+    nativeBuildInputs = [ ];
     propagatedBuildInputs = [
       self."pyasn1"
     ];
@@ -457,10 +457,10 @@ self: super: {
     };
     format = "wheel";
     doCheck = false;
-    buildInputs = [];
-    checkInputs = [];
-    nativeBuildInputs = [];
-    propagatedBuildInputs = [];
+    buildInputs = [ ];
+    checkInputs = [ ];
+    nativeBuildInputs = [ ];
+    propagatedBuildInputs = [ ];
   };
   "urllib3" = super.buildPythonPackage rec {
     pname = "urllib3";
@@ -471,10 +471,10 @@ self: super: {
     };
     format = "wheel";
     doCheck = false;
-    buildInputs = [];
-    checkInputs = [];
-    nativeBuildInputs = [];
-    propagatedBuildInputs = [];
+    buildInputs = [ ];
+    checkInputs = [ ];
+    nativeBuildInputs = [ ];
+    propagatedBuildInputs = [ ];
   };
   "websocket-client" = super.buildPythonPackage rec {
     pname = "websocket-client";
@@ -485,9 +485,9 @@ self: super: {
     };
     format = "wheel";
     doCheck = false;
-    buildInputs = [];
-    checkInputs = [];
-    nativeBuildInputs = [];
-    propagatedBuildInputs = [];
+    buildInputs = [ ];
+    checkInputs = [ ];
+    nativeBuildInputs = [ ];
+    propagatedBuildInputs = [ ];
   };
 }

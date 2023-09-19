@@ -101,57 +101,58 @@
   programs.zoxide.enable = true;
 
 
-  home.packages = lib.attrValues ({
-    # Some basics
-    inherit (pkgs)
-      coreutils
-      du-dust # fancy version of `du`
-      eza # fancy version of `ls`
-      fzf
-      fd # fancy version of `find`
-      btop # fancy version of `top`
-      hyperfine # benchmarking tool
-      parallel # runs commands in parallel
-      ripgrep # better version of `grep`
-      tealdeer # rust implementation of `tldr`
-      diff-so-fancy # used for `git diff`
-    ;
+  home.packages = lib.attrValues
+    ({
+      # Some basics
+      inherit (pkgs)
+        coreutils
+        du-dust# fancy version of `du`
+        eza# fancy version of `ls`
+        fzf
+        fd# fancy version of `find`
+        btop# fancy version of `top`
+        hyperfine# benchmarking tool
+        parallel# runs commands in parallel
+        ripgrep# better version of `grep`
+        tealdeer# rust implementation of `tldr`
+        diff-so-fancy# used for `git diff`
+        ;
 
-    # Kensho stuff
-    inherit (pkgs)
-      aws-iam-authenticator
-      jsonnet # ships with jsonnetfmt
-      jrsonnet # is _blazingling_ fast
-    ;
+      # Kensho stuff
+      inherit (pkgs)
+        aws-iam-authenticator
+        jsonnet# ships with jsonnetfmt
+        jrsonnet# is _blazingling_ fast
+        ;
 
-    # Dev stuff
-    inherit (pkgs)
-      jq
-      nodejs
-      poetry
-      go # Required for jsonnet-language-server
-      cargo # Required for rnix-ls
-    ;
+      # Dev stuff
+      inherit (pkgs)
+        jq
+        nodejs
+        poetry
+        go# Required for jsonnet-language-server
+        cargo# Required for rnix-ls
+        ;
 
-    # Useful nix related tools
-    inherit (pkgs)
-      cachix # adding/managing alternative binary caches hosted by Cachix
-      comma # run software from without installing it
-      # niv # easy dependency management for nix projects
-      nix-output-monitor # get additional information while building packages
-      nix-tree # interactively browse dependency graphs of Nix derivations
-      nix-update # swiss-knife for updating nix packages
-      nixpkgs-review # review pull-requests on nixpkgs
-      node2nix # generate Nix expressions to build NPM packages
-      statix # lints and suggestions for the Nix programming language
-    ;
+      # Useful nix related tools
+      inherit (pkgs)
+        cachix# adding/managing alternative binary caches hosted by Cachix
+        comma# run software from without installing it
+        # niv # easy dependency management for nix projects
+        nix-output-monitor# get additional information while building packages
+        nix-tree# interactively browse dependency graphs of Nix derivations
+        nix-update# swiss-knife for updating nix packages
+        nixpkgs-review# review pull-requests on nixpkgs
+        node2nix# generate Nix expressions to build NPM packages
+        statix# lints and suggestions for the Nix programming language
+        ;
 
-  } // lib.optionalAttrs pkgs.stdenv.isDarwin {
-    inherit (pkgs)
-      cocoapods
-      m-cli # useful macOS CLI commands
-    ;
-  }) ++ [
-   (pkgs.python39.withPackages (ps: with ps; [ pipx black pynvim ]))
- ];
+    } // lib.optionalAttrs pkgs.stdenv.isDarwin {
+      inherit (pkgs)
+        cocoapods
+        m-cli# useful macOS CLI commands
+        ;
+    }) ++ [
+    (pkgs.python39.withPackages (ps: with ps; [ pipx black pynvim ]))
+  ];
 }

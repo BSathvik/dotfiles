@@ -6,18 +6,18 @@ inputs:
 , nixConfigDirectory # directory on the system where this flake is located
 , system ? "aarch64-darwin"
 
-# `nix-darwin` modules to include
+  # `nix-darwin` modules to include
 , modules ? [ ]
-# Additional `nix-darwin` modules to include, useful when reusing a configuration with
-# `lib.makeOverridable`.
+  # Additional `nix-darwin` modules to include, useful when reusing a configuration with
+  # `lib.makeOverridable`.
 , extraModules ? [ ]
 
-# Value for `home-manager`'s `home.stateVersion` option.
+  # Value for `home-manager`'s `home.stateVersion` option.
 , homeStateVersion
-# `home-manager` modules to include
+  # `home-manager` modules to include
 , homeModules ? [ ]
-# Additional `home-manager` modules to include, useful when reusing a configuration with
-# `lib.makeOverridable`.
+  # Additional `home-manager` modules to include, useful when reusing a configuration with
+  # `lib.makeOverridable`.
 , extraHomeModules ? [ ]
 }:
 

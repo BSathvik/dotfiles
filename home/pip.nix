@@ -5,7 +5,8 @@ with lib;
 let
   cfg = config.home.pip;
   iniFormat = pkgs.formats.ini { };
-in {
+in
+{
   options = {
     home.pip = {
       enable = mkEnableOption "pip.conf";

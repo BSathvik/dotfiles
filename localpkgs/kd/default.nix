@@ -1,6 +1,6 @@
 # Inspired by: https://github.com/johbo/pip2nix-generated/blob/a690979bf5fb084fc21c04f7f039036dc5151067/devpi/default.nix#L1
 
-{ pkgs ? (import <nixpkgs> {})
+{ pkgs ? (import <nixpkgs> { })
 , pythonVersion ? pkgs.python39
 }:
 
@@ -28,7 +28,7 @@ let
 
     rpds-py = super.rpds-py.override (prev: {
       src = pkgs.fetchurl {
-        url = "https://pypi.beta-p.kensho.com/api/package/rpds-py/rpds_py-${prev.version}-cp39-cp39-macosx_10_7_x86_64.whl"; 
+        url = "https://pypi.beta-p.kensho.com/api/package/rpds-py/rpds_py-${prev.version}-cp39-cp39-macosx_10_7_x86_64.whl";
         sha256 = "570cc326e78ff23dec7f41487aa9c3dffd02e5ee9ab43a8f6ccc3df8f9327623";
       };
       format = "wheel";
@@ -45,4 +45,5 @@ let
     });
   };
 
-in composeManyExtensions [ pythonPackagesGenerated pythonPackagesLocalOverrides mainPackage ]
+in
+composeManyExtensions [ pythonPackagesGenerated pythonPackagesLocalOverrides mainPackage ]
