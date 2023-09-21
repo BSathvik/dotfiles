@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> { } }:
 let
   zentreefish = builtins.fetchGit {
     url = "git@github.kensho.com:kensho/zentreefish.git";
