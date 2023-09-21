@@ -27,6 +27,7 @@
       nixpkgsDefaults = {
         config = {
           allowUnfree = true;
+          permittedInsecurePackages = [ "python3.9-requests-2.29.0" ];
         };
         overlays = attrValues self.overlays;
       };
@@ -82,6 +83,19 @@
         #     packageOverrides = final.callPackage kensho-deploy { };
         #   };
         # };
+
+        kensho-deploy = final: prev: {
+          kensho-deploy = final.callPackage ./localpkgs/kd/default.nix { };
+
+          # fishPlugins = prev.fishPlugins.overrideScope' (ffinal: fprev: {
+          #   fishtape_3 = fprev.fishtape_3.overrideAttrs (oldAttrs: {
+          #     checkPhase = null;
+          #   });
+          #   fzf-fish = fprev.fzf-fish.overrideAttrs (oldAttrs: {
+          #     checkPhase = null;
+          #   });
+          # });
+        };
 
         # these checks keep failing, let's override this for now
         fzf-fish = final: prev: {

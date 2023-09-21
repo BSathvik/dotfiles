@@ -123,6 +123,7 @@
         aws-iam-authenticator
         jsonnet# ships with jsonnetfmt
         jrsonnet# is _blazingling_ fast
+        # kensho-deploy
         ;
 
       # Dev stuff

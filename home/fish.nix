@@ -167,6 +167,11 @@ in
   programs.fish.interactiveShellInit = ''
     set -g fish_greeting ""
 
+    # Default kube editor
+    set -x KUBE_EDITOR nvim
+    # Default gh editor
+    set -x EDITOR nvim
+
     # Setup for pipx
     fish_add_path -ag ~/.local/bin
 

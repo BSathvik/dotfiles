@@ -31,7 +31,7 @@ vim.g.black_use_virtualenv = false
 
 -- Example using a list of specs with the default options
 vim.g.mapleader = " " -- Make sure to set `mapleader` before lazy so your mappings are correct
-vim.opt.laststatus = 0
+vim.opt.laststatus = 2
 
 local required_servers = {
   'dockerls',
@@ -501,6 +501,7 @@ vim.filetype.on = true
 
 local set = vim.opt -- set options
 
+set.gcr='a:blinkon100'
 set.background = 'dark'
 
 set.colorcolumn = '100'
@@ -517,7 +518,7 @@ set.number = true
 set.relativenumber = true
 -- only highlight the number
 set.cursorline = true
-set.cursorlineopt = 'number'
+set.cursorlineopt = 'both'
 
 set.clipboard = 'unnamedplus'
 
@@ -548,6 +549,9 @@ set.list = true
 vim.cmd[[colorscheme kanagawa-dragon]]
 
 vim.keymap.set('n', '<leader>/', ':noh<CR>', { noremap=true, silent=true })
+
+vim.keymap.set('n', 'H', '^', { noremap=true, silent=true })
+vim.keymap.set('n', 'L', '$', { noremap=true, silent=true })
 
 -- Remap space as leader key
 vim.keymap.set({ 'n', 'v' }, '<leader>', '<Nop>', { silent = true })
