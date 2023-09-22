@@ -2,7 +2,7 @@
 
 let
   inherit (lib) elem optionalString;
-  inherit (config.home.user-info) nixConfigDirectory;
+  inherit (config.home.user-info) nixConfigDirectory username;
 in
 
 {
@@ -171,6 +171,7 @@ in
     set -x KUBE_EDITOR nvim
     # Default gh editor
     set -x EDITOR nvim
+    set -x $PYTHONBIN /etc/profiles/per-user/${username}/bin/python 
 
     # Setup for pipx
     fish_add_path -ag ~/.local/bin

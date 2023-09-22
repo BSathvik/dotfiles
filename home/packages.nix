@@ -133,6 +133,8 @@
         poetry
         go# Required for jsonnet-language-server
         cargo# Required for rnix-ls
+        rustc
+        rustfmt
         ;
 
       # Useful nix related tools
@@ -150,6 +152,7 @@
 
     } // lib.optionalAttrs pkgs.stdenv.isDarwin {
       inherit (pkgs)
+        cachix
         cocoapods
         m-cli# useful macOS CLI commands
         ;

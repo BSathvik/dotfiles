@@ -23,7 +23,7 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-vim.g.python3_host_prog = '/etc/profiles/per-user/sathvikbirudavolu/bin/python';
+vim.g.python3_host_prog = os.getenv('PYTHONBIN');
 
 vim.g.black_linelength = 100
 vim.g.black_skip_string_normalization = 1

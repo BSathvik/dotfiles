@@ -185,7 +185,7 @@
         workMac = self.darwinConfigurations.personalMac.override (old: old // workUser);
 
         # Config with small modifications needed/desired for CI with GitHub workflow
-        githubCI = self.darwinConfigurations.macOS.override {
+        githubCI = self.darwinConfigurations.personalMac.override {
           system = "x86_64-darwin";
           username = "runner";
           nixConfigDirectory = "/Users/runner/work/nixpkgs/nixpkgs";
