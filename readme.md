@@ -28,9 +28,14 @@ nix build .#darwinConfigurations.bootstrap-x86.system
 
 3. For homebrew to work, it needs to be installed separately and enable it `flake.nix`
 
+4. you'll want to setup github public key using https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
 ```
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 ```
+
+## Troubleshooting
+
+*Broken dawrin installation*: https://github.com/NixOS/nix/issues/2899#issuecomment-1669501326
 
 ## Highlights
 
