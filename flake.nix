@@ -86,15 +86,6 @@
 
         kensho-deploy = final: prev: {
           kensho-deploy = final.callPackage ./localpkgs/kd/default.nix { };
-
-          # fishPlugins = prev.fishPlugins.overrideScope' (ffinal: fprev: {
-          #   fishtape_3 = fprev.fishtape_3.overrideAttrs (oldAttrs: {
-          #     checkPhase = null;
-          #   });
-          #   fzf-fish = fprev.fzf-fish.overrideAttrs (oldAttrs: {
-          #     checkPhase = null;
-          #   });
-          # });
         };
 
         # these checks keep failing, let's override this for now
