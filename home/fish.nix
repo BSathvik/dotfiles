@@ -141,6 +141,7 @@ in
     nf = "nix flake";
     nr = "nix run";
     ns = "nix search";
+    nrepair = "nix-store --verify --check-contents --repair";
 
     # Other
     ".." = "cd ..";

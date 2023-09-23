@@ -48,37 +48,6 @@ local required_servers = {
 require("lazy").setup({
   'christoomey/vim-tmux-navigator',
 
-  { 'phaazon/hop.nvim', branch = 'v2',
-    enabled = false,
-    config = function ()
-      require('hop').setup {}
-
-      local hop = require('hop')
-      local directions = require('hop.hint').HintDirection
-      vim.keymap.set('n', 'ƒ', function() -- Alt-f
-        hop.hint_words({ direction = directions.AFTER_CURSOR })
-      end, { remap=true })
-      vim.keymap.set('n', 'Ï', function() -- Alt-F
-        hop.hint_words({ direction = directions.BEFORE_CURSOR })
-      end, { remap=true })
-    end
-  },
-
-  { 'ja-ford/delaytrain.nvim',
-    event = 'VeryLazy',
-    enabled = false,
-    config = function ()
-      require('delaytrain').setup {}
-    end
-  },
-
-  { 'Pocco81/true-zen.nvim',
-    event = 'VeryLazy',
-    config = function ()
-      require('true-zen').setup {}
-    end
-  },
-
   { 'echasnovski/mini.nvim',
     config = function ()
       require('mini.comment').setup {};
@@ -94,12 +63,6 @@ require("lazy").setup({
         }
       };
     end
-  },
-
-  {
-    'windwp/nvim-autopairs',
-    enabled=false,
-    config = function() require('nvim-autopairs').setup {} end
   },
 
   -- { 'iamcco/markdown-preview.nvim',
@@ -203,17 +166,6 @@ require("lazy").setup({
     -- event = "BufReadPost",
     dependencies = 'nvim-tree/nvim-web-devicons',
     config = function () require('bufferline').setup {} end
-  },
-
-  { 'lukas-reineke/indent-blankline.nvim',
-    event = "BufReadPost",
-    enabled = false,
-    config = function ()
-      require('indent_blankline').setup {
-        show_end_of_line = true,
-        show_current_context = true,
-      }
-    end
   },
 
   { 'folke/todo-comments.nvim',
@@ -627,6 +579,4 @@ vim.api.nvim_create_user_command('Maps',
   end,
   { range=true }
 )
-
-vim.api.nvim_create_user_command('Source', [[source $MYVIMRC]], {})
 
