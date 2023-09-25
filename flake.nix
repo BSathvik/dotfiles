@@ -43,8 +43,6 @@
         username = "sathvikbirudavolu";
         nixConfigDirectory = "/Users/${username}/.config/nixpkgs";
       };
-
-      kensho-deploy = import ./localpkgs/kd/default.nix;
     in
     {
       # Add some additional functions to `lib`.
@@ -74,18 +72,6 @@
             inherit (prev.stdenv) system;
             inherit (nixpkgsDefaults) config;
           };
-        };
-
-        # python = pkgs.python39.override { inherit packageOverrides; };
-        # python39 = python.withPackages (ps: [ ps.kensho-deploy ]);
-        # python39 = final: prev: {
-        #   python39 = prev.python39.override {
-        #     packageOverrides = final.callPackage kensho-deploy { };
-        #   };
-        # };
-
-        kensho-deploy = final: prev: {
-          kensho-deploy = final.callPackage ./localpkgs/kd/default.nix { };
         };
 
         # these checks keep failing, let's override this for now

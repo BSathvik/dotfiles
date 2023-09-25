@@ -168,6 +168,8 @@ in
   programs.fish.interactiveShellInit = ''
     set -g fish_greeting ""
 
+    fish_vi_key_bindings
+
     # Default kube editor
     set -x KUBE_EDITOR nvim
     # Default gh editor

@@ -123,7 +123,6 @@
         aws-iam-authenticator
         jsonnet# ships with jsonnetfmt
         jrsonnet# is _blazingling_ fast
-        # kensho-deploy
         ;
 
       # Dev stuff
@@ -141,18 +140,15 @@
       inherit (pkgs)
         cachix# adding/managing alternative binary caches hosted by Cachix
         comma# run software from without installing it
-        # niv # easy dependency management for nix projects
         nix-output-monitor# get additional information while building packages
         nix-tree# interactively browse dependency graphs of Nix derivations
         nix-update# swiss-knife for updating nix packages
         nixpkgs-review# review pull-requests on nixpkgs
-        node2nix# generate Nix expressions to build NPM packages
         statix# lints and suggestions for the Nix programming language
         ;
 
     } // lib.optionalAttrs pkgs.stdenv.isDarwin {
       inherit (pkgs)
-        cachix
         cocoapods
         m-cli# useful macOS CLI commands
         ;
