@@ -4,6 +4,8 @@ inputs:
 , fullName
 , email
 , nixConfigDirectory # directory on the system where this flake is located
+, computerName
+, hostName
 , system ? "aarch64-darwin"
 
   # `nix-darwin` modules to include
@@ -26,7 +28,10 @@ inputs.darwin.lib.darwinSystem {
   modules = modules ++ extraModules ++ [
     inputs.home-manager.darwinModules.home-manager
     ({ config, ... }: {
-      users.primaryUser = { inherit username fullName email nixConfigDirectory; };
+      users.primaryUser = { inherit username fullName email nixConfigDirectory hostName computerName; };
+
+      networking.computerName = computerName;
+      networking.hostName = hostName;
 
       # Support legacy workflows that use `<nixpkgs>` etc.
       nix.nixPath.nixpkgs = "${inputs.nixpkgs-unstable}";

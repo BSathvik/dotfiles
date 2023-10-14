@@ -37,11 +37,16 @@
         fullName = "Sathvik Birudavolu";
         email = "sathvikb30@gmail.com";
         nixConfigDirectory = "/Users/${username}/.config/nixpkgs";
+        hostName = username;
+        computerName = "Sathvik’s Personal MBP";
       };
 
       workUser = personalUser // rec {
         username = "sathvikbirudavolu";
         nixConfigDirectory = "/Users/${username}/.config/nixpkgs";
+        # NOTE: Never mess with hostName on a company managed machine!
+        hostName = null;
+        computerName = "Sathvik’s Work MBP";
       };
     in
     {
@@ -141,12 +146,6 @@
         personalMac = makeOverridable self.lib.mkDarwinSystem (personalUser // {
           modules = attrValues self.darwinModules ++ singleton {
             nixpkgs = nixpkgsDefaults;
-            networking.computerName = "Sathvik’s 💻";
-            networking.hostName = "bsat";
-            networking.knownNetworkServices = [
-              "Wi-Fi"
-              "USB 10/100/1000 LAN"
-            ];
             nix.registry.my.flake = inputs.self;
           };
           # TODO: Re-enable when https://github.com/NixOS/nixpkgs/issues/243685 is resolved.

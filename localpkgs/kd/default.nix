@@ -38,7 +38,8 @@ let
 
   kensho-deploy = pkgs.lib.findFirst (x: x.pname == "kensho-deploy") null kdDeps.poetryPackages;
 
-in pkgs.stdenv.mkDerivation {
+in
+pkgs.stdenv.mkDerivation {
   name = "kensho-deploy";
   phases = [ "installPhase" ];
   installPhase = ''mkdir -p "$out/bin"; ln -s ${kensho-deploy}/bin/kd "$out/bin/kd"'';

@@ -22,5 +22,13 @@ in
       type = with types; nullOr str;
       default = null;
     };
+    hostName = mkOption {
+      type = with types; nullOr str;
+      default = null;
+    };
+    computerName = mkOption {
+      type = with types; nullOr str;
+      default = null;
+    };
   };
 }

@@ -1,11 +1,17 @@
 { pkgs, ... }:
 
 {
-  # Networking
-  networking.dns = [
-    "1.1.1.1"
-    "8.8.8.8"
-  ];
+  networking = {
+    # In-order to configure DNS server, knownNetworkServices must be set
+    knownNetworkServices = [
+      "Wi-Fi"
+      "USB 10/100/1000 LAN"
+    ];
+    dns = [
+      "1.1.1.1"
+      "8.8.8.8"
+    ];
+  };
 
   # Apps
   # `home-manager` currently has issues adding them to `~/Applications`
