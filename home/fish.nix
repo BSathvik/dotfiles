@@ -172,8 +172,6 @@ in
 
     # Default kube editor
     set -x KUBE_EDITOR nvim
-    # Default gh editor
-    set -x EDITOR nvim
     set -x PYTHONBIN /etc/profiles/per-user/${username}/bin/python 
 
     # Setup for pipx

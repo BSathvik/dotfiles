@@ -94,6 +94,15 @@
   # Some options also set in `../darwin/homebrew.nix`.
   programs.ssh.enable = true;
   programs.ssh.controlPath = "~/.ssh/%C"; # ensures the path is unique but also fixed length
+  programs.ssh.matchBlocks = {
+    "github.com" = {
+       identityFile = "~/.ssh/bsathvik-github";
+       extraOptions = {
+         UseKeychain = "yes";
+         AddKeysToAgent = "yes";
+      };
+    };
+  };
 
   # Zoxide, a faster way to navigate the filesystem
   # https://github.com/ajeetdsouza/zoxide
@@ -149,7 +158,6 @@
 
     } // lib.optionalAttrs pkgs.stdenv.isDarwin {
       inherit (pkgs)
-        cocoapods
         m-cli# useful macOS CLI commands
         ;
     }) ++ [
