@@ -96,10 +96,10 @@
   programs.ssh.controlPath = "~/.ssh/%C"; # ensures the path is unique but also fixed length
   programs.ssh.matchBlocks = {
     "github.com" = {
-       identityFile = "~/.ssh/github";
-       extraOptions = {
-         UseKeychain = "yes";
-         AddKeysToAgent = "yes";
+      identityFile = "~/.ssh/github";
+      extraOptions = {
+        UseKeychain = "yes";
+        AddKeysToAgent = "yes";
       };
     };
   };
@@ -142,6 +142,7 @@
         cargo# Required for rnix-ls
         rustc
         rustfmt
+        nixpkgs-fmt
         ;
 
       # Useful nix related tools
