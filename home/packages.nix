@@ -96,7 +96,7 @@
   programs.ssh.controlPath = "~/.ssh/%C"; # ensures the path is unique but also fixed length
   programs.ssh.matchBlocks = {
     "github.com" = {
-       identityFile = "~/.ssh/bsathvik-github";
+       identityFile = "~/.ssh/github";
        extraOptions = {
          UseKeychain = "yes";
          AddKeysToAgent = "yes";
@@ -108,7 +108,6 @@
   # https://github.com/ajeetdsouza/zoxide
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.zoxide.enable
   programs.zoxide.enable = true;
-
 
   home.packages = lib.attrValues
     ({
