@@ -13,9 +13,6 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-vim.g.python3_host_prog = os.getenv("PYTHONBIN")
-
--- Example using a list of specs with the default options
 vim.g.mapleader = " " -- Make sure to set `mapleader` before lazy so your mappings are correct
 vim.opt.laststatus = 2
 
@@ -52,9 +49,14 @@ require("lazy").setup({
     end,
   },
 
-  -- { 'iamcco/markdown-preview.nvim',
-  --   build = function() vim.fn['mkdp#util#install']() end,
-  -- },
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function()
+      vim.fn["mkdp#util#install"]()
+    end,
+  },
 
   { "dstein64/vim-startuptime", cmd = "StartupTime" }, -- ~stats~
 
@@ -74,7 +76,6 @@ require("lazy").setup({
           ["core.concealer"] = {}, -- Adds pretty icons to your documents
           ["core.keybinds"] = { -- Adds pretty icons to your documents
             config = {
-
               neorg_leader = "<Space>",
             },
           },

@@ -170,7 +170,6 @@ in
 
     # Default kube editor
     set -x KUBE_EDITOR nvim
-    set -x PYTHONBIN /etc/profiles/per-user/${username}/bin/python 
 
     # Setup for pipx
     fish_add_path -ag ~/.local/bin
