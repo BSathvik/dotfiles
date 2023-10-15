@@ -114,7 +114,10 @@ require("lazy").setup({
 
       local git_root = function()
         -- TODO: There's most definitely a better way to do this
-        local out = vim.api.nvim_cmd({ cmd = "!", args = { "git rev-parse --show-toplevel" } }, { output = true })
+        local out = vim.api.nvim_cmd(
+          { cmd = "!", args = { "git rev-parse --show-toplevel" } },
+          { output = true }
+        )
         local _, _, repo_root = string.find(out, "\n\n(.*)\n")
         return repo_root
       end
@@ -156,7 +159,6 @@ require("lazy").setup({
 
   {
     "akinsho/bufferline.nvim",
-    -- event = "BufReadPost",
     dependencies = "nvim-tree/nvim-web-devicons",
     config = function()
       require("bufferline").setup({})
