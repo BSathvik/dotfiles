@@ -15,10 +15,6 @@ vim.opt.rtp:prepend(lazypath)
 
 vim.g.python3_host_prog = os.getenv("PYTHONBIN")
 
-vim.g.black_linelength = 100
-vim.g.black_skip_string_normalization = 1
-vim.g.black_use_virtualenv = false
-
 -- Example using a list of specs with the default options
 vim.g.mapleader = " " -- Make sure to set `mapleader` before lazy so your mappings are correct
 vim.opt.laststatus = 2
@@ -115,6 +111,13 @@ require("lazy").setup({
           },
         },
       })
+
+      local git_root = function()
+        -- TODO: There's most definitely a better way to do this
+        local out = vim.api.nvim_cmd({ cmd = "!", args = { "git rev-parse --show-toplevel" } }, { output = true })
+        local _, _, repo_root = string.find(out, "\n\n(.*)\n")
+        return repo_root
+      end
 
       -- Enable telescope fzf native
       require("telescope").load_extension("fzf")
@@ -274,9 +277,6 @@ require("lazy").setup({
   },
 
   -- Non-LSP language support (formatters mostly)
-  "google/vim-jsonnet",
-  "rust-lang/rust.vim",
-  "psf/black",
   "nathangrigg/vim-beancount",
 
   {
@@ -287,6 +287,8 @@ require("lazy").setup({
         pattern = "*",
       })
 
+      local util = require("formatter.util")
+
       require("formatter").setup({
         logging = true,
         filetype = {
@@ -295,6 +297,33 @@ require("lazy").setup({
           },
           nix = {
             require("formatter.filetypes.nix").nixpkgs_fmt,
+          },
+          rust = {
+            require("formatter.filetypes.rust").rustfmt,
+          },
+          python = {
+            function()
+              return {
+                exe = "black",
+                args = { "-q", "-S", "-l", 100, "-" },
+                stdin = true,
+              }
+            end,
+          },
+          jsonnet = {
+            function()
+              return {
+                exe = "jsonnetfmt",
+                args = {
+                  "--comment-style",
+                  "s",
+                  "--string-style",
+                  "d",
+                  util.get_current_buffer_file_path(),
+                },
+                stdin = true,
+              }
+            end,
           },
         },
       })
@@ -377,6 +406,7 @@ require("lazy").setup({
               workspace = {
                 -- Make the server aware of Neovim runtime files
                 library = vim.api.nvim_get_runtime_file("", true),
+                checkThirdParty = false,
               },
             },
           },
@@ -568,29 +598,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   pattern = "*",
 })
 
--- Remove trailing spaces and tabs
--- This may be too slow, only enable for small files
--- vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
---   command = [[%s/\s\+$//e]],
---   pattern = { '*.py', '*.md', '*.html', '*.lua' }
--- })
-
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-  command = [[Black]],
-  pattern = { "*.py" },
-})
-
--- Setup plugins
-
--- google/vim-jsonnet
-vim.g.jsonnet_fmt_on_save = 1
-vim.g.jsonnet_fmt_options = "--comment-style s --string-style d"
-
--- rust options
-vim.g.rustfmt_autosave = 1
-vim.g.rustfmt_emit_files = 1
-vim.g.rustfmt_fail_silently = 0
-
 local function urlencode(url)
   if url == nil then
     return
@@ -611,10 +618,3 @@ vim.api.nvim_create_user_command("Maps", function()
   text = urlencode(table.concat(text, "+"))
   vim.api.nvim_command("!open 'https://google.com/maps/search/" .. text .. "'")
 end, { range = true })
-
-local git_root = function()
-  -- TODO: There's most definitely a better way to do this
-  local out = vim.api.nvim_cmd({ cmd = "!", args = { "git rev-parse --show-toplevel" } }, { output = true })
-  local _, _, repo_root = string.find(out, "\n\n(.*)\n")
-  return repo_root
-end
