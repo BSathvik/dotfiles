@@ -1,5 +1,4 @@
 { config, pkgs, lib, ... }:
-# Let-In ----------------------------------------------------------------------------------------{{{
 let
   inherit (config.lib.file) mkOutOfStoreSymlink;
   inherit (config.home.user-info) nixConfigDirectory;

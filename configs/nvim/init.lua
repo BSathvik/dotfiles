@@ -100,6 +100,7 @@ require("lazy").setup({
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope-fzf-native.nvim",
       "nvim-telescope/telescope-file-browser.nvim",
+      "xiyaowong/telescope-emoji.nvim",
     },
     config = function()
       require("telescope").setup({
@@ -126,6 +127,7 @@ require("lazy").setup({
       -- Enable telescope fzf native
       require("telescope").load_extension("fzf")
       require("telescope").load_extension("file_browser")
+      require("telescope").load_extension("emoji")
 
       vim.keymap.set("n", "<leader><space>", require("telescope.builtin").buffers)
       vim.keymap.set("n", "<leader>sb", require("telescope").extensions.file_browser.file_browser)
@@ -134,6 +136,7 @@ require("lazy").setup({
       vim.keymap.set("n", "<leader>ss", require("telescope.builtin").live_grep)
       vim.keymap.set("n", "<leader>sr", require("telescope.builtin").lsp_references)
       vim.keymap.set("n", "<leader>?", require("telescope.builtin").oldfiles)
+      vim.keymap.set("n", "<leader>e", require("telescope").extensions.emoji.emoji)
       vim.keymap.set("n", "<leader>sg", function()
         require("telescope.builtin").find_files({ cwd = git_root() })
       end)
@@ -162,7 +165,7 @@ require("lazy").setup({
     "akinsho/bufferline.nvim",
     dependencies = "nvim-tree/nvim-web-devicons",
     config = function()
-      require("bufferline").setup({})
+      require("bufferline").setup()
     end,
   },
 
@@ -422,7 +425,6 @@ require("lazy").setup({
   },
 
   {
-
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
     dependencies = {

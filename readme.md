@@ -6,25 +6,37 @@ This repo contains my Nix configs for macOS configuration for most tools/program
 
 ## How to get this running
 
-1. git clone into `~/.config/nixpkgs`
-2. Edit the `primaryUserDefaults` in `flake.nix`
-
+1. Clone repo into `~/.config/nixpkgs`
+2. Edit the `personalUser` in `flake.nix`
+3. Build nix flake for macOS `x86_64-darwin` 
 ```
-# this will pull in nix-darwin and setup stuff
-nix build .#darwinConfigurations.bootstrap-x86.system
-
-# to switch run
-./result/sw/bin/darwin-rebuild switch --flake .#macOS
+nix build .#darwinConfigurations.personalMac.system
 ```
+4. Apply home-manager configuration
+```
+./result/sw/bin/darwin-rebuild switch --flake .#personalMac
+```
+5. Add SSH key `~/.ssh/github` for git authentication.
 
-3. For homebrew to work, it needs to be installed separately and enable it `flake.nix`
+## What's in the box? 📦 
 
-4. you'll want to setup github public key using https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+Configuration for neovim, tmux, fish, languages I use and their tools and some macOS settings.
+
+#### neovim
+
+I refuse to move my neovim config into nix 
+
+## Extras
+
+### Homebrew
+
+For homebrew to work, it needs to be installed separately and enabled `flake.nix`
+
 ```
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 ```
 
-## Troubleshooting
+### Troubleshooting
 
 *Broken dawrin installation*: https://github.com/NixOS/nix/issues/2899#issuecomment-1669501326
 
