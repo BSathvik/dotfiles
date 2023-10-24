@@ -5,15 +5,6 @@
     enableFishIntegration = true;
   };
 
-  home.pip = {
-    enable = true;
-    settings = {
-      global = {
-        index-url = https://pypi.beta-p.kensho.com/simple/;
-      };
-    };
-  };
-
   programs.tmux = {
     enable = true;
     baseIndex = 1;

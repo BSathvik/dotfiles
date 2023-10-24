@@ -152,7 +152,12 @@
           system = "x86_64-darwin";
         });
 
-        workMac = self.darwinConfigurations.personalMac.override (old: old // workUser);
+        workMac = self.darwinConfigurations.personalMac.override
+          (old: old // workUser // {
+            extraHomeModules = singleton {
+              work = import ./home/work.nix;
+            };
+          });
 
         # Config with small modifications needed/desired for CI with GitHub workflow
         githubCI = self.darwinConfigurations.personalMac.override {
