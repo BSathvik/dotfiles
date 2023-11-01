@@ -154,7 +154,7 @@
 
         workMac = self.darwinConfigurations.personalMac.override
           (old: old // workUser // {
-            extraHomeModules = singleton {
+            extraHomeModules = attrValues {
               work = import ./home/work.nix;
             };
           });

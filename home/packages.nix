@@ -122,6 +122,7 @@
         aws-iam-authenticator
         jsonnet# ships with jsonnetfmt
         jrsonnet# is _blazingling_ fast
+        okta-aws-cli
         ;
 
       # Dev stuff
