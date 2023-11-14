@@ -347,7 +347,6 @@ require("lazy").setup({
 
   {
     "williamboman/mason-lspconfig.nvim",
-    cmd = "MasonLoad",
     dependencies = { "williamboman/mason.nvim" },
     config = function()
       require("mason-lspconfig").setup({
@@ -599,6 +598,8 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   group = highlight_group,
   pattern = "*",
 })
+
+vim.api.nvim_create_user_command("MasonAll", [[Mason install stylua]], {})
 
 local function urlencode(url)
   if url == nil then

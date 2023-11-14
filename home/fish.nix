@@ -12,7 +12,6 @@ in
 
   # Add Fish plugins
   home.packages = [
-    pkgs.fishPlugins.done
     pkgs.fishPlugins.fzf-fish
     pkgs.fishPlugins.hydro
   ];
@@ -46,6 +45,20 @@ in
       set password $(aws rds generate-db-auth-token --hostname $rds_host --port 5432 --region us-east-1 --username $rds_user)
       set -x PGPASSWORD $password
       psql "sslmode=require host=$rds_host user=$rds_user dbname=postgres"
+    '';
+
+
+    # Connect to AWS via Okta
+    okta-aws.body = ''
+      okta-aws-cli \
+                  --org-domain=kensho.okta.com \
+                  --oidc-client-id=0oacyf7evwyrXjjgO4x7 \
+                  --aws-acct-fed-app-id=0oa92bduvp33uw5Pv4x7 \
+                  --open-browser \
+                  --write-aws-credentials \
+                  --cache-access-token \
+                  --session-duration 36000 \
+                  --profile kensho
     '';
 
     # Toggles `$term_background` between "light" and "dark". Other Fish functions trigger when this
@@ -178,6 +191,9 @@ in
     set -gx KD_REGISTRY_USER_NAME vik
     set -gx KD_HARBOR_PROJECT dev-sathvik-birudavolu
     # set -x KD_REGISTRY_CLI_SECRET get_this_from_harbor
+
+    # Select the `kensho` AWS profile by default
+    set -gx AWS_PROFILE kensho
 
     fzf_configure_bindings --directory=\cs --variables=\e\cv
 
