@@ -1,6 +1,6 @@
 # My Nix Configs
 
-![Build Nix envs](https://github.com/BSathvik/nixpkgs/workflows/Build%20Nix%20envs/badge.svg)
+![Build Nix envs](https://github.com/BSathvik/dotfiles/workflows/Build%20Nix%20envs/badge.svg)
 
 This repo contains my Nix configs for macOS configuration for most tools/programs I use, at least in the terminal.
 
