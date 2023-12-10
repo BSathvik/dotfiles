@@ -105,6 +105,7 @@
       # Some basics
       inherit (pkgs)
         coreutils
+        wget
         du-dust# fancy version of `du`
         eza# fancy version of `ls`
         fzf
@@ -123,6 +124,7 @@
         jsonnet# ships with jsonnetfmt
         jrsonnet# is _blazingling_ fast
         okta-aws-cli
+        postgresql_15# Required for psql
         ;
 
       # Dev stuff
@@ -154,5 +156,6 @@
         ;
     }) ++ [
     (pkgs.python39.withPackages (ps: with ps; [ pipx black pynvim ]))
+    pkgs.unixtools.watch
   ];
 }

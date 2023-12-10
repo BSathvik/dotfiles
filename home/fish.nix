@@ -49,6 +49,7 @@ in
 
 
     # Connect to AWS via Okta
+    # Ops role only 1h session duration
     okta-aws.body = ''
       okta-aws-cli \
                   --org-domain=kensho.okta.com \
@@ -57,7 +58,7 @@ in
                   --open-browser \
                   --write-aws-credentials \
                   --cache-access-token \
-                  --session-duration 36000 \
+                  --session-duration 3600 \
                   --profile kensho
     '';
 
@@ -168,8 +169,11 @@ in
     tb = "toggle-background";
 
     # k8s
-    kbh = "kubectl --context beta-hulk.kube.kensho.com -n \$KNAME";
-    k = "kubectl";
+    kbh = "kubectl --context beta-hulk.kube.kensho.com";
+    kbh-ns = "kubectl config set-context beta-hulk.kube.kensho.com --cluster=beta-hulk.kube.kensho.com --namespace";
+
+    kt = "kubectl --context test.kube.kensho.com";
+    kt-ns = "kubectl config set-context test.kube.kensho.com --cluster=test.kube.kensho.com --namespace";
   };
 
   # Configuration that should be above `loginShellInit` and `interactiveShellInit`.
