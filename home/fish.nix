@@ -50,7 +50,20 @@ in
 
     # Connect to AWS via Okta
     # Ops role only 1h session duration
-    okta-aws.body = ''
+    auth.body = ''
+      okta-aws-cli \
+                  --org-domain=kensho.okta.com \
+                  --oidc-client-id=0oacyf7evwyrXjjgO4x7 \
+                  --aws-acct-fed-app-id=0oa92bduvp33uw5Pv4x7 \
+                  --open-browser \
+                  --write-aws-credentials \
+                  --cache-access-token \
+                  --session-duration 36000 \
+                  --profile kensho \
+                  --aws-iam-role arn:aws:iam::208007848330:role/kensho_infra_developer
+    '';
+
+    authops.body = ''
       okta-aws-cli \
                   --org-domain=kensho.okta.com \
                   --oidc-client-id=0oacyf7evwyrXjjgO4x7 \
@@ -59,7 +72,8 @@ in
                   --write-aws-credentials \
                   --cache-access-token \
                   --session-duration 3600 \
-                  --profile kensho
+                  --profile kensho \
+                  --aws-iam-role arn:aws:iam::208007848330:role/kensho_ops
     '';
 
     # Toggles `$term_background` between "light" and "dark". Other Fish functions trigger when this
