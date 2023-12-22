@@ -389,14 +389,13 @@ require("lazy").setup({
         lspconfig[lsp].setup({
           on_attach = on_attach,
           capabilities = capabilities,
-          -- "rust-analyzer.diagnostics.disabled":
+          -- "rust-analyzer.diagnostics.disabled": ["unresolved-proc-macro"]
           settings = {
-            ["rust-analyzer"] = {
-              diagnostics = {
-                disabled = { "unresolved-proc-macro" },
-              },
-            },
-            python = {
+     ['rust-analyzer'] = {
+      diagnostics = {
+        enable = false;
+      }
+    },           python = {
               analysis = {
                 autoSearchPaths = true,
                 diagnosticMode = "workspace",
