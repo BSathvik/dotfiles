@@ -13,10 +13,10 @@
     extraConfig = ''
       set -sg escape-time 10 
 
-      set-option -g status-bg "#e82424"
+      set-option -g status-bg "#FB607F"
       set-option -g status-fg "#19191F" 
       # pane border
-      set-option -g pane-active-border-style fg="#e82424" #base01
+      set-option -g pane-active-border-style fg="#FB607F" #base01
 
       set -g window-status-format '#I:#(pwd="#{pane_current_path}"; echo ''${pwd####*/})#F'
       set -g window-status-current-format '#I:#(pwd="#{pane_current_path}"; echo ''${pwd####*/})#F'
@@ -48,6 +48,8 @@
       bind c new-window -c "#{pane_current_path}"
       bind '"' split-window -c "#{pane_current_path}"
       bind % split-window -h -c "#{pane_current_path}"
+
+      set-option -g renumber-windows on
     '';
     plugins = with pkgs; [
       tmuxPlugins.cpu
@@ -137,6 +139,7 @@
         rustc
         rustfmt
         nixpkgs-fmt
+        shellcheck
         ;
 
       # Useful nix related tools

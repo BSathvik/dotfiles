@@ -47,6 +47,7 @@
         # NOTE: Never mess with hostName on a company managed machine!
         hostName = null;
         computerName = "Sathvik’s Work MBP";
+        email = "sathvik.birudavolu@kensho.com";
       };
     in
     {
@@ -98,6 +99,16 @@
           jrsonnet = prev.jrsonnet.overrideAttrs {
             postInstall = ''
               rm -rf $out/lib/
+            '';
+          };
+        };
+
+        # neovim-unwrapped installs tree-sitter parsers that are added to the path that 
+        # conflict with nvim-treesitter parser install starting v9.4
+        neovim-unwrapped = final: prev: {
+          neovim-unwrapped = prev.neovim-unwrapped.overrideAttrs {
+            postInstall = ''
+              rm -rf $out/lib/nvim/parser/*
             '';
           };
         };

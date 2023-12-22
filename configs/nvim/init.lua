@@ -244,7 +244,6 @@ require("lazy").setup({
   -- tree-sitter for parsing, syntax highlighting and much more
   {
     "nvim-treesitter/nvim-treesitter",
-    event = "BufReadPost",
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
       "nvim-treesitter/nvim-treesitter-refactor",
@@ -350,6 +349,7 @@ require("lazy").setup({
     dependencies = { "williamboman/mason.nvim" },
     config = function()
       require("mason-lspconfig").setup({
+        -- TODO: Make sure to install tree-sitter-cli, stylua
         ensure_installed = required_servers,
         -- Don't automagically install server configured by lspconfig, add to required_servers
         automatic_installation = false,
@@ -598,8 +598,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   group = highlight_group,
   pattern = "*",
 })
-
-vim.api.nvim_create_user_command("MasonAll", [[Mason install stylua]], {})
 
 local function urlencode(url)
   if url == nil then
