@@ -70,6 +70,11 @@ require("lazy").setup({
     event = "VeryLazy",
     dependencies = "nvim-lua/plenary.nvim",
     config = function()
+      vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+        command = [[!cd ~/Documents/gdrive/notes && git add . && git commit -m "update notes" && git push origin]],
+        pattern = "*.norg",
+      })
+
       require("neorg").setup({
         load = {
           ["core.defaults"] = {}, -- Loads default behaviour
@@ -430,6 +435,14 @@ require("lazy").setup({
   },
 
   {
+    "ray-x/lsp_signature.nvim",
+    event = "VeryLazy",
+    config = function(_, opts)
+      require("lsp_signature").setup(opts)
+    end,
+  },
+
+  {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
     dependencies = {
@@ -587,8 +600,11 @@ vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Setup shortcuts for switching buffer
-vim.keymap.set("n", "¬", ":bnext<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "˙", ":bprevious<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "'", ":bnext<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", ";", ":bprevious<CR>", { noremap = true, silent = true })
+
+-- Hide all other split windows
+vim.keymap.set("n", "<C-w>z", ":vertical resize<CR>", { noremap = true, silent = true })
 
 -- Diagnostic keymaps
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
