@@ -15,6 +15,7 @@ vim.opt.rtp:prepend(lazypath)
 
 vim.g.mapleader = " " -- Make sure to set `mapleader` before lazy so your mappings are correct
 vim.opt.laststatus = 2
+-- vim.g.openingh_copy_to_register = true
 
 local required_servers = {
   "dockerls",
@@ -605,6 +606,9 @@ vim.keymap.set("n", ";", ":bprevious<CR>", { noremap = true, silent = true })
 
 -- Hide all other split windows
 vim.keymap.set("n", "<C-w>z", ":vertical resize<CR>", { noremap = true, silent = true })
+
+-- Copy full path name of file into clipboard
+vim.keymap.set("n", "<C-w>y", ":!echo $PWD/% | pbcopy<CR>", { noremap = true, silent = true })
 
 -- Diagnostic keymaps
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)

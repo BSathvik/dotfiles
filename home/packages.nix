@@ -13,10 +13,10 @@
     extraConfig = ''
       set -sg escape-time 10 
 
-      set-option -g status-bg "#FB607F"
+      set-option -g status-bg "#FFA500"
       set-option -g status-fg "#19191F" 
       # pane border
-      set-option -g pane-active-border-style fg="#FB607F" #base01
+      set-option -g pane-active-border-style fg="#FFA500" #base01
 
       set -g window-status-format '#I:#(pwd="#{pane_current_path}"; echo ''${pwd####*/})#F'
       set -g window-status-current-format '#I:#(pwd="#{pane_current_path}"; echo ''${pwd####*/})#F'
@@ -118,6 +118,8 @@
         ripgrep# better version of `grep`
         tealdeer# rust implementation of `tldr`
         diff-so-fancy# used for `git diff`
+        fq
+        jq
         ;
 
       # Kensho stuff
@@ -131,7 +133,6 @@
 
       # Dev stuff
       inherit (pkgs)
-        jq
         nodejs
         poetry
         go# Required for jsonnet-language-server
