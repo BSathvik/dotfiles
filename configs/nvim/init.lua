@@ -15,7 +15,6 @@ vim.opt.rtp:prepend(lazypath)
 
 vim.g.mapleader = " " -- Make sure to set `mapleader` before lazy so your mappings are correct
 vim.opt.laststatus = 2
--- vim.g.openingh_copy_to_register = true
 
 local required_servers = {
   "dockerls",
@@ -36,6 +35,8 @@ require("lazy").setup({
     "echasnovski/mini.nvim",
     config = function()
       require("mini.comment").setup({})
+      -- nix commentstring isn't set by default
+      vim.cmd([[autocmd FileType nix setlocal commentstring=#%s]])
       require("mini.surround").setup({})
       require("mini.move").setup({
         mappings = {
@@ -58,8 +59,6 @@ require("lazy").setup({
       vim.fn["mkdp#util#install"]()
     end,
   },
-
-  { "dstein64/vim-startuptime", cmd = "StartupTime" }, -- ~stats~
 
   -- Note taking
   {
@@ -157,13 +156,13 @@ require("lazy").setup({
       end)
     end,
   },
-  { "nvim-telescope/telescope-fzf-native.nvim", build = "make", lazy = true },
+  { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 
   -- Aesthetics
   {
-    "rebelot/kanagawa.nvim",
+    "projekt0n/github-nvim-theme",
     config = function()
-      require("kanagawa").setup({})
+      require("github-theme").setup({})
     end,
   },
 
@@ -178,6 +177,7 @@ require("lazy").setup({
   {
     "folke/todo-comments.nvim",
     event = "BufReadPost",
+
     config = function()
       require("todo-comments").setup({
         keywords = {
@@ -191,6 +191,7 @@ require("lazy").setup({
   {
     "lewis6991/gitsigns.nvim", -- Add git related info in the signs columns and popups
     event = "BufReadPost",
+
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       require("gitsigns").setup({
@@ -244,26 +245,40 @@ require("lazy").setup({
     end,
   },
 
-  "Almo7aya/openingh.nvim",
-  "sindrets/diffview.nvim",
+  {
+    "ruifm/gitlinker.nvim",
+    config = function()
+      require("gitlinker").setup({
+        opts = {
+          add_current_line_on_normal_mode = true,
+          action_callback = require("gitlinker.actions").open_in_browser,
+          print_url = true,
+        },
+        mappings = "<leader>go",
+      })
+    end,
+  },
+
+  { "sindrets/diffview.nvim"
+ },
 
   -- tree-sitter for parsing, syntax highlighting and much more
   {
     "nvim-treesitter/nvim-treesitter",
+
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
-      "nvim-treesitter/nvim-treesitter-refactor",
     },
     config = function()
-      local parser_path = vim.fn.stdpath("data") .. "/nvim-treesitter"
       require("nvim-treesitter.configs").setup({
+        modules = {},
+        sync_install = false,
+        ensure_installed = {},
+        ignore_install = {},
         highlight = {
           enable = true, -- false will disable the whole extension
-          disable = { "help" }, -- renders nvim docs weirdly
-          additional_vim_regex_highlighting = true,
         },
         auto_install = true,
-        parser_install_dir = parser_path,
         indent = {
           enable = true,
         },
@@ -282,16 +297,17 @@ require("lazy").setup({
           },
         },
       })
-      -- https://github.com/nvim-treesitter/nvim-treesitter#changing-the-parser-install-directory
-      vim.opt.runtimepath:append(parser_path)
     end,
   },
 
   -- Non-LSP language support (formatters mostly)
-  "nathangrigg/vim-beancount",
+  { "nathangrigg/vim-beancount"
+ },
 
   {
     "mhartington/formatter.nvim",
+
+    event = "VeryLazy",
     config = function()
       vim.api.nvim_create_autocmd({ "BufWritePost" }, {
         command = [[FormatWrite]],
@@ -345,17 +361,22 @@ require("lazy").setup({
   {
     "williamboman/mason.nvim",
     event = "VeryLazy",
+
     config = function()
       require("mason").setup({})
+      if not require("mason-registry").is_installed("stylua") then
+        vim.cmd([[MasonInstall stylua]])
+      end
     end,
   },
 
   {
     "williamboman/mason-lspconfig.nvim",
     dependencies = { "williamboman/mason.nvim" },
+    event = "VeryLazy",
+
     config = function()
       require("mason-lspconfig").setup({
-        -- TODO: Make sure to install tree-sitter-cli, stylua
         ensure_installed = required_servers,
         -- Don't automagically install server configured by lspconfig, add to required_servers
         automatic_installation = false,
@@ -586,7 +607,7 @@ set.list = true
 -- Setup autocmds
 
 -- to change to light mode
-vim.cmd([[colorscheme kanagawa-dragon]])
+vim.cmd([[colorscheme github_dark]])
 
 vim.keymap.set("n", "<leader>/", ":noh<CR>", { noremap = true, silent = true })
 
@@ -595,6 +616,9 @@ vim.keymap.set("n", "L", "$", { noremap = true, silent = true })
 
 -- Remap space as leader key
 vim.keymap.set({ "n", "v" }, "<leader>", "<Nop>", { silent = true })
+
+-- Save file
+vim.keymap.set("n", "<C-s>", ":update<CR>", { noremap = true, silent = true })
 
 -- Remap for dealing with word wrap
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
