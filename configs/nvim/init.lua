@@ -167,6 +167,13 @@ require("lazy").setup({
   },
 
   {
+    "rebelot/kanagawa.nvim",
+    config = function()
+      require("kanagawa").setup()
+    end,
+  },
+
+  {
     "akinsho/bufferline.nvim",
     dependencies = "nvim-tree/nvim-web-devicons",
     config = function()
@@ -254,13 +261,15 @@ require("lazy").setup({
           action_callback = require("gitlinker.actions").open_in_browser,
           print_url = true,
         },
+        callbacks = {
+          ["github.kensho.com"] = require("gitlinker.hosts").get_github_type_url,
+        },
         mappings = "<leader>go",
       })
     end,
   },
 
-  { "sindrets/diffview.nvim"
- },
+  { "sindrets/diffview.nvim" },
 
   -- tree-sitter for parsing, syntax highlighting and much more
   {
@@ -301,8 +310,7 @@ require("lazy").setup({
   },
 
   -- Non-LSP language support (formatters mostly)
-  { "nathangrigg/vim-beancount"
- },
+  { "nathangrigg/vim-beancount" },
 
   {
     "mhartington/formatter.nvim",
@@ -607,7 +615,7 @@ set.list = true
 -- Setup autocmds
 
 -- to change to light mode
-vim.cmd([[colorscheme github_dark]])
+vim.cmd([[colorscheme kanagawa]])
 
 vim.keymap.set("n", "<leader>/", ":noh<CR>", { noremap = true, silent = true })
 

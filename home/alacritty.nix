@@ -4,7 +4,7 @@
   # Alacritty terminal
   programs.alacritty.enable = true;
 
-  programs.alacritty.settings = {
+  programs.alacritty.settings = rec {
     shell = {
       program = "${pkgs.fish}/bin/fish";
       args = [ "-c" "${pkgs.tmux}/bin/tmux attach || ${pkgs.tmux}/bin/tmux" ];
@@ -35,8 +35,47 @@
       size = 15.0;
     };
 
+    # Select the coloscheme
+    colors = kanagawa;
+
+    # Alabaster
+    # https://github.com/alacritty/alacritty-theme/blob/master/themes/alabaster.toml
+    alabaster = {
+      primary = {
+        background = "#F7F7F7";
+        foreground = "#434343";
+      };
+
+      cursor = {
+        text = "#F7F7F7";
+        cursor = "#434343";
+      };
+
+      normal = {
+        black = "#000000";
+        red = "#AA3731";
+        green = "#448C27";
+        yellow = "#CB9000";
+        blue = "#325CC0";
+        magenta = "#7A3E9D";
+        cyan = "#0083B2";
+        white = "#BBBBBB";
+      };
+
+      bright = {
+        black = "#777777";
+        red = "#F05050";
+        green = "#60CB00";
+        yellow = "#FFBC5D";
+        blue = "#007ACC";
+        magenta = "#E64CE6";
+        cyan = "#00AACB";
+        white = "#FFFFFF";
+      };
+    };
+
     # Kanagawa Alacritty Colors
-    colors = {
+    kanagawa = {
       primary = {
         background = "0x1f1f28";
         foreground = "0xdcd7ba";

@@ -120,6 +120,8 @@
         diff-so-fancy# used for `git diff`
         fq
         jq
+        yq
+        tailspin
         ;
 
       # Kensho stuff
