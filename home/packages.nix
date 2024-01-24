@@ -55,6 +55,10 @@
       tmuxPlugins.cpu
       tmuxPlugins.extrakto
       {
+        plugin = tmuxPlugins.tmux-thumbs;
+        extraConfig = "set -g @thumbs-command 'echo -n {} | pbcopy'";
+      }
+      {
         plugin = tmuxPlugins.resurrect;
         extraConfig = "set -g @resurrect-strategy-nvim 'session'";
       }
@@ -127,7 +131,7 @@
       # Kensho stuff
       inherit (pkgs)
         aws-iam-authenticator
-        jsonnet# ships with jsonnetfmt
+        go-jsonnet#ships with jsonnetfmt (issue with `jsonnet` build)
         jrsonnet# is _blazingling_ fast
         okta-aws-cli
         postgresql_15# Required for psql
