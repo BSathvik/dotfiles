@@ -633,8 +633,8 @@ vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Setup shortcuts for switching buffer
-vim.keymap.set("n", "'", ":bnext<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", ";", ":bprevious<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-m>", ":bnext<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-n>", ":bprevious<CR>", { noremap = true, silent = true })
 
 -- Hide all other split windows
 vim.keymap.set("n", "<C-w>z", ":vertical resize<CR>", { noremap = true, silent = true })
