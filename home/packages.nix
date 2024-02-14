@@ -56,7 +56,10 @@
       tmuxPlugins.extrakto
       {
         plugin = tmuxPlugins.tmux-thumbs;
-        extraConfig = "set -g @thumbs-command 'echo -n {} | pbcopy'";
+        extraConfig = ''
+          set -g @thumbs-command 'echo -n {} | pbcopy'
+          set -g @thumbs-regexp-1 '([a-z0-9-]+)[ ]+[0-9]+' # Match kube resources
+        '';
       }
       {
         plugin = tmuxPlugins.resurrect;
