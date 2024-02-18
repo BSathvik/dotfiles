@@ -82,7 +82,7 @@
 
         # these checks keep failing, let's override this for now
         fzf-fish = final: prev: {
-          fishPlugins = prev.fishPlugins.overrideScope' (ffinal: fprev: {
+          fishPlugins = prev.fishPlugins.overrideScope (ffinal: fprev: {
             fishtape_3 = fprev.fishtape_3.overrideAttrs (oldAttrs: {
               checkPhase = null;
             });

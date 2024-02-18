@@ -169,7 +169,7 @@
         m-cli# useful macOS CLI commands
         ;
     }) ++ [
-    (pkgs.python39.withPackages (ps: with ps; [ pipx black pynvim ]))
+    (pkgs.python310.withPackages (ps: with ps; [ pipx black pynvim ]))
     pkgs.unixtools.watch
   ];
 }
