@@ -129,6 +129,7 @@
         jq
         yq
         tailspin
+        tmux-xpanes
         ;
 
       # Kensho stuff

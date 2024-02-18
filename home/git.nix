@@ -3,37 +3,40 @@
 {
   # Git
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.git.enable
-  programs.git.enable = true;
+  programs.git = {
+    enable = true;
 
-  programs.git.extraConfig = {
-    diff.colorMoved = "default";
-    pull.rebase = true;
-  };
+    extraConfig = {
+      diff.colorMoved = "default";
+      pull.rebase = true;
+      core.editor = "nvim";
+    };
 
-  programs.git.ignores = [
-    ".DS_Store"
-  ];
+    ignores = [
+      ".DS_Store"
+    ];
 
-  programs.git.userEmail = config.home.user-info.email;
-  programs.git.userName = config.home.user-info.fullName;
+    userEmail = config.home.user-info.email;
+    userName = config.home.user-info.fullName;
 
-  # Enhanced diffs
-  programs.git.delta.enable = true;
+    # Enhanced diffs
+    delta.enable = true;
 
-  programs.git.aliases = {
-    # Basic commands
-    a = "add";
-    d = "diff";
-    ds = "diff --staged";
-    pl = "pull";
-    pu = "push";
-    s = "status";
-    co = "checkout";
-    cob = "checkout -b";
-    com = "checkout master";
-    cm = "commit -m";
-    lg = "log --graph --abbrev-commit --decorate --format=format:'%C(blue)%h%C(reset) - %C(green)(%ar)%C(reset) %s %C(italic)- %an%C(reset)%C(magenta bold)%d%C(reset)' --all";
-    rs = "restore --staged";
+    aliases = {
+      # Basic commands
+      a = "add";
+      d = "diff";
+      ds = "diff --staged";
+      pl = "pull";
+      pu = "push";
+      s = "status";
+      co = "checkout";
+      cob = "checkout -b";
+      com = "checkout master";
+      cm = "commit -m";
+      lg = "log --graph --abbrev-commit --decorate --format=format:'%C(blue)%h%C(reset) - %C(green)(%ar)%C(reset) %s %C(italic)- %an%C(reset)%C(magenta bold)%d%C(reset)' --all";
+      rs = "restore --staged";
+    };
   };
 
   # GitHub CLI
