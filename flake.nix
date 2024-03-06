@@ -92,14 +92,32 @@
           });
         };
 
-        # jrsonnet postInstall creates a $out/bin/jsonnet link and .dylib for c++ binding 
-        # that's in conflict with jsonnet, don't need either
-        # I want both since jrsonnet doesn't ship with jsonnetfmt
+        # We want the latest version of jrsonnet, it has a fix for a rendering issue
+        # https://github.com/CertainLach/jrsonnet/issues/93
         jrsonnet = final: prev: {
-          jrsonnet = prev.jrsonnet.overrideAttrs {
-            postInstall = ''
-              rm -rf $out/lib/
-            '';
+          # TODO: I copy pasta. There must be a better way of overriding version
+          # https://github.com/NixOS/nixpkgs/blob/nixos-23.11/pkgs/development/compilers/jrsonnet/default.nix#L14C3-L14C12
+          jrsonnet = prev.rustPlatform.buildRustPackage rec {
+            pname = "jrsonnet";
+            version = "0.5.0-pre96-test";
+
+            src = prev.fetchFromGitHub {
+              rev = "v${version}";
+              owner = "CertainLach";
+              repo = "jrsonnet";
+              sha256 = "sha256-lap1SYWdJ2igxTAWxKKmZEfPU8IMWTcbppLrPh8Shbk=";
+            };
+
+            cargoLock = {
+              lockFile = ./Cargo.lock;
+              outputHashes = { };
+            };
+            nativeBuildInputs = [ prev.installShellFiles ];
+            # skip flaky tests
+            checkFlags = [
+              "--skip=tests::native_ext"
+            ];
+            postInstall = "";
           };
         };
 
@@ -232,7 +250,7 @@
               {
                 inherit (pkgs) pyright pkg-config;
               } ++ singleton (
-              pkgs.python39.withPackages (ps: with ps; [ (pkgs.callPackage kensho-deploy { }) ])
+              pkgs.python39.withPackages (ps: with ps; [ (pkgs.callPackage { }) ])
             );
           };
         };

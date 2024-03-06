@@ -201,6 +201,8 @@ in
 
     # Default kube editor
     set -x KUBE_EDITOR nvim
+    set -x EDITOR nvim
+    set -x VISUAL nvim
 
     # Setup for pipx
     fish_add_path -ag ~/.local/bin

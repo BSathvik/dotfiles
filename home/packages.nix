@@ -138,7 +138,8 @@
         go-jsonnet#ships with jsonnetfmt (issue with `jsonnet` build)
         jrsonnet# is _blazingling_ fast
         okta-aws-cli
-        postgresql_15# Required for psql
+        # postgresql_16# Required for psql
+        postgresql# Required for psql
         ;
 
       # Dev stuff
