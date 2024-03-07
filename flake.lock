@@ -74,6 +74,22 @@
         "type": "github"
       }
     },
+    "jrsonnet": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1709493361,
+        "narHash": "sha256-FzvxlhxdCyUnXh67L3I4PAP1xZZsVBVqXm4ZtzKVxkw=",
+        "owner": "CertainLach",
+        "repo": "jrsonnet",
+        "rev": "000d927bc64103f610d5491ea98cc2c0cf50a059",
+        "type": "github"
+      },
+      "original": {
+        "owner": "CertainLach",
+        "repo": "jrsonnet",
+        "type": "github"
+      }
+    },
     "nixpkgs-master": {
       "locked": {
         "lastModified": 1708239725,
@@ -128,6 +144,7 @@
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
+        "jrsonnet": "jrsonnet",
         "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable"

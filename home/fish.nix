@@ -200,9 +200,9 @@ in
     set -g fish_greeting ""
 
     # Default kube editor
-    set -x KUBE_EDITOR nvim
-    set -x EDITOR nvim
-    set -x VISUAL nvim
+    set -gx KUBE_EDITOR nvim
+    set -gx EDITOR nvim
+    set -gx VISUAL nvim
 
     # Setup for pipx
     fish_add_path -ag ~/.local/bin

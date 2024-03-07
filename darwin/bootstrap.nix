@@ -21,6 +21,7 @@
     experimental-features = [
       "nix-command"
       "flakes"
+      "ca-derivations"
     ];
 
     extra-platforms = lib.mkIf (pkgs.system == "aarch64-darwin") [ "x86_64-darwin" "aarch64-darwin" ];

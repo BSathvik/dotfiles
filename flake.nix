@@ -16,6 +16,9 @@
     # Flake utilities
     flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
     flake-utils.url = "github:numtide/flake-utils";
+
+    # jrsonnet
+    jrsonnet = { url = "github:CertainLach/jrsonnet"; flake = false; };
   };
 
   outputs = { self, darwin, home-manager, flake-utils, ... }@inputs:
@@ -95,29 +98,9 @@
         # We want the latest version of jrsonnet, it has a fix for a rendering issue
         # https://github.com/CertainLach/jrsonnet/issues/93
         jrsonnet = final: prev: {
-          # TODO: I copy pasta. There must be a better way of overriding version
-          # https://github.com/NixOS/nixpkgs/blob/nixos-23.11/pkgs/development/compilers/jrsonnet/default.nix#L14C3-L14C12
-          jrsonnet = prev.rustPlatform.buildRustPackage rec {
-            pname = "jrsonnet";
-            version = "0.5.0-pre96-test";
-
-            src = prev.fetchFromGitHub {
-              rev = "v${version}";
-              owner = "CertainLach";
-              repo = "jrsonnet";
-              sha256 = "sha256-lap1SYWdJ2igxTAWxKKmZEfPU8IMWTcbppLrPh8Shbk=";
-            };
-
-            cargoLock = {
-              lockFile = ./Cargo.lock;
-              outputHashes = { };
-            };
-            nativeBuildInputs = [ prev.installShellFiles ];
-            # skip flaky tests
-            checkFlags = [
-              "--skip=tests::native_ext"
-            ];
-            postInstall = "";
+          # TODO: Fix after pr to support darwin gets merged
+          jrsonnet = prev.callPackage (inputs.jrsonnet + /nix/jrsonnet.nix) {
+            rustPlatform = prev.rustPlatform;
           };
         };
 
