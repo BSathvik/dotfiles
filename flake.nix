@@ -60,31 +60,27 @@
       # Add some additional functions to `lib`.
       lib = inputs.nixpkgs-unstable.lib.extend (_: _: {
         mkDarwinSystem = import ./lib/mkDarwinSystem.nix inputs;
-        lsnix = import ./lib/lsnix.nix;
       });
 
       # Modules -------------------------------------------------------------------------------- {{{
 
       darwinModules = {
         # My configurations
-        bootstrap = import ./darwin/bootstrap.nix;
-        defaults = import ./darwin/defaults.nix;
-        general = import ./darwin/general.nix;
+        darwin = import ./darwin.nix;
 
         # Modules I've created
-        users-primaryUser = import ./modules/darwin/users.nix;
+        users-primaryUser = import ./lib/users.nix;
       };
 
       homeManagerModules = {
         # My configurations
         fish = import ./home/fish.nix;
-        git = import ./home/git.nix;
+        tmux = import ./home/tmux.nix;
         alacritty = import ./home/alacritty.nix;
-        neovim = import ./home/neovim.nix;
         packages = import ./home/packages.nix;
-        pip = import ./home/pip.nix;
 
         # Modules I've created
+        pip = import ./lib/pip.nix;
         home-user-info = { lib, ... }: {
           options.home.user-info =
             (self.darwinModules.users-primaryUser { inherit lib; }).options.users.primaryUser;
@@ -107,9 +103,9 @@
 
         workMac = self.darwinConfigurations.personalMac.override
           (old: old // workUser // {
-            extraHomeModules = attrValues {
-              work = import ./home/work.nix;
-            };
+            extraHomeModules = [
+              (import ./home/work.nix)
+            ];
           });
 
         # Config with small modifications needed/desired for CI with GitHub workflow
