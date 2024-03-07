@@ -32,7 +32,10 @@
           allowUnfree = true;
           permittedInsecurePackages = [ "python3.9-requests-2.29.0" ];
         };
-        overlays = attrValues self.overlays;
+        overlays = attrValues (import ./overlays.nix {
+          inherit (inputs) nixpkgs-unstable nixpkgs-stable jrsonnet;
+          inherit (self) nixpkgsDefaults;
+        });
       };
 
       personalUser = rec {
@@ -60,62 +63,6 @@
         lsnix = import ./lib/lsnix.nix;
       });
 
-      # Overlays --------------------------------------------------------------------------------{{{
-
-      overlays = {
-        # Overlays to add different versions `nixpkgs` into package set
-        pkgs-master = _: prev: {
-          pkgs-master = import inputs.nixpkgs-master {
-            inherit (prev.stdenv) system;
-            inherit (nixpkgsDefaults) config;
-          };
-        };
-        pkgs-stable = _: prev: {
-          pkgs-stable = import inputs.nixpkgs-stable {
-            inherit (prev.stdenv) system;
-            inherit (nixpkgsDefaults) config;
-          };
-        };
-        pkgs-unstable = _: prev: {
-          pkgs-unstable = import inputs.nixpkgs-unstable {
-            inherit (prev.stdenv) system;
-            inherit (nixpkgsDefaults) config;
-          };
-        };
-
-        # these checks keep failing, let's override this for now
-        fzf-fish = final: prev: {
-          fishPlugins = prev.fishPlugins.overrideScope (ffinal: fprev: {
-            fishtape_3 = fprev.fishtape_3.overrideAttrs (oldAttrs: {
-              checkPhase = null;
-            });
-            fzf-fish = fprev.fzf-fish.overrideAttrs (oldAttrs: {
-              checkPhase = null;
-            });
-          });
-        };
-
-        # We want the latest version of jrsonnet, it has a fix for a rendering issue
-        # https://github.com/CertainLach/jrsonnet/issues/93
-        jrsonnet = final: prev: {
-          # TODO: Fix after pr to support darwin gets merged
-          jrsonnet = prev.callPackage (inputs.jrsonnet + /nix/jrsonnet.nix) {
-            rustPlatform = prev.rustPlatform;
-          };
-        };
-
-        # neovim-unwrapped installs tree-sitter parsers that are added to the path that 
-        # conflict with nvim-treesitter parser install starting v9.4
-        neovim-unwrapped = final: prev: {
-          neovim-unwrapped = prev.neovim-unwrapped.overrideAttrs {
-            postInstall = ''
-              rm -rf $out/lib/nvim/parser/*
-            '';
-          };
-        };
-      };
-      # }}}
-
       # Modules -------------------------------------------------------------------------------- {{{
 
       darwinModules = {
@@ -123,7 +70,6 @@
         bootstrap = import ./darwin/bootstrap.nix;
         defaults = import ./darwin/defaults.nix;
         general = import ./darwin/general.nix;
-        homebrew = import ./darwin/homebrew.nix;
 
         # Modules I've created
         users-primaryUser = import ./modules/darwin/users.nix;
@@ -148,16 +94,11 @@
 
       # System configurations ------------------------------------------------------------------ {{{
 
-      darwinConfigurations = {
+      darwinConfigurations = rec {
         personalMac = makeOverridable self.lib.mkDarwinSystem (personalUser // {
           modules = attrValues self.darwinModules ++ singleton {
             nixpkgs = nixpkgsDefaults;
             nix.registry.my.flake = inputs.self;
-          };
-          # TODO: Re-enable when https://github.com/NixOS/nixpkgs/issues/243685 is resolved.
-          # extraModules = singleton { nix.linux-builder.enable = true; };
-          extraModules = singleton {
-            homebrew.enable = mkForce false;
           };
           inherit homeStateVersion;
           homeModules = attrValues self.homeManagerModules;
@@ -179,7 +120,6 @@
           extraModules = singleton {
             environment.etc.shells.enable = mkForce false;
             environment.etc."nix/nix.conf".enable = mkForce false;
-            homebrew.enable = mkForce false;
           };
         };
       };

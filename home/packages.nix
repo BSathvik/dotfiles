@@ -91,7 +91,6 @@
 
   # SSH
   # https://nix-community.github.io/home-manager/options.html#opt-programs.ssh.enable
-  # Some options also set in `../darwin/homebrew.nix`.
   programs.ssh.enable = true;
   programs.ssh.controlPath = "~/.ssh/%C"; # ensures the path is unique but also fixed length
   programs.ssh.matchBlocks = {

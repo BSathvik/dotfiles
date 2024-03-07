@@ -26,16 +26,6 @@ Configuration for neovim, tmux, fish, languages I use and their tools and some m
 
 I refuse to move my neovim config into nix 
 
-## Extras
-
-### Homebrew
-
-For homebrew to work, it needs to be installed separately and enabled `flake.nix`
-
-```
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-```
-
 ### Troubleshooting
 
 *Broken dawrin installation*: https://github.com/NixOS/nix/issues/2899#issuecomment-1669501326
