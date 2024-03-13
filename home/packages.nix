@@ -110,10 +110,14 @@ in
         yq
         tailspin
         tmux-xpanes
+        easyrsa
+        podman
+        qemu#required for podman
         ;
 
       # Kensho stuff
       inherit (pkgs)
+        awscli
         aws-iam-authenticator
         go-jsonnet#ships with jsonnetfmt (issue with `jsonnet` build)
         jrsonnet# is _blazingling_ fast

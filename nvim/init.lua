@@ -160,6 +160,16 @@ require("lazy").setup({
 
   -- Aesthetics
   {
+    "shortcuts/no-neck-pain.nvim",
+    version = "*",
+    config = function()
+      require("no-neck-pain").setup({
+        width = 110,
+      })
+    end,
+  },
+
+  {
     "projekt0n/github-nvim-theme",
     config = function()
       require("github-theme").setup({})
@@ -335,6 +345,9 @@ require("lazy").setup({
           },
           rust = {
             require("formatter.filetypes.rust").rustfmt,
+          },
+          html = {
+            require("formatter.filetypes.html").prettier,
           },
           python = {
             function()
@@ -627,6 +640,7 @@ vim.keymap.set({ "n", "v" }, "<leader>", "<Nop>", { silent = true })
 
 -- Save file
 vim.keymap.set("n", "<C-s>", ":write<CR>", { noremap = true, silent = true })
+vim.keymap.set("i", "<C-s>", "<cmd>write<CR><esc>", { silent = true })
 
 -- Remap for dealing with word wrap
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
