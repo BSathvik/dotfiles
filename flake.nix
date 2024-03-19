@@ -31,7 +31,7 @@
           allowUnfree = true;
           permittedInsecurePackages = [ "python3.9-requests-2.29.0" ];
         };
-        overlays = attrValues (import ./overlays.nix {
+        overlays = attrValues (import ./myOverlays.nix {
           inherit (inputs) nixpkgs-unstable nixpkgs-stable jrsonnet;
           inherit (self) nixpkgsDefaults;
         });

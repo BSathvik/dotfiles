@@ -70,10 +70,10 @@ require("lazy").setup({
     event = "VeryLazy",
     dependencies = "nvim-lua/plenary.nvim",
     config = function()
-      vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-        command = [[!cd ~/Documents/gdrive/notes && git add . && git commit -m "update notes" && git push origin]],
-        pattern = "*.norg",
-      })
+      -- vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+      --   command = [[!cd ~/Documents/gdrive/notes && git add . && git commit -m "update notes" && git push origin]],
+      --   pattern = "*.norg",
+      -- })
 
       require("neorg").setup({
         load = {

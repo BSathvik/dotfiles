@@ -200,6 +200,9 @@ in
     interactiveShellInit = ''
       set -g fish_greeting ""
 
+      fzf_configure_bindings --history=
+      fzf_configure_bindings --directory=\cs --variables=\e\cv
+
       # Default kube editor
       set -gx KUBE_EDITOR nvim
       set -gx EDITOR nvim
@@ -215,8 +218,6 @@ in
 
       # Select the `kensho` AWS profile by default
       set -gx AWS_PROFILE kensho
-
-      fzf_configure_bindings --directory=\cs --variables=\e\cv
 
       # Run function to set colors that are dependant on `$term_background` and to register them so
       # they are triggerd when the relevent event happens or variable changes.

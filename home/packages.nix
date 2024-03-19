@@ -89,6 +89,15 @@ in
   # https://github.com/ajeetdsouza/zoxide
   programs.zoxide.enable = true;
 
+  programs.atuin = {
+    enable = true;
+    flags = [ "--disable-up-arrow" ];
+    settings = {
+      invert = true;
+      inline_height = 30;
+    };
+  };
+
   home.packages = lib.attrValues
     ({
       # Some basics
@@ -121,7 +130,10 @@ in
         aws-iam-authenticator
         go-jsonnet#ships with jsonnetfmt (issue with `jsonnet` build)
         jrsonnet# is _blazingling_ fast
+        jsonnet-bundler
         okta-aws-cli
+        grizzly# grafana cli
+        # atuin#shell history
         # postgresql_16# Required for psql
         postgresql# Required for psql
         ;
@@ -130,12 +142,16 @@ in
       inherit (pkgs)
         nodejs
         poetry
+        black
+        # uv # let's just install it using pipx for now
         go# Required for jsonnet-language-server
         cargo# Required for rnix-ls
         rustc
         rustfmt
         nixpkgs-fmt
         shellcheck
+        pipx
+        python39
         ;
 
       # Useful nix related tools
@@ -154,7 +170,9 @@ in
         m-cli# useful macOS CLI commands
         ;
     }) ++ [
-    (pkgs.python310.withPackages (ps: with ps; [ pipx black pynvim ]))
+    # (pkgs.python39.withPackages (ps: with ps; [
+    #   pipx
+    # ]))
     pkgs.unixtools.watch
   ];
 }
