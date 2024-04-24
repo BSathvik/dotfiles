@@ -35,10 +35,7 @@
   # We want the latest version of jrsonnet, it has a fix for a rendering issue
   # https://github.com/CertainLach/jrsonnet/issues/93
   jrsonnet = final: prev: {
-    # TODO: Fix after pr to support darwin gets merged
-    jrsonnet = prev.callPackage (jrsonnet + /nix/jrsonnet.nix) {
-      rustPlatform = prev.rustPlatform;
-    };
+    jrsonnet = jrsonnet.packages.${prev.system}.jrsonnet;
   };
 
   # neovim-unwrapped installs tree-sitter parsers that are added to the path that 

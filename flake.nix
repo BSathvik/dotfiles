@@ -16,8 +16,7 @@
     flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
     flake-utils.url = "github:numtide/flake-utils";
 
-    # jrsonnet
-    jrsonnet = { url = "github:CertainLach/jrsonnet"; flake = false; };
+    jrsonnet.url = "github:CertainLach/jrsonnet";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
