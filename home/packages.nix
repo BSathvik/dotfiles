@@ -9,6 +9,7 @@ in
   xdg.configFile."nvim/lua".source = mkOutOfStoreSymlink "${nixConfigDirectory}/nvim";
   programs.neovim = {
     enable = true;
+    package = pkgs.neovim-nightly;
     extraConfig = "lua require('init')";
   };
 

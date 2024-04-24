@@ -18,6 +18,7 @@
 
     # jrsonnet
     jrsonnet = { url = "github:CertainLach/jrsonnet"; flake = false; };
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
   outputs = { self, darwin, home-manager, flake-utils, ... }@inputs:
@@ -31,10 +32,11 @@
           allowUnfree = true;
           permittedInsecurePackages = [ "python3.9-requests-2.29.0" ];
         };
-        overlays = attrValues (import ./myOverlays.nix {
-          inherit (inputs) nixpkgs-unstable nixpkgs-stable jrsonnet;
-          inherit (self) nixpkgsDefaults;
-        });
+        overlays = attrValues
+          (import ./myOverlays.nix {
+            inherit (inputs) nixpkgs-unstable nixpkgs-stable jrsonnet;
+            inherit (self) nixpkgsDefaults;
+          }) ++ [ inputs.neovim-nightly-overlay.overlay ];
       };
 
       personalUser = rec {
