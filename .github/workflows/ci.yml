@@ -46,7 +46,6 @@ jobs:
         # Create /run directory
         echo -e "run\tprivate/var/run" | sudo tee -a /etc/synthetic.conf >/dev/null
         /System/Library/Filesystems/apfs.fs/Contents/Resources/apfs.util -t &>/dev/null || true
-        echo "experimental-features = ca-derivations" >> /etc/nix/nix.conf
         # Prevent conflict between Cachix installed by workflow and the one installed in the config
         nix-env --set-flag priority 1 cachix
         # Build and switch to config 
