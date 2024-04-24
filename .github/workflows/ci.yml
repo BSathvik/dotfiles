@@ -76,6 +76,7 @@ jobs:
       with:
         extra_nix_config: |
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+          experimental-features = nix-command flakes ca-derivations
 
     - name: Setup Cachix
       uses: cachix/cachix-action@v12
