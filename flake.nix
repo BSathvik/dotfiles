@@ -90,6 +90,12 @@
       # System configurations ------------------------------------------------------------------ {{{
 
       darwinConfigurations = rec {
+        # Minimal macOS configurations to bootstrap systems
+        bootstrap-x86 = makeOverridable darwin.lib.darwinSystem {
+          system = "x86_64-darwin";
+          modules = [ ./darwin.nix { nixpkgs = nixpkgsDefaults; } ];
+        };
+
         personalMac = makeOverridable self.lib.mkDarwinSystem (personalUser // {
           modules = attrValues self.darwinModules ++ singleton {
             nixpkgs = nixpkgsDefaults;
