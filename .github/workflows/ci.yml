@@ -28,7 +28,6 @@ jobs:
       with:
         extra_nix_config: |
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-          experimental-features = nix-command flakes ca-derivations
 
     - name: Setup Cachix
       uses: cachix/cachix-action@v12
@@ -49,7 +48,7 @@ jobs:
         # Prevent conflict between Cachix installed by workflow and the one installed in the config
         nix-env --set-flag priority 1 cachix
         # Build and switch to config 
-        nix build .#darwinConfigurations.githubCI.system
+        nix build --extra-experimental-features ca-derivations .#darwinConfigurations.githubCI.system
         ./result/sw/bin/darwin-rebuild switch  --flake .#githubCI
 
     - name: If scheduled, push commit with updated inputs
@@ -75,7 +74,6 @@ jobs:
       with:
         extra_nix_config: |
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-          experimental-features = nix-command flakes ca-derivations
 
     - name: Setup Cachix
       uses: cachix/cachix-action@v12
