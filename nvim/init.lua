@@ -418,7 +418,7 @@ require("lazy").setup({
         local opts = { buffer = bufnr }
         vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
         vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-        vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
+        vim.keymap.set("n", "<C-g>", vim.lsp.buf.signature_help, opts)
         vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, opts)
         vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
         vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
@@ -687,6 +687,10 @@ local function urlencode(url)
   url = url:gsub(" ", "+")
   return url
 end
+
+vim.api.nvim_create_user_command("PR", function()
+  vim.api.nvim_command("!gh pr view --web")
+end, {})
 
 vim.api.nvim_create_user_command("Maps", function()
   local left, right = vim.api.nvim_buf_get_mark(0, "<"), vim.api.nvim_buf_get_mark(0, ">")
