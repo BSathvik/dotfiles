@@ -14,6 +14,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 vim.g.mapleader = " " -- Make sure to set `mapleader` before lazy so your mappings are correct
+vim.g.hardtime_default_on = 1
 vim.opt.laststatus = 2
 
 local required_servers = {
@@ -30,6 +31,8 @@ local required_servers = {
 
 require("lazy").setup({
   "christoomey/vim-tmux-navigator",
+
+  { "takac/vim-hardtime" },
 
   {
     "echasnovski/mini.nvim",
