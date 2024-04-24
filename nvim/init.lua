@@ -180,9 +180,9 @@ require("lazy").setup({
   },
 
   {
-    "rebelot/kanagawa.nvim",
+    "ramojus/mellifluous.nvim",
     config = function()
-      require("kanagawa").setup()
+      require("mellifluous").setup({}) -- optional, see configuration section.
     end,
   },
 
@@ -631,7 +631,7 @@ set.list = true
 -- Setup autocmds
 
 -- to change to light mode
-vim.cmd([[colorscheme kanagawa]])
+vim.cmd([[colorscheme mellifluous]])
 
 vim.keymap.set("n", "<leader>/", ":noh<CR>", { noremap = true, silent = true })
 
