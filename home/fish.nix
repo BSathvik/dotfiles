@@ -203,6 +203,9 @@ in
       fzf_configure_bindings --history=
       fzf_configure_bindings --directory=\cs --variables=\e\cv
 
+      bind \cu up-or-search
+      bind \ci down-or-search
+
       # Default kube editor
       set -gx KUBE_EDITOR nvim
       set -gx EDITOR nvim
@@ -210,6 +213,8 @@ in
 
       # Setup for pipx
       fish_add_path -ag ~/.local/bin
+      # Setup for luarocks
+      set -gx MY_LUA_PATH ${pkgs.luajit}
 
       # Setup harbor
       set -gx KD_REGISTRY_USER_NAME vik

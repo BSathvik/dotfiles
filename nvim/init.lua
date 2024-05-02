@@ -63,15 +63,25 @@ require("lazy").setup({
     end,
   },
 
+  -- Required for neorg 8.0+
+  {
+    "vhyrro/luarocks.nvim",
+    -- priority = 1000,
+    config = true,
+    event = "VeryLazy",
+    opts = {
+      luarocks_build_args = {
+        -- MY_LUA_PATH is set in fish.nix
+        "--with-lua-include=" .. os.getenv("MY_LUA_PATH") or "neesumhere" .. "/include",
+      },
+    },
+  },
+
   -- Note taking
   {
     "nvim-neorg/neorg",
-    -- macOS requires GCC with C++14 support
-    -- CC=gcc nvim -c "TSInstall norg"
-    build = ":Neorg sync-parsers",
-    ft = "neorg",
     event = "VeryLazy",
-    dependencies = "nvim-lua/plenary.nvim",
+    dependencies = { "luarocks.nvim", "nvim-treesitter" },
     config = function()
       -- vim.api.nvim_create_autocmd({ "BufWritePost" }, {
       --   command = [[!cd ~/Documents/gdrive/notes && git add . && git commit -m "update notes" && git push origin]],
@@ -82,6 +92,7 @@ require("lazy").setup({
         load = {
           ["core.defaults"] = {}, -- Loads default behaviour
           ["core.concealer"] = {}, -- Adds pretty icons to your documents
+          -- ["core.ui.calendar"] = {},
           ["core.keybinds"] = { -- Adds pretty icons to your documents
             config = {
               neorg_leader = "<Space>",

@@ -9,7 +9,7 @@ in
   xdg.configFile."nvim/lua".source = mkOutOfStoreSymlink "${nixConfigDirectory}/nvim";
   programs.neovim = {
     enable = true;
-    package = pkgs.neovim-nightly;
+    # package = pkgs.neovim-nightly;
     extraConfig = "lua require('init')";
   };
 
@@ -104,7 +104,6 @@ in
       # Some basics
       inherit (pkgs)
         coreutils
-        wget
         du-dust# fancy version of `du`
         eza# fancy version of `ls`
         fzf
@@ -153,6 +152,7 @@ in
         shellcheck
         pipx
         python39
+        luajit
         ;
 
       # Useful nix related tools
@@ -171,9 +171,7 @@ in
         m-cli# useful macOS CLI commands
         ;
     }) ++ [
-    # (pkgs.python39.withPackages (ps: with ps; [
-    #   pipx
-    # ]))
+    # (pkgs.python39.withPackages (ps: with ps; [ pipx ]))
     pkgs.unixtools.watch
   ];
 }

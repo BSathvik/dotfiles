@@ -13,8 +13,12 @@
     NSAutomaticCapitalizationEnabled = false;
     NSAutomaticDashSubstitutionEnabled = false;
     NSAutomaticPeriodSubstitutionEnabled = false;
+    NSAutomaticWindowAnimationsEnabled = false;
     _HIHideMenuBar = false;
   };
+
+  system.defaults.universalaccess.reduceTransparency = true;
+  system.defaults.universalaccess.reduceMotion = true;
 
   # Firewall
   system.defaults.alf = {

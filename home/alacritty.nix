@@ -12,7 +12,9 @@
     env = {
       "TERM" = "xterm-256color";
     };
-    window.startup_mode = "Fullscreen";
+
+    window.startup_mode = "Maximized";
+    window.decorations = "None";
 
     font = {
       normal = {

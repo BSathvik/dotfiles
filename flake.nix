@@ -35,7 +35,8 @@
           (import ./myOverlays.nix {
             inherit (inputs) nixpkgs-unstable nixpkgs-stable jrsonnet;
             inherit (self) nixpkgsDefaults;
-          }) ++ [ inputs.neovim-nightly-overlay.overlay ];
+          });
+	# ++ [ inputs.neovim-nightly-overlay.overlay ];
       };
 
       personalUser = rec {
