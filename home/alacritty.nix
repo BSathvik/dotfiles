@@ -71,6 +71,41 @@
       };
     };
 
+    # Kanagawa Alacritty Colors (Light Mode)
+    # colors = {
+    #   primary = {
+    #     background = "#F2ECBC";
+    #     foreground = "#54546D";
+    #   };
+    #
+    #   normal = {
+    #     black = "#090618";
+    #     red = "#c34043";
+    #     green = "#76946a";
+    #     yellow = "#c0a36e";
+    #     blue = "#7e9cd8";
+    #     magenta = "#957fb8";
+    #     cyan = "#6a9589";
+    #     white = "#c8c093";
+    #   };
+    #
+    #   bright = {
+    #     black = "#727169";
+    #     red = "#e82424";
+    #     green = "#98bb6c";
+    #     yellow = "#e6c384";
+    #     blue = "#7fb4ca";
+    #     magenta = "#938aa9";
+    #     cyan = "#7aa89f";
+    #     white = "#dcd7ba";
+    #   };
+    #
+    #   selection = {
+    #     background = "#2d4f67";
+    #     foreground = "#c8c093";
+    #   };
+    # };
+
     # Alabaster (Light Mode)
     # https://github.com/alacritty/alacritty-theme/blob/master/themes/alabaster.toml
 

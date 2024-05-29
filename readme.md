@@ -28,5 +28,6 @@ I refuse to move my neovim config into nix
 
 ### Troubleshooting
 
-*Broken dawrin installation*: https://github.com/NixOS/nix/issues/2899#issuecomment-1669501326
+- *Broken dawrin installation*: https://github.com/NixOS/nix/issues/2899#issuecomment-1669501326
+- Give "Full Disk Access" to Alacritty/terminal https://github.com/mathiasbynens/dotfiles/issues/820#issuecomment-498324762
 

@@ -8,10 +8,10 @@
     extraConfig = ''
       set -sg escape-time 10 
 
-      set-option -g status-bg "#FFA500"
-      set-option -g status-fg "#19191F" 
+      set-option -g status-bg "#E82424"
+      set-option -g status-fg "#DCD7BA" 
       # pane border
-      set-option -g pane-active-border-style fg="#FFA500" #base01
+      set-option -g pane-active-border-style fg="#E82424" #base01
 
       set -g window-status-format '#I:#(pwd="#{pane_current_path}"; echo ''${pwd####*/})#F'
       set -g window-status-current-format '#I:#(pwd="#{pane_current_path}"; echo ''${pwd####*/})#F'

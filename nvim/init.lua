@@ -14,7 +14,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 vim.g.mapleader = " " -- Make sure to set `mapleader` before lazy so your mappings are correct
-vim.g.hardtime_default_on = 1
+vim.g.hardtime_default_on = 0
 vim.opt.laststatus = 2
 
 local required_servers = {
@@ -174,6 +174,14 @@ require("lazy").setup({
 
   -- Aesthetics
   {
+    "norcalli/nvim-colorizer.lua",
+    event = "VeryLazy",
+    config = function()
+      require("colorizer").setup()
+    end,
+  },
+
+  {
     "shortcuts/no-neck-pain.nvim",
     version = "*",
     config = function()
@@ -184,16 +192,45 @@ require("lazy").setup({
   },
 
   {
-    "projekt0n/github-nvim-theme",
+    "rebelot/kanagawa.nvim",
+    lazy = false,
+    priority = 1000,
     config = function()
-      require("github-theme").setup({})
+      require("kanagawa").setup({
+        commentStyle = {},
+        functionStyle = { bold = true },
+        keywordStyle = { bold = true },
+        statementStyle = { bold = true },
+        typeStyle = { bold = true },
+        transparent = false, -- do not set background color
+        dimInactive = false, -- dim inactive window `:h hl-NormalNC`
+        terminalColors = true, -- define vim.g.terminal_color_{0,17}
+        colors = { -- add/modify theme and palette colors
+          palette = {},
+          theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
+        },
+        overrides = function(colors) -- add/modify highlights
+          return {}
+        end,
+        theme = "wave", -- Load "wave" theme when 'background' option is not set
+        background = { -- map the value of 'background' option to a theme
+          dark = "wave", -- try "dragon" !
+          light = "lotus",
+        },
+      })
     end,
   },
 
   {
-    "ramojus/mellifluous.nvim",
+    "nvim-lualine/lualine.nvim",
     config = function()
-      require("mellifluous").setup({}) -- optional, see configuration section.
+      require("lualine").setup({
+        options = {
+          theme = "gruvbox_dark",
+          section_separators = "",
+          component_separators = "",
+        },
+      })
     end,
   },
 
@@ -530,7 +567,7 @@ require("lazy").setup({
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<CR>"] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Replace,
-            select = true,
+            select = false,
           }),
           ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
@@ -642,7 +679,7 @@ set.list = true
 -- Setup autocmds
 
 -- to change to light mode
-vim.cmd([[colorscheme mellifluous]])
+vim.cmd([[colorscheme kanagawa]])
 
 vim.keymap.set("n", "<leader>/", ":noh<CR>", { noremap = true, silent = true })
 

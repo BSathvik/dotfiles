@@ -77,29 +77,6 @@ in
                     --aws-iam-role arn:aws:iam::208007848330:role/kensho_ops
       '';
 
-      # Toggles `$term_background` between "light" and "dark". Other Fish functions trigger when this
-      # variable changes. We use a universal variable so that all instances of Fish have the same
-      # value for the variable.
-      toggle-background.body = ''
-        if test "$term_background" = light
-          set -U term_background dark
-        else
-          set -U term_background light
-        end
-      '';
-
-      # Set `$term_background` based on whether macOS is light or dark mode. Other Fish functions
-      # trigger when this variable changes. We use a universal variable so that all instances of Fish
-      # have the same value for the variable.
-      set-background-to-macOS.body = ''
-        # Returns 'Dark' if in dark mode fails otherwise.
-        if defaults read -g AppleInterfaceStyle &>/dev/null
-          set -U term_background dark
-        else
-          set -U term_background light
-        end
-      '';
-
       # Sets Fish Shell to light or dark colorscheme based on `$term_background`.
       set-shell-colors = {
         body = ''
@@ -181,7 +158,6 @@ in
       la = "ll -a";
       ll = "ls -l --time-style long-iso --icons";
       ls = "${eza}/bin/eza";
-      tb = "toggle-background";
 
       # k8s
       kbh = "kubectl --context beta-hulk.kube.kensho.com";
@@ -194,13 +170,12 @@ in
     # Configuration that should be above `loginShellInit` and `interactiveShellInit`.
     shellInit = ''
       set -U fish_term24bit 1
-      ${optionalString pkgs.stdenv.isDarwin "set-background-to-macOS"}
     '';
 
     interactiveShellInit = ''
       set -g fish_greeting ""
 
-      fzf_configure_bindings --history=
+      # fzf_configure_bindings --history=
       fzf_configure_bindings --directory=\cs --variables=\e\cv
 
       bind \cu up-or-search

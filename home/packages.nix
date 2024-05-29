@@ -90,14 +90,14 @@ in
   # https://github.com/ajeetdsouza/zoxide
   programs.zoxide.enable = true;
 
-  programs.atuin = {
-    enable = true;
-    flags = [ "--disable-up-arrow" ];
-    settings = {
-      invert = true;
-      inline_height = 30;
-    };
-  };
+  # programs.atuin = {
+  #   enable = true;
+  #   flags = [ "--disable-up-arrow" ];
+  #   settings = {
+  #     invert = true;
+  #     inline_height = 30;
+  #   };
+  # };
 
   home.packages = lib.attrValues
     ({
