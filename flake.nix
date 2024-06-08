@@ -48,6 +48,13 @@
         computerName = "Sathvik’s Personal MBP";
       };
 
+      flourina = personalUser // rec {
+	username = "flourina";
+        hostName = "flourina";
+        nixConfigDirectory = "/Users/${username}/.config/nixpkgs";
+        computerName = "Flourina";
+      };
+
       workUser = personalUser // rec {
         username = "sathvikbirudavolu";
         nixConfigDirectory = "/Users/${username}/.config/nixpkgs";
@@ -140,6 +147,16 @@
           home.user-info = personalUser // {
             nixConfigDirectory = "${config.home.homeDirectory}/.config/nixpkgs";
           };
+        });
+      };
+
+      homeConfigurations.flourina = makeOverridable home-manager.lib.homeManagerConfiguration {
+        pkgs = import inputs.nixpkgs-unstable (nixpkgsDefaults // { system = "x86_64-linux"; });
+        modules = attrValues self.homeManagerModules ++ singleton ({ config, ... }: {
+          home.username = config.home.user-info.username;
+          home.homeDirectory = "/home/${config.home.username}";
+          home.stateVersion = homeStateVersion;
+          home.user-info = flourina;
         });
       };
 
