@@ -17,7 +17,6 @@
     flake-utils.url = "github:numtide/flake-utils";
 
     jrsonnet.url = "github:CertainLach/jrsonnet";
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
   outputs = { self, darwin, home-manager, flake-utils, ... }@inputs:
@@ -36,7 +35,6 @@
             inherit (inputs) nixpkgs-unstable nixpkgs-stable jrsonnet;
             inherit (self) nixpkgsDefaults;
           });
-	# ++ [ inputs.neovim-nightly-overlay.overlay ];
       };
 
       personalUser = rec {
@@ -48,11 +46,11 @@
         computerName = "Sathvik’s Personal MBP";
       };
 
-      flourina = personalUser // rec {
-	username = "flourina";
-        hostName = "flourina";
+      florina = personalUser // rec {
+        username = "florina";
+        hostName = "florina";
         nixConfigDirectory = "/Users/${username}/.config/nixpkgs";
-        computerName = "Flourina";
+        computerName = "Florina";
       };
 
       workUser = personalUser // rec {
@@ -150,13 +148,13 @@
         });
       };
 
-      homeConfigurations.flourina = makeOverridable home-manager.lib.homeManagerConfiguration {
+      homeConfigurations.florina = makeOverridable home-manager.lib.homeManagerConfiguration {
         pkgs = import inputs.nixpkgs-unstable (nixpkgsDefaults // { system = "x86_64-linux"; });
         modules = attrValues self.homeManagerModules ++ singleton ({ config, ... }: {
           home.username = config.home.user-info.username;
           home.homeDirectory = "/home/${config.home.username}";
           home.stateVersion = homeStateVersion;
-          home.user-info = flourina;
+          home.user-info = florina;
         });
       };
 
