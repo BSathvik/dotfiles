@@ -1,6 +1,6 @@
 { nixpkgsDefaults
-, nixpkgs-stable
 , nixpkgs-unstable
+, nixpkgs-stable
 , jrsonnet
 ,
 }:
@@ -40,11 +40,11 @@
 
   # neovim-unwrapped installs tree-sitter parsers that are added to the path that 
   # conflict with nvim-treesitter parser install starting v9.4
-  neovim-unwrapped = final: prev: {
-    neovim-unwrapped = prev.neovim-unwrapped.overrideAttrs {
-      postInstall = ''
-        rm -rf $out/lib/nvim/parser/*
-      '';
-    };
-  };
+  # neovim-unwrapped = final: prev: {
+  #   neovim-unwrapped = prev.neovim-unwrapped.overrideAttrs {
+  #     postInstall = ''
+  #       rm -rf $out/lib/nvim/parser/*
+  #     '';
+  #   };
+  # };
 }

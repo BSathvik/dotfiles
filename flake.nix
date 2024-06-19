@@ -3,20 +3,30 @@
 
   inputs = {
     # Package sets
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixpkgs-23.05-darwin";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixpkgs-24.05-darwin";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     # Environment/system management
-    darwin.url = "github:LnL7/nix-darwin";
-    darwin.inputs.nixpkgs.follows = "nixpkgs-unstable";
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
 
     # Flake utilities
     flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
     flake-utils.url = "github:numtide/flake-utils";
 
     jrsonnet.url = "github:CertainLach/jrsonnet";
+
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
   };
 
   outputs = { self, darwin, home-manager, flake-utils, ... }@inputs:
@@ -84,6 +94,7 @@
         tmux = import ./home/tmux.nix;
         alacritty = import ./home/alacritty.nix;
         packages = import ./home/packages.nix;
+        nixvim = inputs.nixvim.homeManagerModules.nixvim;
 
         # Modules I've created
         pip = import ./lib/pip.nix;

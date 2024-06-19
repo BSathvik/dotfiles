@@ -82,11 +82,11 @@
   programs.nix-index.enable = true;
 
   # Fonts
-  fonts.fontDir.enable = true;
-  fonts.fonts = with pkgs; [
-    recursive
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-  ];
+  # fonts.fontDir.enable = true;
+  # fonts.packages = with pkgs; [
+  #   recursive
+  #   (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+  # ];
 
   # Keyboard
   system.keyboard.enableKeyMapping = true;

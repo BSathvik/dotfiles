@@ -6,12 +6,21 @@ in
 {
   # Put neovim configuration located in this repository into place in a way that edits to the
   # configuration don't require rebuilding the `home-manager` environment to take effect.
-  xdg.configFile."nvim/lua".source = mkOutOfStoreSymlink "${nixConfigDirectory}/nvim";
-  programs.neovim = {
+
+  # xdg.configFile."nvim/lua".source = mkOutOfStoreSymlink "${nixConfigDirectory}/nvim";
+  #programs.neovim = {
+  #  enable = true;
+  #  # package = pkgs.neovim-nightly;
+  #  # extraConfig = "lua require('init')";
+
+  #  plugins = with pkgs.vimPlugins; [
+
+  #  ];
+  #};
+
+  programs.nixvim = {
     enable = true;
-    # package = pkgs.neovim-nightly;
-    extraConfig = "lua require('init')";
-  };
+  } // import ./../nvim/config.nix pkgs;
 
   programs.git = {
     enable = true;
@@ -146,8 +155,8 @@ in
         # uv # let's just install it using pipx for now
         go# Required for jsonnet-language-server
         cargo# Required for rnix-ls
-        rustc
-        rustfmt
+        # rustc
+        # rustfmt
         nixpkgs-fmt
         shellcheck
         pipx
