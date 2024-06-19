@@ -143,15 +143,15 @@
         "shelly": "shelly"
       },
       "locked": {
-        "lastModified": 1718725584,
-        "narHash": "sha256-IrxxezAzp8j38m/1numfwNtmkt55/c5c3UbIO5jjwEk=",
-        "owner": "CertainLach",
+        "lastModified": 1718834082,
+        "narHash": "sha256-PlPN88wZuqLUWq+JsQ6FzZviRRH1VBEntK3UHZYjiBg=",
+        "owner": "BSathvik",
         "repo": "jrsonnet",
-        "rev": "914d5f43698ea2a2f11644798377ddbc6d34954e",
+        "rev": "9cc54a9e57a4352f482bc8124a673a06e0411aea",
         "type": "github"
       },
       "original": {
-        "owner": "CertainLach",
+        "owner": "BSathvik",
         "repo": "jrsonnet",
         "type": "github"
       }

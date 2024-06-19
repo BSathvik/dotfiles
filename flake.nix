@@ -23,7 +23,8 @@
     flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
     flake-utils.url = "github:numtide/flake-utils";
 
-    jrsonnet.url = "github:CertainLach/jrsonnet";
+    # Use my fork because the maintainer keeps removing darwin support for no reason
+    jrsonnet.url = "github:BSathvik/jrsonnet";
   };
 
   outputs = { self, darwin, home-manager, flake-utils, ... }@inputs:
