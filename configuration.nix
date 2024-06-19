@@ -38,12 +38,9 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   console = {
-    # font = "ter-i32b";
-    # packages = with pkgs; [ terminus_font ];
     useXkbConfig = true; # use xkb.options in tty.
   };
 
-  fonts.fontDir.enable = true;
   fonts.packages = with pkgs; [
     recursive
     (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
