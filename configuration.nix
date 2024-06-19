@@ -15,7 +15,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" "ca-derivations" ];
   networking.hostName = "florina"; # Define your hostname.
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
@@ -27,14 +26,7 @@
     };
   };
 
-  # Set your time zone.
   time.timeZone = "America/New_York";
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
   console = {
@@ -59,6 +51,29 @@
 
     # Load nvidia driver for Xorg and Wayland
     videoDrivers = [ "nvidia" ];
+  };
+
+  nix.settings = {
+    # Use cachix build artifacts
+    substituters = [
+      "https://cache.nixos.org/"
+      "https://bsathvik.cachix.org"
+    ];
+    trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "bsathvik.cachix.org-1:mQrYap3jy3tUJFO9J0pflCJEm9r41CONF5vcNm7pK2U="
+    ];
+
+    trusted-users = [ "@admin" ];
+
+    # https://github.com/NixOS/nix/issues/7273
+    auto-optimise-store = false;
+
+    experimental-features = [ "nix-command" "flakes" "ca-derivations" ];
+
+    # Recommended when using `direnv` etc.
+    keep-derivations = true;
+    keep-outputs = true;
   };
 
   # Enable sound.
