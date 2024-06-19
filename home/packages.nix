@@ -6,21 +6,28 @@ in
 {
   # Put neovim configuration located in this repository into place in a way that edits to the
   # configuration don't require rebuilding the `home-manager` environment to take effect.
-
-  # xdg.configFile."nvim/lua".source = mkOutOfStoreSymlink "${nixConfigDirectory}/nvim";
-  #programs.neovim = {
-  #  enable = true;
-  #  # package = pkgs.neovim-nightly;
-  #  # extraConfig = "lua require('init')";
-
-  #  plugins = with pkgs.vimPlugins; [
-
-  #  ];
-  #};
-
-  programs.nixvim = {
+  xdg.configFile."nvim/lua".source = mkOutOfStoreSymlink "${nixConfigDirectory}/nvim";
+  programs.neovim = {
     enable = true;
-  } // import ./../nvim/config.nix pkgs;
+    # package = pkgs.neovim-nightly;
+    extraConfig = "lua require('init')";
+    extraPackages = with pkgs; [
+      # Language Servers
+      docker-ls
+      rust-analyzer
+      pyright
+      lua-language-server
+      # jsonnet-ls
+      gopls
+      nixd
+
+      # Formatters
+      stylua
+      rustfmt
+      nixpkgs-fmt
+      black
+    ];
+  };
 
   programs.git = {
     enable = true;
@@ -81,19 +88,19 @@ in
     nix-direnv.enable = true;
   };
 
-  programs.ssh = {
-    enable = true;
-    controlPath = "~/.ssh/%C"; # ensures the path is unique but also fixed length
-    matchBlocks = {
-      "github.com" = {
-        identityFile = "~/.ssh/github";
-        extraOptions = {
-          UseKeychain = "yes";
-          AddKeysToAgent = "yes";
-        };
-      };
-    };
-  };
+  # programs.ssh = {
+  #   enable = true;
+  #   controlPath = "~/.ssh/%C"; # ensures the path is unique but also fixed length
+  #   matchBlocks = {
+  #     "github.com" = {
+  #       identityFile = "~/.ssh/github";
+  #       extraOptions = {
+  #         UseKeychain = "yes";
+  #         AddKeysToAgent = "yes";
+  #       };
+  #     };
+  #   };
+  # };
 
   # Zoxide, a faster way to navigate the filesystem
   # https://github.com/ajeetdsouza/zoxide
@@ -137,7 +144,8 @@ in
       inherit (pkgs)
         awscli
         aws-iam-authenticator
-        go-jsonnet#ships with jsonnetfmt (issue with `jsonnet` build)
+        # TODO: add overlay to remove `jsonnet`, jrsonnet exports the same binary
+        # go-jsonnet#ships with jsonnetfmt (issue with `jsonnet` build)
         jrsonnet# is _blazingling_ fast
         jsonnet-bundler
         okta-aws-cli
@@ -151,13 +159,10 @@ in
       inherit (pkgs)
         nodejs
         poetry
-        black
         # uv # let's just install it using pipx for now
         go# Required for jsonnet-language-server
         cargo# Required for rnix-ls
         # rustc
-        # rustfmt
-        nixpkgs-fmt
         shellcheck
         pipx
         python39
@@ -179,8 +184,5 @@ in
       inherit (pkgs)
         m-cli# useful macOS CLI commands
         ;
-    }) ++ [
-    # (pkgs.python39.withPackages (ps: with ps; [ pipx ]))
-    pkgs.unixtools.watch
-  ];
+    });
 }

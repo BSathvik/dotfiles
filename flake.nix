@@ -6,6 +6,8 @@
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixpkgs-24.05-darwin";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
+    nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+
     # Environment/system management
     darwin = {
       url = "github:LnL7/nix-darwin";
@@ -22,16 +24,11 @@
     flake-utils.url = "github:numtide/flake-utils";
 
     jrsonnet.url = "github:CertainLach/jrsonnet";
-
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
   };
 
   outputs = { self, darwin, home-manager, flake-utils, ... }@inputs:
     let
-      inherit (self.lib) attrValues makeOverridable mkForce optionalAttrs singleton;
+      inherit (self.lib) attrValues makeOverridable mkForce singleton;
 
       homeStateVersion = "23.11";
 
@@ -59,7 +56,7 @@
       florina = personalUser // rec {
         username = "florina";
         hostName = "florina";
-        nixConfigDirectory = "/Users/${username}/.config/nixpkgs";
+        nixConfigDirectory = "/home/${username}/.config/nixpkgs";
         computerName = "Florina";
       };
 
@@ -94,7 +91,6 @@
         tmux = import ./home/tmux.nix;
         alacritty = import ./home/alacritty.nix;
         packages = import ./home/packages.nix;
-        nixvim = inputs.nixvim.homeManagerModules.nixvim;
 
         # Modules I've created
         pip = import ./lib/pip.nix;
@@ -143,6 +139,35 @@
         };
       };
 
+      nixosConfigurations = {
+        florina = inputs.nixos-unstable.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./configuration.nix
+            home-manager.nixosModules.home-manager
+            ({ config, ... }: {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+
+              home-manager.users.florina = { pkgs, ... }: {
+                imports = attrValues self.homeManagerModules;
+
+                # unzip required for nvim
+                home.packages = [ pkgs.unzip pkgs.gcc14 pkgs.gnumake ];
+
+                home.username = "florina";
+                home.homeDirectory = "/home/florina";
+                home.user-info = florina;
+
+                # The state version is required and should stay at the version you
+                # originally installed.
+                home.stateVersion = "24.05";
+              };
+            })
+          ];
+        };
+      };
+
       # Config I use with non-NixOS Linux systems (e.g., cloud VMs etc.)
       # Build and activate on new system with:
       # `nix build .#homeConfigurations.bsat.activationPackage && ./result/activate`
@@ -156,16 +181,6 @@
           home.user-info = personalUser // {
             nixConfigDirectory = "${config.home.homeDirectory}/.config/nixpkgs";
           };
-        });
-      };
-
-      homeConfigurations.florina = makeOverridable home-manager.lib.homeManagerConfiguration {
-        pkgs = import inputs.nixpkgs-unstable (nixpkgsDefaults // { system = "x86_64-linux"; });
-        modules = attrValues self.homeManagerModules ++ singleton ({ config, ... }: {
-          home.username = config.home.user-info.username;
-          home.homeDirectory = "/home/${config.home.username}";
-          home.stateVersion = homeStateVersion;
-          home.user-info = florina;
         });
       };
 

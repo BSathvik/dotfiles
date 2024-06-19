@@ -2,7 +2,6 @@
 
 let
   inherit (lib) elem optionalString;
-  inherit (config.home.user-info) nixConfigDirectory username;
 in
 
 {
@@ -47,7 +46,6 @@ in
         set -x PGPASSWORD $password
         psql "sslmode=require host=$rds_host user=$rds_user dbname=postgres"
       '';
-
 
       # Connect to AWS via Okta
       # Ops role only 1h session duration
@@ -108,27 +106,21 @@ in
           set -g fish_pager_color_selected_prefix      $background
           set -g fish_pager_color_selected_completion  $background
           set -g fish_pager_color_selected_description $background
-        '' + optionalString config.programs.bat.enable ''
-
-        # Use correct theme for `bat`.
-        set -xg BAT_THEME "Solarized ($term_background)"
-      '' + optionalString (elem pkgs.bottom config.home.packages) ''
-
-        # Use correct theme for `btm`.
-        if test "$term_background" = light
-          alias btm "btm --color default-light"
-        else
-          alias btm "btm --color default"
-        end
-      '' + optionalString config.programs.neovim.enable ''
-
-      # TODO: This ain't workin
-      # Set `background` of all running Neovim instances.
-      # for server in (${pkgs.neovim-remote}/bin/nvr --serverlist)
-      #   ${pkgs.neovim-remote}/bin/nvr -s --nostart --servername $server \
-      #     -c "set background=$term_background" &
-      # end
-      '';
+        '' + optionalString (elem pkgs.bottom config.home.packages) ''
+          # Use correct theme for `btm`.
+          if test "$term_background" = light
+            alias btm "btm --color default-light"
+          else
+            alias btm "btm --color default"
+          end
+        '' + optionalString config.programs.neovim.enable ''
+          # TODO: This ain't workin
+          # Set `background` of all running Neovim instances.
+          # for server in (${pkgs.neovim-remote}/bin/nvr --serverlist)
+          #   ${pkgs.neovim-remote}/bin/nvr -s --nostart --servername $server \
+          #     -c "set background=$term_background" &
+          # end
+        '';
         onVariable = "term_background";
       };
     };
@@ -138,25 +130,10 @@ in
 
     # Aliases
     shellAliases = with pkgs; {
-      # Nix related
-      drb = "darwin-rebuild build --flake ${nixConfigDirectory}";
-      drs = "darwin-rebuild switch --flake ${nixConfigDirectory}";
-      flakeup = "nix flake update ${nixConfigDirectory}";
-      nb = "nix build";
-      nd = "nix develop";
-      nf = "nix flake";
-      nr = "nix run";
-      ns = "nix search";
-      nrepair = "nix-store --verify --check-contents --repair";
-
-      # Other
       ".." = "cd ..";
-      ":q" = "exit";
       cat = "${bat}/bin/bat";
       du = "${du-dust}/bin/dust";
       g = "${gitAndTools.git}/bin/git";
-      la = "ll -a";
-      ll = "ls -l --time-style long-iso --icons";
       ls = "${eza}/bin/eza";
 
       # k8s
@@ -198,6 +175,8 @@ in
 
       # Select the `kensho` AWS profile by default
       set -gx AWS_PROFILE kensho
+
+      set -gx term_background dark
 
       # Run function to set colors that are dependant on `$term_background` and to register them so
       # they are triggerd when the relevent event happens or variable changes.

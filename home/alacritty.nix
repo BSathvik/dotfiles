@@ -1,10 +1,10 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   # Alacritty terminal
   programs.alacritty.enable = true;
 
-  programs.alacritty.settings = rec {
+  programs.alacritty.settings = {
     shell = {
       program = "${pkgs.fish}/bin/fish";
       args = [ "-c" "${pkgs.tmux}/bin/tmux attach || ${pkgs.tmux}/bin/tmux" ];

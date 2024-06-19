@@ -19,14 +19,12 @@ vim.opt.laststatus = 2
 
 local required_servers = {
   "dockerls",
-  "html",
-  "clangd",
   "rust_analyzer",
   "pyright",
   "lua_ls",
-  "jsonnet_ls",
+  -- "jsonnet_ls",
   "gopls",
-  "rnix",
+  "nixd",
 }
 
 require("lazy").setup({
@@ -117,7 +115,7 @@ require("lazy").setup({
     event = "VeryLazy",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope-fzf-native.nvim",
+      -- "nvim-telescope/telescope-fzf-native.nvim",
       "nvim-telescope/telescope-file-browser.nvim",
       "xiyaowong/telescope-emoji.nvim",
     },
@@ -144,7 +142,7 @@ require("lazy").setup({
       end
 
       -- Enable telescope fzf native
-      require("telescope").load_extension("fzf")
+      -- require("telescope").load_extension("fzf")
       require("telescope").load_extension("file_browser")
       require("telescope").load_extension("emoji")
 
@@ -170,7 +168,7 @@ require("lazy").setup({
       end)
     end,
   },
-  { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+  -- { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 
   -- Aesthetics
   {
@@ -187,36 +185,6 @@ require("lazy").setup({
     config = function()
       require("no-neck-pain").setup({
         width = 110,
-      })
-    end,
-  },
-
-  {
-    "rebelot/kanagawa.nvim",
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require("kanagawa").setup({
-        commentStyle = {},
-        functionStyle = { bold = true },
-        keywordStyle = { bold = true },
-        statementStyle = { bold = true },
-        typeStyle = { bold = true },
-        transparent = false, -- do not set background color
-        dimInactive = false, -- dim inactive window `:h hl-NormalNC`
-        terminalColors = true, -- define vim.g.terminal_color_{0,17}
-        colors = { -- add/modify theme and palette colors
-          palette = {},
-          theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
-        },
-        overrides = function(colors) -- add/modify highlights
-          return {}
-        end,
-        theme = "wave", -- Load "wave" theme when 'background' option is not set
-        background = { -- map the value of 'background' option to a theme
-          dark = "wave", -- try "dragon" !
-          light = "lotus",
-        },
       })
     end,
   },
@@ -430,32 +398,32 @@ require("lazy").setup({
   },
 
   -- LSP Installer and configuration
-  {
-    "williamboman/mason.nvim",
-    event = "VeryLazy",
-
-    config = function()
-      require("mason").setup({})
-      if not require("mason-registry").is_installed("stylua") then
-        vim.cmd([[MasonInstall stylua]])
-      end
-    end,
-  },
-
-  {
-    "williamboman/mason-lspconfig.nvim",
-    dependencies = { "williamboman/mason.nvim" },
-    event = "VeryLazy",
-
-    config = function()
-      require("mason-lspconfig").setup({
-        ensure_installed = required_servers,
-        -- Don't automagically install server configured by lspconfig, add to required_servers
-        automatic_installation = false,
-      })
-    end,
-  },
-
+  -- {
+  --   "williamboman/mason.nvim",
+  --   event = "VeryLazy",
+  --
+  --   config = function()
+  --     require("mason").setup({})
+  --     -- if not require("mason-registry").is_installed("stylua") then
+  --     --   vim.cmd([[MasonInstall stylua]])
+  --     -- end
+  --   end,
+  -- },
+  --
+  -- {
+  --   "williamboman/mason-lspconfig.nvim",
+  --   dependencies = { "williamboman/mason.nvim" },
+  --   event = "VeryLazy",
+  --
+  --   config = function()
+  --     require("mason-lspconfig").setup({
+  --       ensure_installed = required_servers,
+  --       -- Don't automagically install server configured by lspconfig, add to required_servers
+  --       automatic_installation = false,
+  --     })
+  --   end,
+  -- },
+  --
   {
     "neovim/nvim-lspconfig",
     event = "BufReadPost",
@@ -679,7 +647,7 @@ set.list = true
 -- Setup autocmds
 
 -- to change to light mode
-vim.cmd([[colorscheme kanagawa]])
+vim.cmd([[colorscheme habamax]])
 
 vim.keymap.set("n", "<leader>/", ":noh<CR>", { noremap = true, silent = true })
 
