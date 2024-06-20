@@ -7,9 +7,9 @@ in
   # Put neovim configuration located in this repository into place in a way that edits to the
   # configuration don't require rebuilding the `home-manager` environment to take effect.
   xdg.configFile."nvim/lua".source = mkOutOfStoreSymlink "${nixConfigDirectory}/nvim";
+
   programs.neovim = {
     enable = true;
-    # package = pkgs.neovim-nightly;
     extraConfig = "lua require('init')";
     extraPackages = with pkgs; [
       # Language Servers
@@ -17,7 +17,7 @@ in
       rust-analyzer
       pyright
       lua-language-server
-      # jsonnet-ls
+      jsonnet-language-server
       gopls
       nixd
 

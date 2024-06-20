@@ -205,6 +205,7 @@ require("lazy").setup({
   {
     "akinsho/bufferline.nvim",
     dependencies = "nvim-tree/nvim-web-devicons",
+    event = "VeryLazy",
     config = function()
       require("bufferline").setup()
     end,
@@ -213,7 +214,6 @@ require("lazy").setup({
   {
     "folke/todo-comments.nvim",
     event = "BufReadPost",
-
     config = function()
       require("todo-comments").setup({
         keywords = {
@@ -227,7 +227,6 @@ require("lazy").setup({
   {
     "lewis6991/gitsigns.nvim", -- Add git related info in the signs columns and popups
     event = "BufReadPost",
-
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       require("gitsigns").setup({
@@ -283,6 +282,7 @@ require("lazy").setup({
 
   {
     "ruifm/gitlinker.nvim",
+    event = "VeryLazy",
     config = function()
       require("gitlinker").setup({
         opts = {
@@ -298,7 +298,10 @@ require("lazy").setup({
     end,
   },
 
-  { "sindrets/diffview.nvim" },
+  {
+    "sindrets/diffview.nvim",
+    event = "VeryLazy",
+  },
 
   -- tree-sitter for parsing, syntax highlighting and much more
   {
@@ -339,11 +342,13 @@ require("lazy").setup({
   },
 
   -- Non-LSP language support (formatters mostly)
-  { "nathangrigg/vim-beancount" },
+  {
+    "nathangrigg/vim-beancount",
+    event = "VeryLazy",
+  },
 
   {
     "mhartington/formatter.nvim",
-
     event = "VeryLazy",
     config = function()
       vim.api.nvim_create_autocmd({ "BufWritePost" }, {
