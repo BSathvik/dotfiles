@@ -119,6 +119,7 @@
     };
   };
 
+  # Required for nvidia drivers and other stuff
   nixpkgs.config.allowUnfree = true;
 
   programs.fish.enable = true;
@@ -133,7 +134,6 @@
     packages = with pkgs; [
       firefox
       tree
-      alacritty
       _1password-gui
       xclip
       discord
@@ -142,6 +142,22 @@
     ];
   };
 
+  services.jellyfin.enable = true;
+
+  users.groups.media.members = [ "jellyfin" ];
+
+  systemd.tmpfiles.settings = {
+    "my-media" = {
+      "/media".d = {
+        mode = "0755";
+        group = "media";
+        user = "florina";
+      };
+    };
+  };
+
+  networking.firewall.enable = false;
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -149,6 +165,15 @@
     wget
     iputils
     git
+    alacritty
+
+    jellyfin
+    jellyfin-web
+    jellyfin-ffmpeg
+    qbittorrent
+    prowlarr
+
+    expressvpn
   ];
 
   services.tailscale.enable = true;

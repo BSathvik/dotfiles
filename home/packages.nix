@@ -21,6 +21,9 @@ in
       gopls
       nixd
 
+      # Required for neorg
+      luajitPackages.luarocks
+
       # Formatters
       stylua
       rustfmt

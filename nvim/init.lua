@@ -62,15 +62,16 @@ require("lazy").setup({
   },
 
   -- Required for neorg 8.0+
+  -- https://vhyrro.github.io/posts/neorg-and-luarocks/#changing-the-configuration
+  -- run `:Lazy build luarocks.nvim` then `:Lazy build neorg` to get this working
   {
     "vhyrro/luarocks.nvim",
-    -- priority = 1000,
+    priority = 1000,
     config = true,
-    event = "VeryLazy",
     opts = {
       luarocks_build_args = {
         -- MY_LUA_PATH is set in fish.nix
-        "--with-lua-include=" .. os.getenv("MY_LUA_PATH") or "neesumhere" .. "/include",
+        "--with-lua=" .. (os.getenv("MY_LUA_PATH") or "MY_LUA_PATH needs to be set somewhere"),
       },
     },
   },
@@ -78,7 +79,7 @@ require("lazy").setup({
   -- Note taking
   {
     "nvim-neorg/neorg",
-    event = "VeryLazy",
+    lazy = false,
     dependencies = { "luarocks.nvim", "nvim-treesitter" },
     config = function()
       -- vim.api.nvim_create_autocmd({ "BufWritePost" }, {
