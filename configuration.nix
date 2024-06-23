@@ -139,6 +139,14 @@
       discord
       spotify
       steam
+
+      jellyfin
+      jellyfin-web
+      jellyfin-ffmpeg
+      qbittorrent
+      prowlarr
+
+      expressvpn
     ];
   };
 
@@ -165,15 +173,6 @@
     wget
     iputils
     git
-    alacritty
-
-    jellyfin
-    jellyfin-web
-    jellyfin-ffmpeg
-    qbittorrent
-    prowlarr
-
-    expressvpn
   ];
 
   services.tailscale.enable = true;
