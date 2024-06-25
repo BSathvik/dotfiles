@@ -25,6 +25,24 @@
 
     # Use my fork because the maintainer keeps removing darwin support for no reason
     jrsonnet.url = "github:BSathvik/jrsonnet";
+
+    hyprland = {
+      url = "github:hyprwm/Hyprland/v0.39.1";
+      inputs.nixpkgs.follows = "nixos-unstable";
+    };
+
+    # community wayland nixpkgs
+    # nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
+    # anyrun - a wayland launcher
+    anyrun = {
+      url = "github:Kirottu/anyrun";
+      inputs.nixpkgs.follows = "nixos-unstable";
+    };
+
+    nur-ryan4yin = {
+      url = "github:ryan4yin/nur-packages";
+      inputs.nixpkgs.follows = "nixos-unstable";
+    };
   };
 
   outputs = { self, darwin, home-manager, flake-utils, ... }@inputs:
@@ -149,9 +167,17 @@
             ({ config, ... }: {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
+              # These are extra arguments for flakes that are passed into all the home-manager 
+              # modules other than the usual `pkgs/lib/config` 
+              home-manager.extraSpecialArgs = { inherit (inputs) anyrun hyprland nur-ryan4yin; };
+              home-manager.backupFileExtension = "backup1";
 
               home-manager.users.florina = { pkgs, ... }: {
-                imports = attrValues self.homeManagerModules;
+                imports = attrValues self.homeManagerModules ++ [
+                  inputs.anyrun.homeManagerModules.default
+                  (import ./home/hyprland/default.nix)
+                  (import ./home/hyprland/anyrun.nix)
+                ];
 
                 # unzip required for nvim
                 home.packages = [ pkgs.unzip pkgs.gcc14 pkgs.gnumake ];
