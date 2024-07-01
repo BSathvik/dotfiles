@@ -91,6 +91,7 @@ in
     nix-direnv.enable = true;
   };
 
+  # TODO: Re-enable this
   # programs.ssh = {
   #   enable = true;
   #   controlPath = "~/.ssh/%C"; # ensures the path is unique but also fixed length
@@ -149,6 +150,7 @@ in
         aws-iam-authenticator
         # TODO: add overlay to remove `jsonnet`, jrsonnet exports the same binary
         # go-jsonnet#ships with jsonnetfmt (issue with `jsonnet` build)
+        jsonnet
         jrsonnet# is _blazingling_ fast
         jsonnet-bundler
         okta-aws-cli
@@ -170,6 +172,7 @@ in
         pipx
         python39
         luajit
+        ruff
         ;
 
       # Useful nix related tools
