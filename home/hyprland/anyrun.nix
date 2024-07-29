@@ -1,7 +1,6 @@
-{
-  pkgs,
-  anyrun,
-  ...
+{ pkgs
+, anyrun
+, ...
 }: {
   programs.anyrun = {
     enable = true;
@@ -23,7 +22,7 @@
 
     # custom css for anyrun, based on catppuccin-mocha
     extraCss = ''
-      @define-color bg-col  rgba(30, 30, 46, 0.7);
+      @define-color bg-col  rgba(30, 30, 46, 0.1);
       @define-color bg-col-light rgba(150, 220, 235, 0.7);
       @define-color border-col rgba(30, 30, 46, 0.7);
       @define-color selected-col rgba(150, 205, 251, 0.7);

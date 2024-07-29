@@ -27,7 +27,7 @@
     jrsonnet.url = "github:BSathvik/jrsonnet";
 
     hyprland = {
-      url = "github:hyprwm/Hyprland/v0.39.1";
+      url = "git+https://github.com/hyprwm/Hyprland/?ref=refs/tags/v0.41.2&submodules=1";
       inputs.nixpkgs.follows = "nixos-unstable";
     };
 
@@ -35,7 +35,8 @@
     # nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
     # anyrun - a wayland launcher
     anyrun = {
-      url = "github:Kirottu/anyrun";
+      # https://github.com/anyrun-org/anyrun/pull/154
+      url = "github:anyrun-org/anyrun/9e14b5946e413b87efc697946b3983d5244a1714";
       inputs.nixpkgs.follows = "nixos-unstable";
     };
 
@@ -122,7 +123,7 @@
 
       # System configurations ------------------------------------------------------------------ {{{
 
-      darwinConfigurations = rec {
+      darwinConfigurations = {
         # Minimal macOS configurations to bootstrap systems
         bootstrap-x86 = makeOverridable darwin.lib.darwinSystem {
           system = "x86_64-darwin";
@@ -177,6 +178,8 @@
                   inputs.anyrun.homeManagerModules.default
                   (import ./home/hyprland/default.nix)
                   (import ./home/hyprland/anyrun.nix)
+                  (import ./home/desktop.nix)
+                  (import ./home/xdg.nix)
                 ];
 
                 # unzip required for nvim

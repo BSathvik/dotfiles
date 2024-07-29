@@ -40,7 +40,7 @@ in
       #   auto:         postition automatically
       #   1.5:          scale to 1.5 times
       #   bitdepth,10:  enable 10 bit support
-      # monitor = "eDP-1,highres,auto,2,bitdepth,10";
+      monitor = [ "HDMI-A-2,3840x2160@60,auto,1.666667" "eDP-1,highres,auto,1.2,bitdepth,10" ];
     };
 
     extraConfig = builtins.readFile ./conf/hyprland.conf;
@@ -55,10 +55,27 @@ in
     executable = true;
   };
 
+  services.hyprpaper = {
+    enable = true;
+    settings = {
+      preload = [
+        "~/.config/hypr/wallpapers/starship_day.png"
+      ];
+      wallpaper = [
+        "HDMI-A-2,~/.config/hypr/wallpapers/starship_day.png"
+      ];
+      ipc = "on";
+    };
+  };
+
   # hyprland configs, based on https://github.com/notwidow/hyprland
   xdg.configFile = {
     "hypr/mako" = {
       source = ./conf/mako;
+      recursive = true;
+    };
+    "hypr/wallpapers" = {
+      source = ./conf/wallpapers;
       recursive = true;
     };
     "hypr/scripts" = {
@@ -141,7 +158,7 @@ in
 
   home.packages = with pkgs; [
     waybar # the status bar
-    swaybg # the wallpaper
+    hyprpaper # the wallpaper
     swayidle # the idle timeout
     swaylock # locking the screen
     wlogout # logout menu

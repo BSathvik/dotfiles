@@ -155,7 +155,7 @@ in
       # fzf_configure_bindings --history=
       fzf_configure_bindings --directory=\cs --variables=\e\cv
 
-      bind \cu up-or-search
+      bind \co up-or-search
       bind \ci down-or-search
 
       # Default kube editor
