@@ -92,19 +92,19 @@ in
   };
 
   # TODO: Re-enable this
-  # programs.ssh = {
-  #   enable = true;
-  #   controlPath = "~/.ssh/%C"; # ensures the path is unique but also fixed length
-  #   matchBlocks = {
-  #     "github.com" = {
-  #       identityFile = "~/.ssh/github";
-  #       extraOptions = {
-  #         UseKeychain = "yes";
-  #         AddKeysToAgent = "yes";
-  #       };
-  #     };
-  #   };
-  # };
+  programs.ssh = {
+    enable = true;
+    controlPath = "~/.ssh/%C"; # ensures the path is unique but also fixed length
+    matchBlocks = {
+      "github.com" = {
+        identityFile = "~/.ssh/github";
+        extraOptions = {
+          UseKeychain = "yes";
+          AddKeysToAgent = "yes";
+        };
+      };
+    };
+  };
 
   # Zoxide, a faster way to navigate the filesystem
   # https://github.com/ajeetdsouza/zoxide
