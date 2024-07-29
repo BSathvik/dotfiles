@@ -36,7 +36,7 @@ in
     enable = true;
     # Enhanced diffs
     delta.enable = true;
-    ignores = [ ".DS_Store" ];
+    ignores = [ ".DS_Store" ".direnv/" ".envrc" ];
 
     userEmail = config.home.user-info.email;
     userName = config.home.user-info.fullName;
@@ -137,6 +137,7 @@ in
         fq
         jq
         yq
+        jnv
         tailspin
         tmux-xpanes
         easyrsa

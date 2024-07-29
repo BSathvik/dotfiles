@@ -44,6 +44,8 @@
       url = "github:ryan4yin/nur-packages";
       inputs.nixpkgs.follows = "nixos-unstable";
     };
+
+    nixpkgs-python.url = "github:cachix/nixpkgs-python";
   };
 
   outputs = { self, darwin, home-manager, flake-utils, ... }@inputs:
@@ -222,7 +224,6 @@
           home.user-info.nixConfigDirectory = mkForce "/home/runner/work/nixpkgs/nixpkgs";
         };
       });
-      # }}}
 
     } // flake-utils.lib.eachDefaultSystem (system: {
       # Re-export `nixpkgs-unstable` with overlays.
@@ -236,22 +237,30 @@
       # Shell environments for development
       # With `nix.registry.my.flake = inputs.self`, development shells can be created by running,
       # e.g., `nix develop my#python`.
-      devShells = let pkgs = self.legacyPackages.${system}; in
+      devShells =
+        let
+          pkgs = self.legacyPackages.${system};
+          old-python = inputs.nixpkgs-python.packages.${system};
+        in
         {
-          python = pkgs.mkShell {
-            name = "python310";
+          python38 = pkgs.mkShell {
+            name = "python38";
+            buildInputs =
+              [ old-python."3.8" ] ++
+              # For coherence rust project for data-pipeline/workers/nerd
+              [ pkgs.rustc pkgs.libiconv ];
+            shellHook = ''
+              poetry env use ${old-python."3.8"}/bin/python
+            '';
           };
-          pypi = pkgs.mkShell {
-            name = "pypi";
-            inputsFrom = attrValues
-              {
-                inherit (pkgs) pyright pkg-config;
-              } ++ singleton (
-              pkgs.python39.withPackages (ps: with ps; [ (pkgs.callPackage { }) ])
-            );
+          python310 = pkgs.mkShell {
+            name = "python310";
+            buildInputs = with pkgs; [ python310 postgresql openssl ];
+            shellHook = ''
+              poetry env use ${pkgs.python310}/bin/python
+            '';
           };
         };
-      # }}}
     });
 }
 # vim: foldmethod=marker

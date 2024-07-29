@@ -165,6 +165,8 @@ in
 
       # Setup for pipx
       fish_add_path -ag ~/.local/bin
+      fish_add_path -ag ~/.cargo/bin
+
       # Setup for luarocks
       set -gx MY_LUA_PATH ${pkgs.luajit}
 

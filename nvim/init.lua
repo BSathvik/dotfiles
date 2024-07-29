@@ -18,7 +18,7 @@ vim.g.hardtime_default_on = 0
 vim.opt.laststatus = 2
 
 local required_servers = {
-  "dockerls",
+  -- "dockerls",
   "rust_analyzer",
   "pyright",
   "lua_ls",
@@ -29,6 +29,8 @@ local required_servers = {
 
 require("lazy").setup({
   "christoomey/vim-tmux-navigator",
+
+  { "rebelot/kanagawa.nvim" },
 
   { "takac/vim-hardtime" },
 
@@ -154,6 +156,7 @@ require("lazy").setup({
       vim.keymap.set("n", "<leader>ss", require("telescope.builtin").live_grep)
       vim.keymap.set("n", "<leader>sr", require("telescope.builtin").lsp_references)
       vim.keymap.set("n", "<leader>?", require("telescope.builtin").oldfiles)
+      vim.keymap.set("n", "<leader>c", require("telescope.builtin").git_status)
       vim.keymap.set("n", "<leader>e", require("telescope").extensions.emoji.emoji)
       vim.keymap.set("n", "<leader>sg", function()
         require("telescope.builtin").find_files({ cwd = git_root() })
@@ -619,7 +622,7 @@ vim.filetype.on = true
 local set = vim.opt -- set options
 
 set.gcr = "a:blinkon100"
-set.background = "dark"
+set.background = "light"
 
 set.colorcolumn = "100"
 -- set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
@@ -663,7 +666,7 @@ set.list = true
 -- Setup autocmds
 
 -- to change to light mode
-vim.cmd([[colorscheme habamax]])
+vim.cmd([[colorscheme kanagawa-lotus]])
 
 vim.keymap.set("n", "<leader>/", ":noh<CR>", { noremap = true, silent = true })
 
