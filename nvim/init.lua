@@ -22,7 +22,7 @@ local required_servers = {
   "rust_analyzer",
   "pyright",
   "lua_ls",
-  -- "jsonnet_ls",
+  "jsonnet_ls",
   "gopls",
   "nixd",
 }
@@ -498,6 +498,16 @@ require("lazy").setup({
         on_attach = on_attach,
         capabilities = capabilities,
         filetypes = { "html", "htmldjango" },
+      })
+
+      lspconfig["jsonnet_ls"].setup({
+        on_attach = on_attach,
+        capabilities = capabilities,
+        cmd = {
+          "jsonnet-language-server",
+          "--jpath",
+          "/Users/sathvikbirudavolu/Documents/zen/graf/klib/pkgs/kensho_deploy/kensho_deploy/",
+        },
       })
     end,
   },
