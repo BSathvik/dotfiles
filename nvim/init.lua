@@ -622,7 +622,7 @@ vim.filetype.on = true
 local set = vim.opt -- set options
 
 set.gcr = "a:blinkon100"
-set.background = "light"
+set.background = "dark"
 
 set.colorcolumn = "100"
 -- set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab

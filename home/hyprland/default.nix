@@ -170,7 +170,12 @@ in
     slurp # selecting a region to screenshot
     wf-recorder # screen recording
 
+    # Required for brightness/volume controls
+    libnotify
+    # To key keystrokes
+    wev
     playerctl # looks like waybar uses it 
+    tidal-hifi
 
     mako # the notification daemon, the same as dunst
 

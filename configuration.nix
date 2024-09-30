@@ -18,7 +18,9 @@
     systemd-boot.configurationLimit = 10;
   };
 
-  nix.gc.automatic = true;
+  # This get's really annoying when logging in after a while. floods the login screen with 
+  # cleanup logs
+  # nix.gc.automatic = true;
 
   networking.hostName = "florina"; # Define your hostname.
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
@@ -166,7 +168,7 @@
 
   # Enable sound.
   hardware = {
-    pulseaudio.enable = true;
+    pulseaudio.enable = false;
 
     bluetooth.enable = true; # enables support for Bluetooth
     bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
