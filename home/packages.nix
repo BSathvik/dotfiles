@@ -151,7 +151,7 @@ in
         aws-iam-authenticator
         # TODO: add overlay to remove `jsonnet`, jrsonnet exports the same binary
         # go-jsonnet#ships with jsonnetfmt (issue with `jsonnet` build)
-        jsonnet
+        # jsonnet
         jrsonnet# is _blazingling_ fast
         jsonnet-bundler
         okta-aws-cli
