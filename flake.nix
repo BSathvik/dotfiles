@@ -27,7 +27,7 @@
     jrsonnet.url = "github:BSathvik/jrsonnet";
 
     hyprland = {
-      url = "git+https://github.com/hyprwm/Hyprland/?ref=refs/tags/v0.41.2&submodules=1";
+      url = "git+https://github.com/hyprwm/Hyprland/?ref=refs/tags/v0.43.0&submodules=1";
       inputs.nixpkgs.follows = "nixos-unstable";
     };
 

@@ -666,7 +666,7 @@ set.list = true
 -- Setup autocmds
 
 -- to change to light mode
-vim.cmd([[colorscheme kanagawa-lotus]])
+vim.cmd([[colorscheme kanagawa]])
 
 vim.keymap.set("n", "<leader>/", ":noh<CR>", { noremap = true, silent = true })
 

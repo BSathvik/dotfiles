@@ -33,6 +33,7 @@ in
         "__GLX_VENDOR_LIBRARY_NAME,nvidia"
         # fix https://github.com/hyprwm/Hyprland/issues/1520
         "WLR_NO_HARDWARE_CURSORS,1"
+        "HYPRCURSOR_SIZE,32"
       ];
 
       # Configure your Display resolution, offset, scale and Monitors here, use `hyprctl monitors` to get the info.
@@ -40,7 +41,7 @@ in
       #   auto:         postition automatically
       #   1.5:          scale to 1.5 times
       #   bitdepth,10:  enable 10 bit support
-      monitor = [ "HDMI-A-2,3840x2160@60,auto,1.666667" "eDP-1,highres,auto,1.2,bitdepth,10" ];
+      monitor = [ ",3840x2160@60,auto,1.666667" "eDP-1,highres,auto,1.2,bitdepth,10" ];
     };
 
     extraConfig = builtins.readFile ./conf/hyprland.conf;
@@ -62,7 +63,7 @@ in
         "~/.config/hypr/wallpapers/starship_day.png"
       ];
       wallpaper = [
-        "HDMI-A-2,~/.config/hypr/wallpapers/starship_day.png"
+        ",~/.config/hypr/wallpapers/starship_day.png"
       ];
       ipc = "on";
     };
@@ -115,6 +116,11 @@ in
       hide-when-typing=yes
     ''
     + (builtins.readFile "${nur-ryan4yin.packages.${pkgs.system}.catppuccin-foot}/catppuccin-mocha.conf");
+
+  xdg.dataFile.icons = {
+    source = ./conf/cursor;
+    recursive = true;
+  };
 
   programs = {
     # a wayland only terminal emulator
@@ -189,4 +195,13 @@ in
     networkmanagerapplet # provide GUI app: nm-connection-editor
     blueman
   ];
+
+  gtk = {
+    enable = true;
+    cursorTheme = {
+      package = pkgs.vanilla-dmz;
+      name = "Vanilla-DMZ";
+      size = 32;
+    };
+  };
 }
