@@ -1,0 +1,14 @@
+{
+  "keyMappings": "# Insert your preferred key mappings here.\nmap <c-r> restoreTab\nmap <c-m> nextTab\nmap <c-n> previousTab\nmap <c-o> goBack\nmap <c-i> goForward",
+  "settingsVersion": "2.1.2",
+  "exclusionRules": [
+    {
+      "passKeys": "t",
+      "pattern": "https?://monkeytype.com/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://monkeytype.com/*"
+    }
+  ]
+}
