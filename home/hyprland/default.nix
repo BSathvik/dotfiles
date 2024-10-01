@@ -194,6 +194,7 @@ in
     ncmpcpp # a mpd client with a UI
     networkmanagerapplet # provide GUI app: nm-connection-editor
     blueman
+    pavucontrol
   ];
 
   gtk = {
