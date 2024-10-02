@@ -115,7 +115,6 @@
         packages = import ./home/packages.nix;
 
         # Modules I've created
-        pip = import ./lib/pip.nix;
         home-user-info = { lib, ... }: {
           options.home.user-info =
             (self.darwinModules.users-primaryUser { inherit lib; }).options.users.primaryUser;
@@ -246,11 +245,11 @@
           python38 = pkgs.mkShell {
             name = "python38";
             buildInputs =
-              [ old-python."3.8" ] ++
+              [ old-python."3.8.0" ] ++
               # For coherence rust project for data-pipeline/workers/nerd
               [ pkgs.rustc pkgs.libiconv ];
             shellHook = ''
-              poetry env use ${old-python."3.8"}/bin/python
+              poetry env use ${old-python."3.8.0"}/bin/python
             '';
           };
           python310 = pkgs.mkShell {
@@ -259,6 +258,25 @@
             shellHook = ''
               poetry env use ${pkgs.python310}/bin/python
             '';
+          };
+          python39 = pkgs.mkShell {
+            name = "python39";
+            buildInputs = with pkgs; [ python39 postgresql openssl ];
+            shellHook = ''
+              poetry env use ${pkgs.python39}/bin/python
+            '';
+          };
+          nerd-web-service = pkgs.mkShell {
+            name = "nerd-web-service";
+            buildInputs =
+              # [ old-python."3.8.0" ] ++
+              [ pkgs.python310 pkgs.rustc pkgs.llvmPackages_12.openmp ];
+            shellHook = ''
+                poetry env use ${pkgs.python310}/bin/python
+              # '';
+            # shellHook = ''
+            #   poetry env use ${old-python."3.9.0"}/bin/python
+            # '';
           };
         };
     });

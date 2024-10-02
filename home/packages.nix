@@ -16,6 +16,7 @@ in
       docker-ls
       rust-analyzer
       pyright
+      ruff-lsp
       lua-language-server
       jsonnet-language-server
       gopls
@@ -174,6 +175,7 @@ in
         python39
         luajit
         ruff
+        uv
         ;
 
       # Useful nix related tools

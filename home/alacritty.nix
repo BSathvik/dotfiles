@@ -13,7 +13,8 @@
       "TERM" = "xterm-256color";
     };
 
-    window.startup_mode = "Maximized";
+    # Can't use rectangle if this is the case
+    # window.startup_mode = "Maximized";
     window.decorations = "None";
 
     keyboard.bindings = [

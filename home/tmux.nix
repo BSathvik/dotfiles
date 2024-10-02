@@ -48,26 +48,21 @@
       bind % split-window -h -c "#{pane_current_path}"
 
       set-option -g renumber-windows on
+
+
+      ##################### Basic Tmux Sessions #####################
+      new -A -s work -c ~/Documents/zen
+
+      new -d -A -s personal -c ~/Documents/gdrive/notes 
+      neww -S -d -c ~/.config/nixpkgs
     '';
     plugins = with pkgs; [
-      tmuxPlugins.cpu
       tmuxPlugins.extrakto
       {
         plugin = tmuxPlugins.tmux-thumbs;
+        # set -g @thumbs-regexp-1 '([a-z0-9-]+)[ ]+[0-9]+' # Match kube resources
         extraConfig = ''
           set -g @thumbs-command 'echo -n {} | pbcopy'
-          set -g @thumbs-regexp-1 '([a-z0-9-]+)[ ]+[0-9]+' # Match kube resources
-        '';
-      }
-      {
-        plugin = tmuxPlugins.resurrect;
-        extraConfig = "set -g @resurrect-strategy-nvim 'session'";
-      }
-      {
-        plugin = tmuxPlugins.continuum;
-        extraConfig = ''
-          set -g @continuum-restore 'on'
-          set -g @continuum-save-interval '60' # minutes
         '';
       }
     ];

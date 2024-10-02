@@ -379,7 +379,7 @@ require("lazy").setup({
       require("nvim-treesitter.configs").setup({
         modules = {},
         sync_install = false,
-        ensure_installed = {},
+        ensure_installed = { "vim", "vimdoc" },
         ignore_install = {},
         highlight = {
           enable = true, -- false will disable the whole extension
@@ -537,7 +537,8 @@ require("lazy").setup({
               analysis = {
                 autoSearchPaths = true,
                 diagnosticMode = "workspace",
-                useLibraryCodeForTypes = false,
+                useLibraryCodeForTypes = true,
+                autoImportCompletions = true,
               },
             },
             Lua = {
@@ -579,8 +580,10 @@ require("lazy").setup({
   {
     "ray-x/lsp_signature.nvim",
     event = "VeryLazy",
-    config = function(_, opts)
-      require("lsp_signature").setup(opts)
+    config = function()
+      require("lsp_signature").setup({
+        floating_window = false,
+      })
     end,
   },
 

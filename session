@@ -1,0 +1,2 @@
+new -A -s personal -c ~/Documents/gdrive/notes 
+neww -c ~/.config/nixpkgs
