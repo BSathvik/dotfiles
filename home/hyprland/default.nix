@@ -41,7 +41,7 @@ in
       #   auto:         postition automatically
       #   1.5:          scale to 1.5 times
       #   bitdepth,10:  enable 10 bit support
-      monitor = [ ",3840x2160@60,auto,1.666667" "eDP-1,highres,auto,1.2,bitdepth,10" ];
+      monitor = [ "HDMI-A-2,3840x2160@60,auto,1.666667" "eDP-1,highres,auto,1.2,bitdepth,10" ];
     };
 
     extraConfig = builtins.readFile ./conf/hyprland.conf;

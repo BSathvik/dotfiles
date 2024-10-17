@@ -16,6 +16,12 @@
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
     systemd-boot.configurationLimit = 10;
+
+    timeout = 10; # wait indefinitely 
+
+    # Boot order changes based on what was last booted into
+    grub.default = "saved";
+    grub.extraEntries = "GRUB_SAVEDEFAULT=true";
   };
 
   # This get's really annoying when logging in after a while. floods the login screen with 
