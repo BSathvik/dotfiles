@@ -269,11 +269,11 @@
           nerd-web-service = pkgs.mkShell {
             name = "nerd-web-service";
             buildInputs =
-              # [ old-python."3.8.0" ] ++
-              [ pkgs.python310 pkgs.rustc pkgs.llvmPackages_12.openmp ];
+              [ old-python."3.8.0" ] ++
+              [ pkgs.rustc pkgs.llvmPackages_12.openmp ];
             shellHook = ''
-                poetry env use ${pkgs.python310}/bin/python
-              # '';
+              poetry env use ${old-python."3.8.0"}/bin/python
+            '';
             # shellHook = ''
             #   poetry env use ${old-python."3.9.0"}/bin/python
             # '';

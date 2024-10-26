@@ -549,10 +549,24 @@ require("lazy").setup({
       "neovim/nvim-lspconfig",
       "L3MON4D3/LuaSnip",
       "saadparwaiz1/cmp_luasnip",
+      "petertriho/cmp-git",
     },
     config = function()
       local luasnip = require("luasnip")
       local cmp = require("cmp")
+      require("cmp_git").setup(
+        {
+          github = {
+            hosts = {
+              "github.kensho.com"
+            },
+            mentions = {
+                limit = 500,
+            },
+          }
+        }
+      )
+
       cmp.setup({
         snippet = {
           expand = function(args)
@@ -590,6 +604,7 @@ require("lazy").setup({
           end, { "i", "s" }),
         }),
         sources = cmp.config.sources({
+          { name = "git" },
           { name = "nvim_lsp", max_item_count = 10 },
           { name = "luasnip", max_item_count = 10 },
           {
@@ -704,6 +719,8 @@ vim.keymap.set("n", "<C-n>", ":bprevious<CR>", { noremap = true, silent = true }
 
 -- Hide all other split windows
 vim.keymap.set("n", "<C-w>z", ":vertical resize<CR>", { noremap = true, silent = true })
+
+vim.keymap.set({"n", "v"}, "p", "P", { noremap = true, silent = true })
 
 -- Copy full path name of file into clipboard
 vim.keymap.set("n", "<C-w>y", ":!echo $PWD/% | pbcopy<CR>", { noremap = true, silent = true })

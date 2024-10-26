@@ -10,5 +10,6 @@
     pip = {
       index-url = "https://pypi.beta-p.kensho.com/simple/";
     };
+    index-url = "https://pypi.beta-p.kensho.com/simple/";
   };
 }

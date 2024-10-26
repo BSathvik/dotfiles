@@ -144,6 +144,7 @@ in
         easyrsa
         podman
         qemu#required for podman
+        ffmpeg
         ;
 
       # Kensho stuff
@@ -152,11 +153,11 @@ in
         aws-iam-authenticator
         # TODO: add overlay to remove `jsonnet`, jrsonnet exports the same binary
         # go-jsonnet#ships with jsonnetfmt (issue with `jsonnet` build)
-        # jsonnet
+        jsonnet
         jrsonnet# is _blazingling_ fast
         jsonnet-bundler
         okta-aws-cli
-        grizzly# grafana cli
+        # grizzly# grafana cli
         # atuin#shell history
         # postgresql_16# Required for psql
         postgresql# Required for psql
@@ -172,7 +173,7 @@ in
         # rustc
         shellcheck
         pipx
-        python39
+        python310
         luajit
         ruff
         uv

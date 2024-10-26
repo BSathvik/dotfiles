@@ -14,7 +14,7 @@
     };
 
     # Can't use rectangle if this is the case
-    # window.startup_mode = "Maximized";
+    window.startup_mode = "Maximized";
     window.decorations = "None";
 
     keyboard.bindings = [

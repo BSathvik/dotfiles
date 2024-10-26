@@ -13,8 +13,12 @@
       # pane border
       set-option -g pane-active-border-style fg="#E82424" #base01
 
-      set -g window-status-format '#I:#(pwd="#{pane_current_path}"; echo ''${pwd####*/})#F'
-      set -g window-status-current-format '#I:#(pwd="#{pane_current_path}"; echo ''${pwd####*/})#F'
+      # set-option -g status-interval 5
+      set-option -g automatic-rename on
+      set-option -g automatic-rename-format '#{b:pane_current_path}'
+
+      # set -g window-status-format '#I:#(pwd="#{pane_current_path}"; echo ''${pwd####*/})#F'
+      # set -g window-status-current-format '#I:#(pwd="#{pane_current_path}"; echo ''${pwd####*/})#F'
 
       # status bar updates every 15s by default**, change to 1s here 
       set -g status-interval 5
@@ -51,10 +55,10 @@
 
 
       ##################### Basic Tmux Sessions #####################
-      new -A -s work -c ~/Documents/zen
+      new -d -A -s personal -c ~/Documents/gdrive/notes
+      neww -d -c ~/.config/nixpkgs
 
-      new -d -A -s personal -c ~/Documents/gdrive/notes 
-      neww -S -d -c ~/.config/nixpkgs
+      new -A -s work -c ~/Documents/zen
     '';
     plugins = with pkgs; [
       tmuxPlugins.extrakto
