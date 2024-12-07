@@ -25,6 +25,7 @@ local required_servers = {
   "jsonnet_ls",
   "gopls",
   "nixd",
+  "ocamllsp",
 }
 
 require("lazy").setup({
@@ -112,15 +113,16 @@ require("lazy").setup({
     end,
   },
 
-  { "jpalardy/vim-slime",
+  {
+    "jpalardy/vim-slime",
     config = function()
       vim.g.slime_target = "tmux"
       vim.g.slime_default_config = {
         socket_name = string.gmatch(vim.env.TMUX, "([^,]+),")(),
-        target_pane = ":.2"
+        target_pane = ":.2",
       }
       vim.g.slime_bracketed_paste = 1
-    end
+    end,
   },
 
   -- UI to select things (files, grep results, open buffers...)
@@ -388,6 +390,17 @@ require("lazy").setup({
           html = {
             require("formatter.filetypes.html").prettier,
           },
+          ocaml = {
+            function()
+              return {
+                exe = "ocamlformat",
+                args = {
+                  util.get_current_buffer_file_path(),
+                },
+                stdin = true,
+              }
+            end,
+          },
           python = {
             function()
               return {
@@ -554,18 +567,16 @@ require("lazy").setup({
     config = function()
       local luasnip = require("luasnip")
       local cmp = require("cmp")
-      require("cmp_git").setup(
-        {
-          github = {
-            hosts = {
-              "github.kensho.com"
-            },
-            mentions = {
-                limit = 500,
-            },
-          }
-        }
-      )
+      require("cmp_git").setup({
+        github = {
+          hosts = {
+            "github.kensho.com",
+          },
+          mentions = {
+            limit = 500,
+          },
+        },
+      })
 
       cmp.setup({
         snippet = {
@@ -574,7 +585,7 @@ require("lazy").setup({
           end,
         },
         completion = {
-          keyword_length = 3,
+          keyword_length = 1,
         },
         mapping = cmp.mapping.preset.insert({
           ["<C-d>"] = cmp.mapping.scroll_docs(-4),
@@ -720,7 +731,7 @@ vim.keymap.set("n", "<C-n>", ":bprevious<CR>", { noremap = true, silent = true }
 -- Hide all other split windows
 vim.keymap.set("n", "<C-w>z", ":vertical resize<CR>", { noremap = true, silent = true })
 
-vim.keymap.set({"n", "v"}, "p", "P", { noremap = true, silent = true })
+vim.keymap.set({ "n", "v" }, "p", "P", { noremap = true, silent = true })
 
 -- Copy full path name of file into clipboard
 vim.keymap.set("n", "<C-w>y", ":!echo $PWD/% | pbcopy<CR>", { noremap = true, silent = true })

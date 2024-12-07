@@ -195,6 +195,9 @@ in
       set -g fish_color_operator     green     # color of parameter expansion operators like '*' and '~'
       set -g fish_color_escape       red       # color of character escapes like '\n' and and '\x70'
       set -g fish_color_cancel       red       # color of the '^C' indicator on a canceled command
+
+      # OCaml Package Manager setup (Opam)
+      test -r '/Users/bsat/.opam/opam-init/init.fish' && source '/Users/bsat/.opam/opam-init/init.fish' > /dev/null 2> /dev/null; or true
     '';
     # }}}
   };

@@ -30,6 +30,8 @@ in
       rustfmt
       nixpkgs-fmt
       black
+      ruff
+      # NOTE: Just install `ocamlformat` with opam, doesn't work with nix for some reason
     ];
   };
 
@@ -57,9 +59,7 @@ in
       s = "status";
       co = "checkout";
       cob = "checkout -b";
-      com = "checkout master";
       cm = "commit -m";
-      rs = "restore --staged";
     };
   };
 
@@ -111,15 +111,6 @@ in
   # https://github.com/ajeetdsouza/zoxide
   programs.zoxide.enable = true;
 
-  # programs.atuin = {
-  #   enable = true;
-  #   flags = [ "--disable-up-arrow" ];
-  #   settings = {
-  #     invert = true;
-  #     inline_height = 30;
-  #   };
-  # };
-
   home.packages = lib.attrValues
     ({
       # Some basics
@@ -131,9 +122,7 @@ in
         fd# fancy version of `find`
         btop# fancy version of `top`
         hyperfine# benchmarking tool
-        parallel# runs commands in parallel
         ripgrep# better version of `grep`
-        tealdeer# rust implementation of `tldr`
         diff-so-fancy# used for `git diff`
         fq
         jq
@@ -141,10 +130,10 @@ in
         jnv
         tailspin
         tmux-xpanes
-        easyrsa
-        podman
-        qemu#required for podman
         ffmpeg
+        opam#Ocaml 
+        # easyrsa
+        # qemu#required for podman
         ;
 
       # Kensho stuff
@@ -167,15 +156,11 @@ in
       inherit (pkgs)
         nodejs
         poetry
-        # uv # let's just install it using pipx for now
         go# Required for jsonnet-language-server
         cargo# Required for rnix-ls
-        # rustc
-        shellcheck
         pipx
         python310
         luajit
-        ruff
         uv
         ;
 
@@ -186,7 +171,6 @@ in
         nix-output-monitor# get additional information while building packages
         nix-tree# interactively browse dependency graphs of Nix derivations
         nix-update# swiss-knife for updating nix packages
-        nixpkgs-review# review pull-requests on nixpkgs
         statix# lints and suggestions for the Nix programming language
         ;
 
