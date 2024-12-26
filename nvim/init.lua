@@ -70,6 +70,7 @@ require("lazy").setup({
     "vhyrro/luarocks.nvim",
     priority = 1000,
     config = true,
+    lazy = true,
     opts = {
       luarocks_build_args = {
         -- MY_LUA_PATH is set in fish.nix
@@ -112,24 +113,27 @@ require("lazy").setup({
     end,
   },
 
-  { "jpalardy/vim-slime",
+  {
+    "jpalardy/vim-slime",
     config = function()
       vim.g.slime_target = "tmux"
       vim.g.slime_default_config = {
         socket_name = string.gmatch(vim.env.TMUX, "([^,]+),")(),
-        target_pane = ":.2"
+        target_pane = ":.2",
       }
       vim.g.slime_bracketed_paste = 1
-    end
+    end,
   },
 
   -- UI to select things (files, grep results, open buffers...)
   {
     "nvim-telescope/telescope.nvim",
-    event = "VeryLazy",
+    -- event = "VeryLazy",
     dependencies = {
       "nvim-lua/plenary.nvim",
       -- "nvim-telescope/telescope-fzf-native.nvim",
+      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+      "nvim-telescope/telescope-frecency.nvim",
       "nvim-telescope/telescope-file-browser.nvim",
       "xiyaowong/telescope-emoji.nvim",
     },
@@ -141,6 +145,10 @@ require("lazy").setup({
               ["<C-u>"] = false,
               ["<C-d>"] = false,
             },
+          },
+          layout_config = {
+            horizontal = { width = 0.95 },
+            -- other layout configuration here
           },
         },
       })
@@ -156,7 +164,8 @@ require("lazy").setup({
       end
 
       -- Enable telescope fzf native
-      -- require("telescope").load_extension("fzf")
+      require("telescope").load_extension("fzf")
+      require("telescope").load_extension("frecency")
       require("telescope").load_extension("file_browser")
       require("telescope").load_extension("emoji")
 
@@ -183,7 +192,6 @@ require("lazy").setup({
       end)
     end,
   },
-  -- { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 
   -- Aesthetics
   {
@@ -212,6 +220,14 @@ require("lazy").setup({
           theme = "gruvbox_dark",
           section_separators = "",
           component_separators = "",
+        },
+        sections = {
+          lualine_a = { "mode" },
+          lualine_b = { "branch", "diff", "diagnostics" },
+          lualine_c = { { "filename", file_status = true, path = 3 } },
+          lualine_x = { "location", "encoding", "fileformat", "filetype" },
+          lualine_y = { "progress" },
+          lualine_z = { "location" },
         },
       })
     end,
@@ -554,18 +570,16 @@ require("lazy").setup({
     config = function()
       local luasnip = require("luasnip")
       local cmp = require("cmp")
-      require("cmp_git").setup(
-        {
-          github = {
-            hosts = {
-              "github.kensho.com"
-            },
-            mentions = {
-                limit = 500,
-            },
-          }
-        }
-      )
+      require("cmp_git").setup({
+        github = {
+          hosts = {
+            "github.kensho.com",
+          },
+          mentions = {
+            limit = 500,
+          },
+        },
+      })
 
       cmp.setup({
         snippet = {
@@ -651,7 +665,7 @@ vim.filetype.on = true
 local set = vim.opt -- set options
 
 set.gcr = "a:blinkon100"
-set.background = "dark"
+set.background = "light"
 
 set.colorcolumn = "100"
 -- set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
@@ -720,7 +734,7 @@ vim.keymap.set("n", "<C-n>", ":bprevious<CR>", { noremap = true, silent = true }
 -- Hide all other split windows
 vim.keymap.set("n", "<C-w>z", ":vertical resize<CR>", { noremap = true, silent = true })
 
-vim.keymap.set({"n", "v"}, "p", "P", { noremap = true, silent = true })
+vim.keymap.set({ "n", "v" }, "p", "P", { noremap = true, silent = true })
 
 -- Copy full path name of file into clipboard
 vim.keymap.set("n", "<C-w>y", ":!echo $PWD/% | pbcopy<CR>", { noremap = true, silent = true })
@@ -729,6 +743,10 @@ vim.keymap.set("n", "<C-w>y", ":!echo $PWD/% | pbcopy<CR>", { noremap = true, si
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
+
+-- Quickfix keymaps
+vim.keymap.set("n", "[q", ":cprevious<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "]q", ":cnext<CR>", { noremap = true, silent = true })
 
 -- Highlight on yank
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })

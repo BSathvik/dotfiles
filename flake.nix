@@ -3,7 +3,7 @@
 
   inputs = {
     # Package sets
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixpkgs-24.05-darwin";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixpkgs-24.11-darwin";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -45,6 +45,11 @@
       inputs.nixpkgs.follows = "nixos-unstable";
     };
 
+    aerospace = {
+      url = "tarball+https://github.com/nikitabobko/AeroSpace/releases/download/v0.16.2-Beta/AeroSpace-v0.16.2-Beta.zip";
+      flake = false;
+    };
+
     nixpkgs-python.url = "github:cachix/nixpkgs-python";
   };
 
@@ -61,7 +66,7 @@
         };
         overlays = attrValues
           (import ./myOverlays.nix {
-            inherit (inputs) nixpkgs-unstable nixpkgs-stable jrsonnet;
+            inherit (inputs) nixpkgs-unstable nixpkgs-stable jrsonnet aerospace;
             inherit (self) nixpkgsDefaults;
           });
       };
@@ -137,7 +142,7 @@
             nix.registry.my.flake = inputs.self;
           };
           inherit homeStateVersion;
-          homeModules = attrValues self.homeManagerModules;
+          homeModules = (attrValues self.homeManagerModules) ++ [ (import ./home/darwin.nix) ];
           system = "x86_64-darwin";
         });
 

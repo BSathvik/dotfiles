@@ -29,7 +29,6 @@ in
       stylua
       rustfmt
       nixpkgs-fmt
-      black
     ];
   };
 
@@ -161,6 +160,7 @@ in
         # atuin#shell history
         # postgresql_16# Required for psql
         postgresql# Required for psql
+        sqlcmd
         ;
 
       # Dev stuff

@@ -16,6 +16,9 @@
       # set-option -g status-interval 5
       set-option -g automatic-rename on
       set-option -g automatic-rename-format '#{b:pane_current_path}'
+      set -gu default-command
+      set -g default-shell "$SHELL"
+      # set-option -g default-shell ${pkgs.fish}/bin/fish
 
       # set -g window-status-format '#I:#(pwd="#{pane_current_path}"; echo ''${pwd####*/})#F'
       # set -g window-status-current-format '#I:#(pwd="#{pane_current_path}"; echo ''${pwd####*/})#F'
@@ -58,6 +61,7 @@
       new -d -A -s personal -c ~/Documents/gdrive/notes
       neww -d -c ~/.config/nixpkgs
 
+      new -A -s look -c ~/Documents/zen/look
       new -A -s work -c ~/Documents/zen
     '';
     plugins = with pkgs; [

@@ -40,8 +40,8 @@ in
 
       rds-connect.body = ''
         set rds_suffix "cwzeyj7yzyfs.us-east-1.rds.amazonaws.com"
-        set rds_host $argv"."$rds_suffix
-        set rds_user "kensho"
+        set rds_host "codex-app-dev."$rds_suffix
+        set rds_user "codex-app"
         set password $(aws rds generate-db-auth-token --hostname $rds_host --port 5432 --region us-east-1 --username $rds_user)
         set -x PGPASSWORD $password
         psql "sslmode=require host=$rds_host user=$rds_user dbname=postgres"
@@ -59,10 +59,10 @@ in
                     --cache-access-token \
                     --session-duration 36000 \
                     --profile kensho \
-                    --aws-iam-role arn:aws:iam::208007848330:role/kensho_infra_developer
+                    --aws-iam-role arn:aws:iam::208007848330:role/kensho_codex_developer
       '';
 
-      authops.body = ''
+      auth-infra.body = ''
         okta-aws-cli \
                     --org-domain=kensho.okta.com \
                     --oidc-client-id=0oacyf7evwyrXjjgO4x7 \
@@ -72,57 +72,57 @@ in
                     --cache-access-token \
                     --session-duration 3600 \
                     --profile kensho \
-                    --aws-iam-role arn:aws:iam::208007848330:role/kensho_ops
+                    --aws-iam-role arn:aws:iam::208007848330:role/kensho_infra_developer
       '';
 
       # Sets Fish Shell to light or dark colorscheme based on `$term_background`.
-      set-shell-colors = {
-        body = ''
-          # Set LS_COLORS
-          set -xg LS_COLORS (${pkgs.vivid}/bin/vivid generate solarized-$term_background)
-
-          # Set color variables
-          if test "$term_background" = light
-            set emphasized_text  brgreen  # base01
-            set normal_text      bryellow # base00
-            set secondary_text   brcyan   # base1
-            set background_light white    # base2
-            set background       brwhite  # base3
-          else
-            set emphasized_text  brcyan   # base1
-            set normal_text      brblue   # base0
-            set secondary_text   brgreen  # base01
-            set background_light black    # base02
-            set background       brblack  # base03
-          end
-
-          # Set Fish colors that change when background changes
-          set -g fish_color_command                    $emphasized_text --bold  # color of commands
-          set -g fish_color_param                      $normal_text             # color of regular command parameters
-          set -g fish_color_comment                    $secondary_text          # color of comments
-          set -g fish_color_autosuggestion             $secondary_text          # color of autosuggestions
-          set -g fish_pager_color_prefix               $emphasized_text --bold  # color of the pager prefix string
-          set -g fish_pager_color_description          $selection_text          # color of the completion description
-          set -g fish_pager_color_selected_prefix      $background
-          set -g fish_pager_color_selected_completion  $background
-          set -g fish_pager_color_selected_description $background
-        '' + optionalString (elem pkgs.bottom config.home.packages) ''
-          # Use correct theme for `btm`.
-          if test "$term_background" = light
-            alias btm "btm --color default-light"
-          else
-            alias btm "btm --color default"
-          end
-        '' + optionalString config.programs.neovim.enable ''
-          # TODO: This ain't workin
-          # Set `background` of all running Neovim instances.
-          # for server in (${pkgs.neovim-remote}/bin/nvr --serverlist)
-          #   ${pkgs.neovim-remote}/bin/nvr -s --nostart --servername $server \
-          #     -c "set background=$term_background" &
-          # end
-        '';
-        onVariable = "term_background";
-      };
+      # set-shell-colors = {
+      #   body = ''
+      #     # Set LS_COLORS
+      #     set -xg LS_COLORS (${pkgs.vivid}/bin/vivid generate solarized-$term_background)
+      #
+      #     # Set color variables
+      #     if test "$term_background" = light
+      #       set emphasized_text  brgreen  # base01
+      #       set normal_text      bryellow # base00
+      #       set secondary_text   brcyan   # base1
+      #       set background_light white    # base2
+      #       set background       brwhite  # base3
+      #     else
+      #       set emphasized_text  brcyan   # base1
+      #       set normal_text      brblue   # base0
+      #       set secondary_text   brgreen  # base01
+      #       set background_light black    # base02
+      #       set background       brblack  # base03
+      #     end
+      #
+      #     # Set Fish colors that change when background changes
+      #     set -g fish_color_command                    $emphasized_text --bold  # color of commands
+      #     set -g fish_color_param                      $normal_text             # color of regular command parameters
+      #     set -g fish_color_comment                    $secondary_text          # color of comments
+      #     set -g fish_color_autosuggestion             $secondary_text          # color of autosuggestions
+      #     set -g fish_pager_color_prefix               $emphasized_text --bold  # color of the pager prefix string
+      #     set -g fish_pager_color_description          $selection_text          # color of the completion description
+      #     set -g fish_pager_color_selected_prefix      $background
+      #     set -g fish_pager_color_selected_completion  $background
+      #     set -g fish_pager_color_selected_description $background
+      #   '' + optionalString (elem pkgs.bottom config.home.packages) ''
+      #     # Use correct theme for `btm`.
+      #     if test "$term_background" = light
+      #       alias btm "btm --color default-light"
+      #     else
+      #       alias btm "btm --color default"
+      #     end
+      #   '' + optionalString config.programs.neovim.enable ''
+      #     # TODO: This ain't workin
+      #     # Set `background` of all running Neovim instances.
+      #     # for server in (${pkgs.neovim-remote}/bin/nvr --serverlist)
+      #     #   ${pkgs.neovim-remote}/bin/nvr -s --nostart --servername $server \
+      #     #     -c "set background=$term_background" &
+      #     # end
+      #   '';
+      #   onVariable = "term_background";
+      # };
     };
     # }}}
 
@@ -182,7 +182,7 @@ in
 
       # Run function to set colors that are dependant on `$term_background` and to register them so
       # they are triggerd when the relevent event happens or variable changes.
-      set-shell-colors
+      # set-shell-colors
 
       # Set Fish colors that aren't dependant the `$term_background`.
       set -g fish_color_quote        cyan      # color of commands

@@ -2,6 +2,7 @@
 , nixpkgs-unstable
 , nixpkgs-stable
 , jrsonnet
+, aerospace
 ,
 }:
 {
@@ -30,6 +31,10 @@
         checkPhase = null;
       });
     });
+  };
+
+  aerospace = final: prev: {
+    aerospace = prev.aerospace.overrideAttrs (oldAttrs: { src = aerospace; });
   };
 
   # We want the latest version of jrsonnet, it has a fix for a rendering issue

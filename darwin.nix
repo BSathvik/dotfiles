@@ -78,15 +78,10 @@
   # Issue: https://github.com/nix-community/home-manager/issues/1341
   environment.systemPackages = with pkgs; [
     alacritty
+    aerospace
   ];
-  programs.nix-index.enable = true;
 
-  # Fonts
-  # fonts.fontDir.enable = true;
-  # fonts.packages = with pkgs; [
-  #   recursive
-  #   (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-  # ];
+  programs.nix-index.enable = true;
 
   # Keyboard
   system.keyboard.enableKeyMapping = true;
