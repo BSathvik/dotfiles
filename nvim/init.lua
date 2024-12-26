@@ -25,6 +25,7 @@ local required_servers = {
   "jsonnet_ls",
   "gopls",
   "nixd",
+  "ocamllsp",
 }
 
 require("lazy").setup({
@@ -404,6 +405,17 @@ require("lazy").setup({
           html = {
             require("formatter.filetypes.html").prettier,
           },
+          ocaml = {
+            function()
+              return {
+                exe = "ocamlformat",
+                args = {
+                  util.get_current_buffer_file_path(),
+                },
+                stdin = true,
+              }
+            end,
+          },
           python = {
             function()
               return {
@@ -588,7 +600,7 @@ require("lazy").setup({
           end,
         },
         completion = {
-          keyword_length = 3,
+          keyword_length = 1,
         },
         mapping = cmp.mapping.preset.insert({
           ["<C-d>"] = cmp.mapping.scroll_docs(-4),
