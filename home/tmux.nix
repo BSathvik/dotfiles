@@ -9,7 +9,7 @@
       set -sg escape-time 10 
 
       set-option -g status-bg "#E82424"
-      set-option -g status-fg "#DCD7BA" 
+      set-option -g status-fg "#FFFFFF" 
       # pane border
       set-option -g pane-active-border-style fg="#E82424" #base01
 

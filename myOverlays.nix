@@ -3,6 +3,7 @@
 , nixpkgs-stable
 , jrsonnet
 , aerospace
+, ghostty
 ,
 }:
 {
@@ -42,6 +43,11 @@
   jrsonnet = final: prev: {
     jrsonnet = jrsonnet.packages.${prev.system}.jrsonnet;
   };
+
+  ghostty = final: prev: {
+    ghostty = ghostty.packages.${prev.system}.ghostty;
+  };
+
 
   # We dont' want the shared lib from jsonnet, it conflicts with jrsonnet path
   # TODO: This shit aint'w working.

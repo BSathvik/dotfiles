@@ -55,74 +55,74 @@
     };
 
     # Kanagawa Alacritty Colors (Dark Mode)
-    # colors = {
-    #   primary = {
-    #     background = "0x1f1f28";
-    #     foreground = "0xdcd7ba";
-    #   };
-    #
-    #   normal = {
-    #     black = "0x090618";
-    #     red = "0xc34043";
-    #     green = "0x76946a";
-    #     yellow = "0xc0a36e";
-    #     blue = "0x7e9cd8";
-    #     magenta = "0x957fb8";
-    #     cyan = "0x6a9589";
-    #     white = "0xc8c093";
-    #   };
-    #
-    #   bright = {
-    #     black = "0x727169";
-    #     red = "0xe82424";
-    #     green = "0x98bb6c";
-    #     yellow = "0xe6c384";
-    #     blue = "0x7fb4ca";
-    #     magenta = "0x938aa9";
-    #     cyan = "0x7aa89f";
-    #     white = "0xdcd7ba";
-    #   };
-    #
-    #   selection = {
-    #     background = "0x2d4f67";
-    #     foreground = "0xc8c093";
-    #   };
-    # };
-
-    # Kanagawa Alacritty Colors (Light Mode)
     colors = {
       primary = {
-        background = "#F2ECBC";
-        foreground = "#54546D";
+        background = "0x1f1f28";
+        foreground = "0xdcd7ba";
       };
 
       normal = {
-        black = "#090618";
-        red = "#c34043";
-        green = "#76946a";
-        yellow = "#c0a36e";
-        blue = "#7e9cd8";
-        magenta = "#957fb8";
-        cyan = "#6a9589";
-        white = "#c8c093";
+        black = "0x090618";
+        red = "0xc34043";
+        green = "0x76946a";
+        yellow = "0xc0a36e";
+        blue = "0x7e9cd8";
+        magenta = "0x957fb8";
+        cyan = "0x6a9589";
+        white = "0xc8c093";
       };
 
       bright = {
-        black = "#727169";
-        red = "#e82424";
-        green = "#98bb6c";
-        yellow = "#e6c384";
-        blue = "#7fb4ca";
-        magenta = "#938aa9";
-        cyan = "#7aa89f";
-        white = "#dcd7ba";
+        black = "0x727169";
+        red = "0xe82424";
+        green = "0x98bb6c";
+        yellow = "0xe6c384";
+        blue = "0x7fb4ca";
+        magenta = "0x938aa9";
+        cyan = "0x7aa89f";
+        white = "0xdcd7ba";
       };
 
       selection = {
-        background = "#2d4f67";
-        foreground = "#c8c093";
+        background = "0x2d4f67";
+        foreground = "0xc8c093";
       };
     };
+
+    # Kanagawa Alacritty Colors (Light Mode)
+    # colors = {
+    #   primary = {
+    #     background = "#F2ECBC";
+    #     foreground = "#54546D";
+    #   };
+    #
+    #   normal = {
+    #     black = "#090618";
+    #     red = "#c34043";
+    #     green = "#76946a";
+    #     yellow = "#c0a36e";
+    #     blue = "#7e9cd8";
+    #     magenta = "#957fb8";
+    #     cyan = "#6a9589";
+    #     white = "#c8c093";
+    #   };
+    #
+    #   bright = {
+    #     black = "#727169";
+    #     red = "#e82424";
+    #     green = "#98bb6c";
+    #     yellow = "#e6c384";
+    #     blue = "#7fb4ca";
+    #     magenta = "#938aa9";
+    #     cyan = "#7aa89f";
+    #     white = "#dcd7ba";
+    #   };
+    #
+    #   selection = {
+    #     background = "#2d4f67";
+    #     foreground = "#c8c093";
+    #   };
+    # };
 
     # Alabaster (Light Mode)
     # https://github.com/alacritty/alacritty-theme/blob/master/themes/alabaster.toml

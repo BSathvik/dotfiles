@@ -252,6 +252,7 @@
     iputils
     git
     killall
+    ghostty
   ];
 
   services = {

@@ -50,6 +50,10 @@
       flake = false;
     };
 
+    ghostty = {
+      url = "github:ghostty-org/ghostty";
+    };
+
     nixpkgs-python.url = "github:cachix/nixpkgs-python";
   };
 
@@ -66,7 +70,7 @@
         };
         overlays = attrValues
           (import ./myOverlays.nix {
-            inherit (inputs) nixpkgs-unstable nixpkgs-stable jrsonnet aerospace;
+            inherit (inputs) nixpkgs-unstable nixpkgs-stable jrsonnet aerospace ghostty;
             inherit (self) nixpkgsDefaults;
           });
       };
@@ -117,6 +121,7 @@
         fish = import ./home/fish.nix;
         tmux = import ./home/tmux.nix;
         alacritty = import ./home/alacritty.nix;
+        ghostty = import ./home/ghostty.nix;
         packages = import ./home/packages.nix;
 
         # Modules I've created
@@ -154,15 +159,16 @@
           });
 
         # Config with small modifications needed/desired for CI with GitHub workflow
-        githubCI = self.darwinConfigurations.personalMac.override {
-          system = "x86_64-darwin";
-          username = "runner";
-          nixConfigDirectory = "/Users/runner/work/nixpkgs/nixpkgs";
-          extraModules = singleton {
-            environment.etc.shells.enable = mkForce false;
-            environment.etc."nix/nix.conf".enable = mkForce false;
+        githubCI = self.darwinConfigurations.personalMac.override
+          {
+            system = "x86_64-darwin";
+            username = "runner";
+            nixConfigDirectory = "/Users/runner/work/nixpkgs/nixpkgs";
+            extraModules = singleton {
+              environment.etc.shells.enable = mkForce false;
+              environment.etc."nix/nix.conf".enable = mkForce false;
+            };
           };
-        };
       };
 
       nixosConfigurations = {
