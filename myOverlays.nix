@@ -2,8 +2,6 @@
 , nixpkgs-unstable
 , nixpkgs-stable
 , jrsonnet
-, aerospace
-, ghostty
 ,
 }:
 {
@@ -34,31 +32,13 @@
     });
   };
 
-  aerospace = final: prev: {
-    aerospace = prev.aerospace.overrideAttrs (oldAttrs: { src = aerospace; });
-  };
+  # aerospace = final: prev: {
+  #   aerospace = prev.aerospace.overrideAttrs (oldAttrs: { src = aerospace; });
+  # };
 
   # We want the latest version of jrsonnet, it has a fix for a rendering issue
   # https://github.com/CertainLach/jrsonnet/issues/93
   jrsonnet = final: prev: {
     jrsonnet = jrsonnet.packages.${prev.system}.jrsonnet;
   };
-
-  ghostty = final: prev: {
-    ghostty = ghostty.packages.${prev.system}.ghostty;
-  };
-
-
-  # We dont' want the shared lib from jsonnet, it conflicts with jrsonnet path
-  # TODO: This shit aint'w working.
-  # jsonnet = final: prev: {
-  #   jsonnet = prev.jsonnet.overrideAttrs (oldAttrs: {
-  #     postInstall = ''
-  #       mkdir -p $out/share/doc/jsonnet
-  #       cp -r ./html $out/share/doc/jsonnet
-  #
-  #       rm -rf $out/lib/*
-  #     '';
-  #   });
-  # };
 }

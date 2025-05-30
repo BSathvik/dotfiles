@@ -45,15 +45,6 @@
       inputs.nixpkgs.follows = "nixos-unstable";
     };
 
-    aerospace = {
-      url = "tarball+https://github.com/nikitabobko/AeroSpace/releases/download/v0.16.2-Beta/AeroSpace-v0.16.2-Beta.zip";
-      flake = false;
-    };
-
-    ghostty = {
-      url = "github:ghostty-org/ghostty";
-    };
-
     nixpkgs-python.url = "github:cachix/nixpkgs-python";
   };
 
@@ -70,7 +61,7 @@
         };
         overlays = attrValues
           (import ./myOverlays.nix {
-            inherit (inputs) nixpkgs-unstable nixpkgs-stable jrsonnet aerospace ghostty;
+            inherit (inputs) nixpkgs-unstable nixpkgs-stable jrsonnet;
             inherit (self) nixpkgsDefaults;
           });
       };
@@ -234,62 +225,5 @@
           home.user-info.nixConfigDirectory = mkForce "/home/runner/work/nixpkgs/nixpkgs";
         };
       });
-
-    } // flake-utils.lib.eachDefaultSystem (system: {
-      # Re-export `nixpkgs-unstable` with overlays.
-      # This is handy in combination with setting `nix.registry.my.flake = inputs.self`.
-      # Allows doing things like `nix run my#prefmanager -- watch --all`
-      legacyPackages = import inputs.nixpkgs-unstable (nixpkgsDefaults // { inherit system; });
-
-      formatter = self.legacyPackages.${system}.nixpkgs-fmt;
-
-      # Development shells ----------------------------------------------------------------------{{{
-      # Shell environments for development
-      # With `nix.registry.my.flake = inputs.self`, development shells can be created by running,
-      # e.g., `nix develop my#python`.
-      devShells =
-        let
-          pkgs = self.legacyPackages.${system};
-          old-python = inputs.nixpkgs-python.packages.${system};
-        in
-        {
-          python38 = pkgs.mkShell {
-            name = "python38";
-            buildInputs =
-              [ old-python."3.8.0" ] ++
-              # For coherence rust project for data-pipeline/workers/nerd
-              [ pkgs.rustc pkgs.libiconv ];
-            shellHook = ''
-              poetry env use ${old-python."3.8.0"}/bin/python
-            '';
-          };
-          python310 = pkgs.mkShell {
-            name = "python310";
-            buildInputs = with pkgs; [ python310 postgresql openssl ];
-            shellHook = ''
-              poetry env use ${pkgs.python310}/bin/python
-            '';
-          };
-          python39 = pkgs.mkShell {
-            name = "python39";
-            buildInputs = with pkgs; [ python39 postgresql openssl ];
-            shellHook = ''
-              poetry env use ${pkgs.python39}/bin/python
-            '';
-          };
-          nerd-web-service = pkgs.mkShell {
-            name = "nerd-web-service";
-            buildInputs =
-              [ old-python."3.8.0" ] ++
-              [ pkgs.rustc pkgs.llvmPackages_12.openmp ];
-            shellHook = ''
-              poetry env use ${old-python."3.8.0"}/bin/python
-            '';
-            # shellHook = ''
-            #   poetry env use ${old-python."3.9.0"}/bin/python
-            # '';
-          };
-        };
-    });
+    };
 }
-# vim: foldmethod=marker

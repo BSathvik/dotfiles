@@ -253,6 +253,7 @@
     git
     killall
     ghostty
+    jujutsu
   ];
 
   services = {

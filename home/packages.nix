@@ -16,11 +16,12 @@ in
       docker-ls
       rust-analyzer
       pyright
-      ruff-lsp
       lua-language-server
       jsonnet-language-server
       gopls
       nixd
+      superhtml
+      basedpyright
 
       # Required for neorg
       luajitPackages.luarocks
@@ -121,19 +122,19 @@ in
         fzf
         fd# fancy version of `find`
         btop# fancy version of `top`
-        hyperfine# benchmarking tool
         ripgrep# better version of `grep`
         diff-so-fancy# used for `git diff`
         fq
         jq
         yq
         jnv
-        tailspin
+        # tailspin # broken for some reason
         tmux-xpanes
-        ffmpeg
-        opam#Ocaml 
+        csvlens
+        pup
+        rabbitmq-server
+        # opam #Ocaml 
         # easyrsa
-        # qemu#required for podman
         ;
 
       # Kensho stuff
@@ -146,17 +147,14 @@ in
         jrsonnet# is _blazingling_ fast
         jsonnet-bundler
         okta-aws-cli
-        # grizzly# grafana cli
-        # atuin#shell history
-        # postgresql_16# Required for psql
-        postgresql# Required for psql
+        # grizzly # grafana cli
+        # atuin #shell history
         sqlcmd
+        prettierd
         ;
 
       # Dev stuff
       inherit (pkgs)
-        nodejs
-        poetry
         go# Required for jsonnet-language-server
         cargo# Required for rnix-ls
         pipx
@@ -177,7 +175,7 @@ in
 
     } // lib.optionalAttrs pkgs.stdenv.isDarwin {
       inherit (pkgs)
-        m-cli# useful macOS CLI commands
+        # m-cli # useful macOS CLI commands
         ;
-    });
+    }) ++ [ pkgs.postgresql_16.dev pkgs.openssl.dev pkgs.openssl ];
 }

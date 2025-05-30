@@ -79,6 +79,8 @@
   environment.systemPackages = with pkgs; [
     alacritty
     aerospace
+    jujutsu
+    watchman
   ];
 
   programs.nix-index.enable = true;
@@ -88,7 +90,7 @@
   system.keyboard.remapCapsLockToControl = true;
 
   # Add ability to used TouchID for sudo authentication
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
 
   # Nix configuration ------------------------------------------------------------------------------
 
@@ -120,11 +122,10 @@
     keep-outputs = true;
   };
 
-  nix.configureBuildUsers = true;
+  nix.enable = true;
 
-  # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
-
+  # 500MB
+  nix.settings.download-buffer-size = 524288000;
 
   # Shells -----------------------------------------------------------------------------------------
 

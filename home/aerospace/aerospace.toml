@@ -114,18 +114,27 @@ alt-shift-minus = 'resize smart -50'
 alt-shift-equal = 'resize smart +50'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
+cmd-1 = 'workspace 1'
+cmd-2 = 'workspace 2'
+cmd-3 = 'workspace 3'
+cmd-4 = 'workspace 4'
+
+cmd-7 = 'workspace 7'
 cmd-8 = 'workspace 1'
 cmd-9 = 'workspace 2'
 cmd-0 = 'workspace 3'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
+cmd-ctrl-1 = 'move-node-to-workspace 1'
+cmd-ctrl-2 = 'move-node-to-workspace 2'
+cmd-ctrl-3 = 'move-node-to-workspace 3'
+cmd-ctrl-4 = 'move-node-to-workspace 4'
+
+cmd-ctrl-7 = 'move-node-to-workspace 7'
 cmd-ctrl-8 = 'move-node-to-workspace 1'
 cmd-ctrl-9 = 'move-node-to-workspace 2'
 cmd-ctrl-0 = 'move-node-to-workspace 3'
-cmd-ctrl-4 = 'move-node-to-workspace 4'
-cmd-ctrl-5 = 'move-node-to-workspace 5'
-cmd-ctrl-6 = 'move-node-to-workspace 6'
-cmd-ctrl-7 = 'move-node-to-workspace 7'
+
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
 alt-tab = 'workspace-back-and-forth'

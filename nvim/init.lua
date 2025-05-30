@@ -20,12 +20,13 @@ vim.opt.laststatus = 2
 local required_servers = {
   -- "dockerls",
   "rust_analyzer",
-  "pyright",
+  -- "pyright",
   "lua_ls",
   "jsonnet_ls",
   "gopls",
   "nixd",
   "ocamllsp",
+  "basedpyright",
 }
 
 require("lazy").setup({
@@ -166,7 +167,7 @@ require("lazy").setup({
 
       -- Enable telescope fzf native
       require("telescope").load_extension("fzf")
-      require("telescope").load_extension("frecency")
+      -- require("telescope").load_extension("frecency")
       require("telescope").load_extension("file_browser")
       require("telescope").load_extension("emoji")
 
@@ -252,6 +253,15 @@ require("lazy").setup({
           TODO = { icon = " ", color = "warning" },
         },
       })
+    end,
+  },
+
+  -- Jujitsu
+  {
+    "julienvincent/hunk.nvim",
+    cmd = { "DiffEditor" },
+    config = function()
+      require("hunk").setup()
     end,
   },
 
@@ -403,7 +413,7 @@ require("lazy").setup({
             require("formatter.filetypes.rust").rustfmt,
           },
           html = {
-            require("formatter.filetypes.html").prettier,
+            require("formatter.filetypes.html").prettierd,
           },
           ocaml = {
             function()
@@ -549,7 +559,10 @@ require("lazy").setup({
         cmd = {
           "jsonnet-language-server",
           "--jpath",
-          "/Users/sathvikbirudavolu/Documents/zen/graf/klib/pkgs/kensho_deploy/kensho_deploy/",
+          "/Users/sathvikbirudavolu/src/zentreefish/klib/pkgs/kensho_deploy/kensho_deploy/",
+          -- TODO: This still doesn't work for some reason
+          "--jpath",
+          "/Users/sathvikbirudavolu/src/zentreefish/projects/terraform/lib/",
         },
       })
     end,
@@ -717,6 +730,11 @@ set.signcolumn = "yes"
 set.completeopt = "menuone,noselect"
 
 set.list = true
+
+set.foldlevel = 99
+
+vim.wo.foldmethod = "expr"
+vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
 -- Setup autocmds
 
