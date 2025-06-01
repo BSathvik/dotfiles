@@ -36,6 +36,8 @@ inputs.darwin.lib.darwinSystem {
       # Support legacy workflows that use `<nixpkgs>` etc.
       nix.nixPath.nixpkgs = "${inputs.nixpkgs-unstable}";
 
+      system.primaryUser = username;
+
       # `home-manager` config
       users.users.${username}.home = "/Users/${username}";
       home-manager.useGlobalPkgs = true;

@@ -195,6 +195,9 @@
       g = "${gitAndTools.git}/bin/git";
       ls = "${eza}/bin/eza";
 
+      # Github Enterprise
+      ghe = "GH_HOST=github.kensho.com ${pkgs.gh}/bin/gh";
+
       # https://github.com/jj-vcs/jj/issues/1841#issuecomment-1657464287
       j = "${jujutsu}/bin/jj --ignore-working-copy";
 

@@ -3,7 +3,7 @@
 
   inputs = {
     # Package sets
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixpkgs-24.11-darwin";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixpkgs-25.05-darwin";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -132,6 +132,11 @@
           modules = [ ./darwin.nix { nixpkgs = nixpkgsDefaults; } ];
         };
 
+        bootstrap-aarch = makeOverridable darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          modules = [ ./darwin.nix { nixpkgs = nixpkgsDefaults; } ];
+        };
+
         personalMac = makeOverridable self.lib.mkDarwinSystem (personalUser // {
           modules = attrValues self.darwinModules ++ singleton {
             nixpkgs = nixpkgsDefaults;
@@ -142,12 +147,19 @@
           system = "x86_64-darwin";
         });
 
-        workMac = self.darwinConfigurations.personalMac.override
-          (old: old // workUser // {
-            extraHomeModules = [
-              (import ./home/work.nix)
-            ];
-          });
+        workMac = makeOverridable self.lib.mkDarwinSystem (workUser // {
+          modules = attrValues self.darwinModules ++ singleton {
+            nixpkgs = nixpkgsDefaults;
+            nix.registry.my.flake = inputs.self;
+          };
+          inherit homeStateVersion;
+          homeModules = (attrValues self.homeManagerModules) ++ [ (import ./home/darwin.nix) ];
+          system = "aarch64-darwin";
+          extraHomeModules = [
+            (import ./home/work.nix)
+          ];
+        });
+
 
         # Config with small modifications needed/desired for CI with GitHub workflow
         githubCI = self.darwinConfigurations.personalMac.override

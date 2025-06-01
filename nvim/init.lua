@@ -133,8 +133,8 @@ require("lazy").setup({
     -- event = "VeryLazy",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      -- "nvim-telescope/telescope-fzf-native.nvim",
-      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+      -- TODO: Get it running on aarch64-darwin
+      -- { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
       "nvim-telescope/telescope-frecency.nvim",
       "nvim-telescope/telescope-file-browser.nvim",
       "xiyaowong/telescope-emoji.nvim",
@@ -166,7 +166,7 @@ require("lazy").setup({
       end
 
       -- Enable telescope fzf native
-      require("telescope").load_extension("fzf")
+      -- require("telescope").load_extension("fzf")
       -- require("telescope").load_extension("frecency")
       require("telescope").load_extension("file_browser")
       require("telescope").load_extension("emoji")
@@ -187,10 +187,10 @@ require("lazy").setup({
         require("telescope.builtin").live_grep({ cwd = git_root() })
       end)
       vim.keymap.set("n", "<leader>#", function()
-        require("telescope.builtin").find_files({ cwd = "~/Documents/gdrive/notes" })
+        require("telescope.builtin").find_files({ cwd = "~/notes" })
       end)
       vim.keymap.set("n", "<leader>@", function()
-        require("telescope.builtin").live_grep({ cwd = "~/Documents/gdrive/notes" })
+        require("telescope.builtin").live_grep({ cwd = "~/notes" })
       end)
     end,
   },

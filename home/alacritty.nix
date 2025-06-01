@@ -5,7 +5,7 @@
   programs.alacritty.enable = true;
 
   programs.alacritty.settings = {
-    shell = {
+    terminal.shell = {
       program = "${pkgs.fish}/bin/fish";
       args = [ "-c" "${pkgs.tmux}/bin/tmux attach || ${pkgs.tmux}/bin/tmux" ];
     };
@@ -36,19 +36,19 @@
 
     font = {
       normal = {
-        family = "JetBrainsMono Nerd Font";
+        family = "0xProto Nerd Font";
         style = "Regular";
       };
       bold = {
-        family = "JetBrainsMono Nerd Font";
+        family = "0xProto Nerd Font";
         style = "Bold";
       };
       italic = {
-        family = "JetBrainsMono Nerd Font";
+        family = "0xProto Nerd Font";
         style = "Italic";
       };
       bold_italic = {
-        family = "JetBrainsMono Nerd Font";
+        family = "0xProto Nerd Font";
         style = "Bold Italic";
       };
       size = 15.0;

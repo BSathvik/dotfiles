@@ -17,8 +17,8 @@
     _HIHideMenuBar = false;
   };
 
-  system.defaults.universalaccess.reduceTransparency = true;
-  system.defaults.universalaccess.reduceMotion = true;
+  # system.defaults.universalaccess.reduceTransparency = true;
+  # system.defaults.universalaccess.reduceMotion = true;
 
   # Firewall
   system.defaults.alf = {
@@ -122,10 +122,14 @@
     keep-outputs = true;
   };
 
-  nix.enable = true;
+  nix.enable = false;
 
   # 500MB
   nix.settings.download-buffer-size = 524288000;
+
+  fonts.packages = [
+    pkgs.nerd-fonts._0xproto
+  ];
 
   # Shells -----------------------------------------------------------------------------------------
 
