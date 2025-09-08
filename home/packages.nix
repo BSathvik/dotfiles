@@ -128,29 +128,9 @@ in
         jq
         yq
         jnv
-        # tailspin # broken for some reason
         tmux-xpanes
         csvlens
         pup
-        rabbitmq-server
-        # opam #Ocaml 
-        # easyrsa
-        ;
-
-      # Kensho stuff
-      inherit (pkgs)
-        awscli
-        aws-iam-authenticator
-        # TODO: add overlay to remove `jsonnet`, jrsonnet exports the same binary
-        # go-jsonnet#ships with jsonnetfmt (issue with `jsonnet` build)
-        jsonnet
-        jrsonnet# is _blazingling_ fast
-        jsonnet-bundler
-        okta-aws-cli
-        # grizzly # grafana cli
-        # atuin #shell history
-        sqlcmd
-        prettierd
         ;
 
       # Dev stuff
@@ -175,7 +155,8 @@ in
 
     } // lib.optionalAttrs pkgs.stdenv.isDarwin {
       inherit (pkgs)
-        # m-cli # useful macOS CLI commands
+        m-cli# useful macOS CLI commands
         ;
-    }) ++ [ pkgs.postgresql_16.dev pkgs.openssl.dev pkgs.openssl ];
+    });
+  # }) ++ [ pkgs.postgresql_16.dev pkgs.openssl.dev pkgs.openssl ];
 }

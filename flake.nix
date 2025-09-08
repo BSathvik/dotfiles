@@ -26,25 +26,6 @@
     # Use my fork because the maintainer keeps removing darwin support for no reason
     jrsonnet.url = "github:BSathvik/jrsonnet";
 
-    hyprland = {
-      url = "git+https://github.com/hyprwm/Hyprland/?ref=refs/tags/v0.43.0&submodules=1";
-      inputs.nixpkgs.follows = "nixos-unstable";
-    };
-
-    # community wayland nixpkgs
-    # nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
-    # anyrun - a wayland launcher
-    anyrun = {
-      # https://github.com/anyrun-org/anyrun/pull/154
-      url = "github:anyrun-org/anyrun/9e14b5946e413b87efc697946b3983d5244a1714";
-      inputs.nixpkgs.follows = "nixos-unstable";
-    };
-
-    nur-ryan4yin = {
-      url = "github:ryan4yin/nur-packages";
-      inputs.nixpkgs.follows = "nixos-unstable";
-    };
-
     nixpkgs-python.url = "github:cachix/nixpkgs-python";
   };
 
@@ -185,16 +166,11 @@
               home-manager.useUserPackages = true;
               # These are extra arguments for flakes that are passed into all the home-manager 
               # modules other than the usual `pkgs/lib/config` 
-              home-manager.extraSpecialArgs = { inherit (inputs) anyrun hyprland nur-ryan4yin; };
               home-manager.backupFileExtension = "backup1";
 
               home-manager.users.florina = { pkgs, ... }: {
                 imports = attrValues self.homeManagerModules ++ [
-                  inputs.anyrun.homeManagerModules.default
-                  (import ./home/hyprland/default.nix)
-                  (import ./home/hyprland/anyrun.nix)
                   (import ./home/desktop.nix)
-                  (import ./home/xdg.nix)
                 ];
 
                 # unzip required for nvim

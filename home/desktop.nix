@@ -15,6 +15,8 @@
     qbittorrent
 
     expressvpn
+
+    firefox
   ];
 
 }
